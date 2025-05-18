@@ -1,7 +1,9 @@
 import React from 'react';
 import styled from 'styled-components';
+import { useNavigate } from 'react-router-dom';
 
 function WelcomePage() {
+  const navigate = useNavigate();
   return (
     <Wrapper>
       <Container>
@@ -19,7 +21,8 @@ function WelcomePage() {
         <Input type="text" placeholder="예) 홍길동" />
 
         <DisabledButton disabled>이미 계정이 있어요.</DisabledButton>
-        <NextButton>다음으로 넘어가기</NextButton>
+        <NextButton onClick={() => navigate('/Learning')}>다음으로 넘어가기
+        </NextButton>
       </Container>
     </Wrapper>
   );
@@ -27,7 +30,6 @@ function WelcomePage() {
 
 export default WelcomePage;
 
-// ✅ styled-components 정의
 
 const Wrapper = styled.div`
   width: 100%;
