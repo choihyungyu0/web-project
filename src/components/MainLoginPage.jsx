@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import { Eye, EyeOff } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 
-export default function LoginForm() {
+export default function MainLogin() {
   const navigate = useNavigate();
   const [showPassword, setShowPassword] = useState(false);
 
@@ -31,7 +31,7 @@ export default function LoginForm() {
         </PasswordWrapper>
 
         <ButtonGroup>
-          <NavButton onClick={() => navigate('/Birthday')}>이전으로</NavButton>
+          <NavButton>이전으로</NavButton>
           <NavButton onClick={() => navigate('/Number')}>다음으로</NavButton>
         </ButtonGroup>
       </Container>

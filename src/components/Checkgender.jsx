@@ -8,7 +8,7 @@ const GenderSelectPage = () => {
   return (
     <Wrapper>
       <Container>
-        <LogoutButton>로그</LogoutButton>
+        <LogoutButton onClick={() => navigate('/')}>로고</LogoutButton>
 
         <ImageBox>
           <p>캐릭터 이미지</p>
@@ -22,8 +22,8 @@ const GenderSelectPage = () => {
         </GenderButtonGroup>
 
         <ButtonGroup>
-          <NavButton>이전으로</NavButton>
-          <NavButton onClick={() => navigate('/next')}>다음으로</NavButton>
+          <NavButton onClick={()=>navigate('/')}>이전으로</NavButton>
+          <NavButton onClick={() => navigate('/Birthday')}>다음으로</NavButton>
         </ButtonGroup>
       </Container>
     </Wrapper>
@@ -40,10 +40,11 @@ const Wrapper = styled.div`
   align-items: center;
   box-sizing: border-box;
   margin: 0;
-  padding: 0;
+  padding: 20px;
 `;
 
 const Container = styled.div`
+  height: 100%;
   width: 100%;
   max-width: 464px;
   background-color: #fff;
@@ -70,7 +71,7 @@ const ImageBox = styled.div`
   max-width: 300px;
   height: 300px;
   background-color: #eee;
-  margin: 40px auto 20px;
+  margin: 100px auto 20px;
   display: flex;
   justify-content: center;
   align-items: center;

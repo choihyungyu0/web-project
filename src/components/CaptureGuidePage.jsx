@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import { createGlobalStyle } from 'styled-components';
+import { useNavigate } from 'react-router-dom';
 function CaptureGuidePage() {
 const [showInstruction, setShowInstruction] = useState(true);
 const [isMounted, setIsMounted] = useState(true);
@@ -35,12 +36,13 @@ const handleShowAgain = () => {
     setShowInstruction(true);
   }, 10);
 };
+const navigate = useNavigate();
   return (
     <>
       <GlobalStyle />
       <PageWrapper>
         <TopBar>
-          <Button>로고</Button>
+          <Button onClick={() => navigate('/')}>로고</Button>
           <RightButtons>
             <Button>알림</Button>
             <Hamburger>☰</Hamburger>
@@ -76,6 +78,8 @@ const GlobalStyle = createGlobalStyle`
   }
 `;
 const PageWrapper = styled.div`
+  max-width: 452px;
+  margin: 0 auto;
   display: flex;
   flex-direction: column;
   height: 100%; 
@@ -130,7 +134,7 @@ height: 100%;
 `;
 
 const CaptureBox = styled.div`
-  width: 60%;
+  width: 70%;
   height: 100%;
   background: #eee;
   border: 1px solid #999;
@@ -141,7 +145,7 @@ const CaptureBox = styled.div`
 `;
 
 const InstructionBox = styled.div`
-  width: 80%;
+  width: 90%;
   height: 300px;
   margin-top: -300px; /* ✅ 이미지 아래로 올라가도록 */
   background: white;

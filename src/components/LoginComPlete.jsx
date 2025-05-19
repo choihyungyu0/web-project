@@ -1,11 +1,13 @@
 import React from 'react';
 import styled from 'styled-components';
+import { useNavigate } from 'react-router-dom';
 
 const SignupCompletePage = () => {
+  const navigate = useNavigate();
   return (
     <Wrapper>
       <Container>
-        <LogoutButton>로그</LogoutButton>
+        <LogoutButton onClick={() => navigate('/')}>로고</LogoutButton>
 
         <ImageBox>
           <p>캐릭터 이미지</p>
@@ -16,7 +18,7 @@ const SignupCompletePage = () => {
           <p>회원가입을 축하드립니다!</p>
         </MessageBox>
 
-        <GoLoginButton>로그인하러 가기</GoLoginButton>
+        <GoLoginButton onClick={() => navigate('/MainLogin')}>로그인하러 가기</GoLoginButton>
       </Container>
     </Wrapper>
   );
@@ -25,19 +27,19 @@ const SignupCompletePage = () => {
 export default SignupCompletePage;
 const Wrapper = styled.div`
   width: 100%;
-  height: 100vh;
+  height: 100vh; /* ✅ 정확히 한 화면 높이 */
   background-color: #f9f9f9;
   display: flex;
   justify-content: center;
   align-items: center;
   box-sizing: border-box;
   margin: 0;
-  padding: 0;
+  padding: 20px;
 `;
 const Container = styled.div`
+  height: 100%;
   width: 100%;
   max-width: 464px;
-  min-height: 700px;  /* ✅ 최소 높이 확보 */
   background-color: #fff;
   border-radius: 8px;
   box-shadow: 0 0 10px rgba(0,0,0,0.05);
@@ -57,18 +59,15 @@ const LogoutButton = styled.button`
 `;
 
 const ImageBox = styled.div`
-  width: 312px;
-  height: 312px;
-  padding: 140px 97px;
+  width: 100%;
+  max-width: 300px;
+  height: 300px;
   background-color: #eee;
+  margin: 100px auto 20px;
   display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  gap: 10px;
-  isolation: isolate;
+  justify-content: center;
+  align-items: center;
   border: 1px solid #ccc;
-  box-sizing: border-box;
-  margin: 40px auto 20px;
 `;
 
 const MessageBox = styled.div`

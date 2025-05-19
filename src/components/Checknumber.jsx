@@ -1,12 +1,13 @@
 import React from 'react';
 import styled, { createGlobalStyle } from 'styled-components';
+import { useNavigate } from 'react-router-dom';
 
 export default function PhoneNumberPage() {
+  const navigate = useNavigate();
   return (
-    <>
-      <GlobalStyle />
-      <PageWrapper>
-        <TopButton>로그인</TopButton>
+    <Wrapper>
+      <Container>
+        <TopButton onClick={() => navigate('/')}>로고</TopButton>
 
         <CharacterBox>캐릭터 이미지</CharacterBox>
 
@@ -18,32 +19,43 @@ export default function PhoneNumberPage() {
         </InputWrapper>
 
         <BottomButtons>
-          <NavButton>이전으로</NavButton>
-          <NavButton>다음으로</NavButton>
+          <NavButton onClick={() => navigate('/Email')}>이전으로</NavButton>
+          <NavButton onClick={() => navigate('/LoginComplete')}>다음으로</NavButton>
         </BottomButtons>
-      </PageWrapper>
-    </>
+      </Container>
+    </Wrapper>
   );
 }
-const GlobalStyle = createGlobalStyle`
-  html, body, #root {
-    margin: 0;
-    padding: 0;
-    font-family: sans-serif;
-    background: #f9f9f9; // ✅ 회색 배경
-  }
+const Wrapper = styled.div`
+  width: 100%;
+  height: 100vh; /* ✅ 정확히 한 화면 높이 */
+  background-color: #f9f9f9;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  box-sizing: border-box;
+  margin: 0;
+  padding: 20px;
 `;
 
-const PageWrapper = styled.div`
-  max-width: 420px;
-  margin: 0 auto;
-  padding: 16px;
-  background: #fff;         // ✅ 흰색 콘텐츠 박스
-  min-height: 100vh;
+const Container = styled.div`
+  height: 100%;
+  width: 100%;
+  max-width: 464px;
+  background-color: #fff;
+  border-radius: 8px;
+  box-shadow: 0 0 10px rgba(0,0,0,0.05);
+  text-align: center;
+  position: relative;
+  padding: 20px;
 `;
 
 const TopButton = styled.button`
-  border: 1px solid #000;
+  position: absolute;
+  top: 20px;
+  left: 20px;
+  border-radius: 4px;
+  border: 1px solid #ccc;
   background-color: white;
   padding: 6px 12px;
   margin-bottom: 20px;
@@ -51,19 +63,15 @@ const TopButton = styled.button`
 `;
 
 const CharacterBox = styled.div`
-    width: 312px;
-  height: 312px;
-  padding: 140px 97px;
+  width: 100%;
+  max-width: 300px;
+  height: 300px;
   background-color: #eee;
+  margin: 100px auto 20px;
   display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  gap: 10px;
-  isolation: isolate;
+  justify-content: center;
+  align-items: center;
   border: 1px solid #ccc;
-  box-sizing: border-box;
-  margin: 40px auto 20px;
-
 `;
 
 const Instruction = styled.div`

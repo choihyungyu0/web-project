@@ -7,7 +7,7 @@ function WelcomePage() {
   return (
     <Wrapper>
       <Container>
-        <LogoutButton>로그</LogoutButton>
+        <LogoutButton onClick={() => navigate('/')}>로고</LogoutButton>
 
         <ImageBox>
           <p>캐릭터 이미지</p>
@@ -20,8 +20,8 @@ function WelcomePage() {
 
         <Input type="text" placeholder="예) 홍길동" />
 
-        <DisabledButton disabled>이미 계정이 있어요.</DisabledButton>
-        <NextButton onClick={() => navigate('/Learning')}>다음으로 넘어가기
+        <DisabledButton onClick={() => navigate('/MainLogin')}>이미 계정이 있어요.</DisabledButton>
+        <NextButton onClick={() => navigate('/Gender')}>다음으로 넘어가기
         </NextButton>
       </Container>
     </Wrapper>
@@ -32,6 +32,7 @@ export default WelcomePage;
 
 
 const Wrapper = styled.div`
+  height: 100%;
   width: 100%;
   min-height: 100vh;
   background-color: #f9f9f9;
@@ -43,6 +44,7 @@ const Wrapper = styled.div`
 `;
 
 const Container = styled.div`
+  height: 100%;
   width: 100%;
   max-width: 464px; 
   padding: 20px;
@@ -69,7 +71,7 @@ const ImageBox = styled.div`
   max-width: 300px;
   height: 300px;
   background-color: #eee;
-  margin: 40px auto 20px;
+  margin: 100px auto 20px;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -101,7 +103,7 @@ const DisabledButton = styled.button`
   margin-bottom: 20px;
   width: 100%;
   border-radius: 4px;
-  cursor: not-allowed;
+  cursor: pointer;
 `;
 
 const NextButton = styled.button`

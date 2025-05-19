@@ -9,9 +9,9 @@ function LearningChoicePage() {
       <GlobalStyle />
       <PageWrapper>
         <TopBar>
-          <Button>로고</Button>
+          <Button onClick={() => navigate('/')}>로고</Button>
           <RightButtons>
-            <Button>알림</Button>
+            <Button onClick={() => navigate('/Alarm')}>알림</Button>
             <Hamburger>☰</Hamburger>
           </RightButtons>
         </TopBar>
