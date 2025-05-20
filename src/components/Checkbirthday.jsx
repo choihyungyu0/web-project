@@ -5,10 +5,12 @@ import { useNavigate } from 'react-router-dom';
 const BirthdaySelectPage = () => {
   const navigate = useNavigate();
 
+  // ✅ 년/월/일 상태
   const [year, setYear] = useState('');
   const [month, setMonth] = useState('');
   const [day, setDay] = useState('');
 
+  // ✅ 연도 리스트
   const years = Array.from({ length: 2024 - 1900 + 1 }, (_, i) => 1900 + i);
   const months = Array.from({ length: 12 }, (_, i) => i + 1);
   const days = Array.from({ length: 31 }, (_, i) => i + 1);
@@ -49,9 +51,7 @@ const BirthdaySelectPage = () => {
 
         <ButtonGroup>
           <NavButton onClick={() => navigate('/Gender')}>이전으로</NavButton>
-          <NavButton
-            onClick={() => navigate('/Email', { state: { year, month, day } })}
-          >
+          <NavButton onClick={() => navigate('/Email', { state: { year, month, day } })}>
             다음으로
           </NavButton>
         </ButtonGroup>
@@ -62,6 +62,7 @@ const BirthdaySelectPage = () => {
 
 export default BirthdaySelectPage;
 
+// 💄 스타일 정의
 const Wrapper = styled.div`
   width: 100%;
   height: 100vh;
@@ -74,8 +75,8 @@ const Wrapper = styled.div`
 `;
 
 const Container = styled.div`
-  height: 100%;
   width: 100%;
+  height: 100%;
   max-width: 464px;
   background-color: #fff;
   border-radius: 8px;
