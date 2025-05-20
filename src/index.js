@@ -12,7 +12,7 @@ import GenderSelectPage from './components/Checkgender';
 import BirthdaySelectPage from './components/Checkbirthday';
 import LoginForm from './components/CheckEmail';
 import PhoneNumberPage from './components/Checknumber';
-import SignupCompletePage from './components/LoginComplete';
+import LoginComplete from './components/LoginComplete';
 import MainLogin from './components/MainLoginPage';
 import MenuChoicePage from './components/MenuChoicePage';
 import CaptureStartPage from './components/CaptureStart';
@@ -27,7 +27,7 @@ root.render(
         <Route path="/CaptureStart" element={<CaptureStartPage />} />
         <Route path="/Menu" element={<MenuChoicePage />} />
         <Route path="/MainLogin" element={<MainLogin />} />
-        <Route path="/LoginComplete" element={<SignupCompletePage />} />
+        <Route path="/LoginComplete" element={<LoginComplete />} />
         <Route path="/Number" element={<PhoneNumberPage />} />
         <Route path="/Email" element={<LoginForm />} />
         <Route path="/Birthday" element={<BirthdaySelectPage />} />

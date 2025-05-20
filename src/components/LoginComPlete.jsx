@@ -2,7 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 import { useNavigate } from 'react-router-dom';
 
-const SignupCompletePage = () => {
+const LoginComplete = () => {
   const navigate = useNavigate();
   return (
     <Wrapper>
@@ -24,7 +24,7 @@ const SignupCompletePage = () => {
   );
 };
 
-export default SignupCompletePage;
+export default LoginComplete;
 const Wrapper = styled.div`
   width: 100%;
   height: 100vh; /* ✅ 정확히 한 화면 높이 */
