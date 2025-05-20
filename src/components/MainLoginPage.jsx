@@ -31,8 +31,7 @@ export default function MainLogin() {
         </PasswordWrapper>
 
         <ButtonGroup>
-          <NavButton>이전으로</NavButton>
-          <NavButton onClick={() => navigate('/Number')}>다음으로</NavButton>
+          <NavButton onClick={() => navigate('/Learning')}>로그인하기</NavButton>
         </ButtonGroup>
       </Container>
     </Wrapper>

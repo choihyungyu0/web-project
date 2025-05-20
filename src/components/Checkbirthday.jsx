@@ -5,12 +5,10 @@ import { useNavigate } from 'react-router-dom';
 const BirthdaySelectPage = () => {
   const navigate = useNavigate();
 
-  // ✅ 년/월/일 상태
   const [year, setYear] = useState('');
   const [month, setMonth] = useState('');
   const [day, setDay] = useState('');
 
-  // ✅ 연도 리스트
   const years = Array.from({ length: 2024 - 1900 + 1 }, (_, i) => 1900 + i);
   const months = Array.from({ length: 12 }, (_, i) => i + 1);
   const days = Array.from({ length: 31 }, (_, i) => i + 1);
@@ -66,7 +64,7 @@ export default BirthdaySelectPage;
 
 const Wrapper = styled.div`
   width: 100%;
-  height: 100%;
+  height: 100vh;
   background-color: #f9f9f9;
   display: flex;
   justify-content: center;
