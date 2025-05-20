@@ -38,21 +38,20 @@ const handleShowAgain = () => {
 };
 const navigate = useNavigate();
   return (
-    <>
-      <GlobalStyle />
       <PageWrapper>
+        <Container>
         <TopBar>
           <Button onClick={() => navigate('/')}>로고</Button>
           <RightButtons>
-            <Button>알림</Button>
+            <Button onClick={() => navigate('/Alarm')}>알림</Button>
             <Hamburger>☰</Hamburger>
           </RightButtons>
         </TopBar>
 
-        <BackArrow>←</BackArrow>
+        <BackArrow onClick={() => navigate(-1)}>❮</BackArrow>
 
         <ContentContainer>
-    <CaptureBox>스마트폰 캡처 이미지</CaptureBox>
+    <CaptureBox onClick={() => navigate('/CaptureComplete')}>스마트폰 캡처 이미지</CaptureBox>
     {isMounted && (
   <InstructionBox $visible={showInstruction}>
     <InstructionTitle onClick={handleCloseInstruction}>설명 닫아두기</InstructionTitle>
@@ -64,27 +63,33 @@ const navigate = useNavigate();
   {!isMounted && (
       <MoreButton onClick={handleShowAgain}>자세히 보기</MoreButton>
     )}
+        </Container>
       </PageWrapper>
-    </>
   );
 }
 export default CaptureGuidePage;
 
-const GlobalStyle = createGlobalStyle`
-  html, body, #root {
-    height: 100%;
-    margin: 0;
-    padding: 0;
-  }
-`;
 const PageWrapper = styled.div`
-  max-width: 452px;
-  margin: 0 auto;
+  width: 100%;
+  height: 100%;
+  min-height: 100vh;
+  background-color: #f9f9f9;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
+  box-sizing: border-box;
+`;
+const Container = styled.div`
+  height: 100%;
+  width: 100%;
+  max-width: 464px;
+  background-color: #fff;
+  border-radius: 8px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.05);
+  padding: 20px;
   display: flex;
   flex-direction: column;
-  height: 100%; 
-  padding: 16px;
-  box-sizing: border-box;
 `;
 
 const TopBar = styled.div`
@@ -96,7 +101,7 @@ const TopBar = styled.div`
 const MoreButton = styled.button`
   margin-top: 24px;
   padding: 10px 20px;
-  font-size: 16px;
+  font-size: 18px;
   background-color: #1976d2;
   color: white;
   border: none;
@@ -124,6 +129,7 @@ const Hamburger = styled.div`
 const BackArrow = styled.div`
   font-size: 24px;
   margin: 12px 0;
+  cursor: pointer;
 `;
 const ContentContainer = styled.div`
 height: 100%;

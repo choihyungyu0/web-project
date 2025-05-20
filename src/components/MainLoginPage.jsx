@@ -31,7 +31,8 @@ export default function MainLogin() {
         </PasswordWrapper>
 
         <ButtonGroup>
-          <NavButton onClick={() => navigate('/Learning')}>로그인하기</NavButton>
+          <NavButton onClick={() => navigate('/Menu')}>로그인하기</NavButton>
+          <ForgotText onClick={() => navigate('/')}>아이디/비밀번호가 기억나지 않아요!</ForgotText>
         </ButtonGroup>
       </Container>
     </Wrapper>
@@ -76,8 +77,8 @@ const LogoutButton = styled.button`
 
 const ImageBox = styled.div`
   width: 100%; 
-  max-width: 300px;
-  height: 300px;
+  max-width: 200px;
+  height: 200px;
   background-color: #f2f2f2;
   border: 1px solid #ccc;
   display: flex;
@@ -89,14 +90,14 @@ const ImageBox = styled.div`
 const Title = styled.div`
   text-align: center;
   font-weight: bold;
-  font-size: 16px;
+  font-size: 18px;
   line-height: 1.5;
   margin-bottom: 32px;
 `;
 
 const InputLabel = styled.label`
   align-self: flex-start;
-  font-size: 14px;
+  font-size: 18px;
   margin-bottom: 6px;
 `;
 
@@ -105,7 +106,7 @@ const InputField = styled.input`
   background-color: #f2f2f2;
   border: none;
   padding: 12px;
-  font-size: 14px;
+  font-size: 18px;
   margin-bottom: 16px;
   border-radius: 4px;
   box-sizing: border-box;
@@ -113,7 +114,7 @@ const InputField = styled.input`
 
 const EmailHint = styled.div`
   align-self: flex-start;
-  font-size: 12px;
+  font-size: 18px;
   color: #aaa;
   margin-top: -12px;
   margin-bottom: 20px;
@@ -136,6 +137,7 @@ const ToggleButton = styled.button`
 
 const ButtonGroup = styled.div`
   display: flex;
+  flex-direction: column;
   gap: 16px;
   width: 100%;
   margin-top: 32px;
@@ -143,10 +145,26 @@ const ButtonGroup = styled.div`
 
 const NavButton = styled.button`
   flex: 1;
+  height: 48px;
   border: 1px solid #000;
   padding: 12px 0;
   background-color: white;
-  font-size: 14px;
+  font-size: 18px;
   border-radius: 4px;
   cursor: pointer;
+`;
+
+const ForgotText = styled.p`
+  display: flex;
+  justify-content: center;
+  font-size: 18px;
+  color: #999;
+  text-align: center;
+  margin-top: 16px;
+  cursor: pointer;
+  text-decoration: underline;
+
+  &:hover {
+    color: #666;
+  }
 `;

@@ -18,7 +18,7 @@ const BirthdaySelectPage = () => {
   return (
     <Wrapper>
       <Container>
-        <LogoutButton onClick={() => navigate('/')}>로그</LogoutButton>
+        <LogoutButton onClick={() => navigate('/')}>로고</LogoutButton>
 
         <ImageBox>
           <p>캐릭터 이미지</p>
@@ -124,7 +124,7 @@ const SelectGroup = styled.div`
 
 const Select = styled.select`
   padding: 10px 16px;
-  font-size: 16px;
+  font-size: 18px;
   border: 1px solid #ccc;
   border-radius: 4px;
 `;
@@ -137,7 +137,7 @@ const ButtonGroup = styled.div`
 
 const NavButton = styled.button`
   padding: 12px;
-  font-size: 16px;
+  font-size: 18px;
   background-color: white;
   border: 1px solid black;
   flex: 1;

@@ -90,14 +90,14 @@ const ImageBox = styled.div`
 const Title = styled.div`
   text-align: center;
   font-weight: bold;
-  font-size: 16px;
+  font-size: 18px;
   line-height: 1.5;
   margin-bottom: 32px;
 `;
 
 const InputLabel = styled.label`
   align-self: flex-start;
-  font-size: 14px;
+  font-size: 18px;
   margin-bottom: 6px;
 `;
 
@@ -106,7 +106,7 @@ const InputField = styled.input`
   background-color: #f2f2f2;
   border: none;
   padding: 12px;
-  font-size: 14px;
+  font-size: 18px;
   margin-bottom: 16px;
   border-radius: 4px;
   box-sizing: border-box;
@@ -114,7 +114,7 @@ const InputField = styled.input`
 
 const EmailHint = styled.div`
   align-self: flex-start;
-  font-size: 12px;
+  font-size: 18px;
   color: #aaa;
   margin-top: -12px;
   margin-bottom: 20px;
@@ -147,7 +147,7 @@ const NavButton = styled.button`
   border: 1px solid #000;
   padding: 12px 0;
   background-color: white;
-  font-size: 14px;
+  font-size: 18px;
   border-radius: 4px;
   cursor: pointer;
 `;

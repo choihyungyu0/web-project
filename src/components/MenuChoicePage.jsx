@@ -24,13 +24,13 @@ function LearningChoiceContainer() {
         <Content>
           <QuestionRow>
             <SpeechBubble>
-              <Text>무엇을 배워볼까요?</Text>
+              <Text>원하시는 메뉴를 선택해주세요!</Text>
             </SpeechBubble>
             <CharacterBox>캐릭터 이미지</CharacterBox>
           </QuestionRow>
 
-          <ChoiceButton onClick={() => navigate('/CaptureStart')}>스마트폰 사용법 배우기</ChoiceButton>
-          <ChoiceButton>어플리케이션 사용법 배우기</ChoiceButton>
+          <ChoiceButton onClick={() => navigate('/Learning')}>학습하기</ChoiceButton>
+          <ChoiceButton>맞춤 생활 정보 보기</ChoiceButton>
         </Content>
       </ContentWrapper>
     </PageContainer>

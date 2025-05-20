@@ -88,7 +88,7 @@ const WelcomeText = styled.p`
 const Input = styled.input`
   width: 100%;
   padding: 12px;
-  font-size: 16px;
+  font-size: 18px;
   margin-bottom: 12px;
   border: 1px solid #ccc;
   border-radius: 4px;
@@ -108,7 +108,7 @@ const DisabledButton = styled.button`
 
 const NextButton = styled.button`
   padding: 12px;
-  font-size: 16px;
+  font-size: 18px;
   background-color: white;
   border: 1px solid black;
   width: 100%;

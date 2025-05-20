@@ -71,7 +71,7 @@ const ImageBox = styled.div`
 `;
 
 const MessageBox = styled.div`
-  font-size: 16px;
+  font-size: 18px;
   font-weight: bold;
   line-height: 1.6;
   margin: 30px 0;
@@ -79,7 +79,7 @@ const MessageBox = styled.div`
 
 const GoLoginButton = styled.button`
   padding: 12px 20px;
-  font-size: 16px;
+  font-size: 18px;
   background-color: white;
   border: 1px solid black;
   border-radius: 4px;

@@ -93,7 +93,7 @@ const GenderButtonGroup = styled.div`
 
 const GenderButton = styled.button`
   padding: 12px 20px;
-  font-size: 16px;
+  font-size: 18px;
   background-color: #f4f4f4;
   border: 1px solid #ccc;
   border-radius: 4px;
@@ -112,7 +112,7 @@ const ButtonGroup = styled.div`
 
 const NavButton = styled.button`
   padding: 12px;
-  font-size: 16px;
+  font-size: 18px;
   background-color: white;
   border: 1px solid black;
   flex: 1;

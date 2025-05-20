@@ -5,35 +5,61 @@ import { FaChevronDown, FaChevronUp } from "react-icons/fa";
 import { useNavigate } from "react-router-dom";
 
 const PageContainer = styled.div`
+  height: 100%;
   width: 100%;
   min-height: 100vh;
-  background-color: #f5f5f5;
+  background-color: #f9f9f9;
   display: flex;
   justify-content: center;
+  align-items: center;
+  padding: 20px;
+  box-sizing: border-box;
 `;
 
 const ContentWrapper = styled.div`
-  background-color: white;
+  height: 100%;
   width: 100%;
-  max-width: 504px;
-  margin: 0 auto;
-  padding: 16px 12px;
-  box-sizing: border-box;
+  max-width: 464px;
+  background-color: #fff;
+  border-radius: 8px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.05);
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
 `;
 
 const TopBar = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 0 8px;
-  height: 48px;
+  margin-bottom: 16px;
+`;
+
+const LeftSection = styled.div`
+  display: flex;
+  align-items: center;
+`;
+
+const RightButtons = styled.div`
+  display: flex;
+  align-items: center;
+  gap: 8px;
 `;
 
 const Button = styled.button`
-  padding: 4px 10px;
-  border: 1px solid black;
-  background: none;
-  font-size: 13px;
+  padding: 6px 12px;
+  border: 1px solid #ccc;
+  background: white;
+  cursor: pointer;
+  font-size: 16px;
+`;
+
+const LogoButton = styled(Button)`
+  font-weight: bold;
+`;
+
+const Hamburger = styled.div`
+  font-size: 20px;
   cursor: pointer;
 `;
 
@@ -50,12 +76,12 @@ const HeaderText = styled.div`
   border: 1px solid black;
   font-weight: bold;
   text-align: center;
-  width: 140px;
+  width: 150px;
   height: 60px;
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 13px;
+  font-size: 18px;
 `;
 
 const AlertList = styled.div`
@@ -78,7 +104,7 @@ const AlertTitle = styled.div`
 
 const AlertDetail = styled.div`
   margin-top: 8px;
-  font-size: 14px;
+  font-size: 18px;
   color: #444;
 `;
 
@@ -86,7 +112,7 @@ const Pagination = styled.div`
   display: flex;
   justify-content: center;
   margin-top: 12px;
-  font-size: 13px;
+  font-size: 18px;
   gap: 8px;
 `;
 
@@ -109,11 +135,13 @@ export default function AlertCheckPage() {
     <PageContainer>
       <ContentWrapper>
         <TopBar>
-          <Button onClick={() => navigate('/')}>로그</Button>
-          <div style={{ display: "flex", alignItems: "center", gap: "8px" }}>
-            <Button>알림</Button>
-            <div style={{ fontSize: "22px" }}>&#9776;</div>
-          </div>
+          <LeftSection>
+            <LogoButton onClick={() => navigate('/')}>로고</LogoButton>
+          </LeftSection>
+          <RightButtons>
+            <Button onClick={() => navigate('/Alarm')}>알림</Button>
+            <Hamburger>&#9776;</Hamburger>
+          </RightButtons>
         </TopBar>
 
         <HeaderBox>

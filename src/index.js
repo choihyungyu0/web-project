@@ -14,19 +14,25 @@ import LoginForm from './components/CheckEmail';
 import PhoneNumberPage from './components/Checknumber';
 import SignupCompletePage from './components/LoginComplete';
 import MainLogin from './components/MainLoginPage';
+import MenuChoicePage from './components/MenuChoicePage';
+import CaptureStartPage from './components/CaptureStart';
+import CaptureCompletePage from './components/CaptureComplete';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <Router>
       <Routes>
         <Route path="/" element={<WelcomePage />} />
+        <Route path="/CaptureComplete" element={<CaptureCompletePage />} />
+        <Route path="/CaptureStart" element={<CaptureStartPage />} />
+        <Route path="/Menu" element={<MenuChoicePage />} />
         <Route path="/MainLogin" element={<MainLogin />} />
         <Route path="/LoginComplete" element={<SignupCompletePage />} />
         <Route path="/Number" element={<PhoneNumberPage />} />
         <Route path="/Email" element={<LoginForm />} />
         <Route path="/Birthday" element={<BirthdaySelectPage />} />
         <Route path="/Gender" element={<GenderSelectPage />} />
-        <Route path="/Capture" element={<CaptureGuidePage />} />
+        <Route path="/CaptureGuide" element={<CaptureGuidePage />} />
         <Route path="/Alarm" element={<AlarmCheckPage />} />
         <Route path="/Learning" element={<LearningChoicePage />} />
       </Routes>

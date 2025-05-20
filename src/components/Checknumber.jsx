@@ -76,7 +76,7 @@ const CharacterBox = styled.div`
 
 const Instruction = styled.div`
   text-align: center;
-  font-size: 16px;
+  font-size: 20px;
   font-weight: bold;
   margin-bottom: 24px;
 `;
@@ -90,13 +90,13 @@ const Input = styled.input`
   width: 100%;
   padding: 14px;
   border: 1px solid #333;
-  font-size: 16px;
+  font-size: 18px;
   box-sizing: border-box;
 `;
 
 const Hint = styled.div`
   margin-top: 4px;
-  font-size: 12px;
+  font-size: 18px;
   color: #999;
 `;
 
@@ -110,7 +110,7 @@ const NavButton = styled.button`
   padding: 12px 24px;
   border: 1px solid #333;
   background: white;
-  font-size: 16px;
+  font-size: 18px;
   font-weight: bold;
   cursor: pointer;
 `;
