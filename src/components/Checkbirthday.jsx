@@ -18,7 +18,7 @@ const BirthdaySelectPage = () => {
   return (
     <Wrapper>
       <Container>
-        <LogoutButton>로그</LogoutButton>
+        <LogoutButton onClick={() => navigate('/')}>로그</LogoutButton>
 
         <ImageBox>
           <p>캐릭터 이미지</p>
@@ -50,10 +50,8 @@ const BirthdaySelectPage = () => {
         </SelectGroup>
 
         <ButtonGroup>
-          <NavButton>이전으로</NavButton>
-          <NavButton
-            onClick={() => navigate('/next', { state: { year, month, day } })}
-          >
+          <NavButton onClick={() => navigate('/Gender')}>이전으로</NavButton>
+          <NavButton onClick={() => navigate('/Email', { state: { year, month, day } })}>
             다음으로
           </NavButton>
         </ButtonGroup>
@@ -64,6 +62,7 @@ const BirthdaySelectPage = () => {
 
 export default BirthdaySelectPage;
 
+// 💄 스타일 정의
 const Wrapper = styled.div`
   width: 100%;
   height: 100vh;
@@ -71,12 +70,13 @@ const Wrapper = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  padding: 0;
+  padding: 20px;
   box-sizing: border-box;
 `;
 
 const Container = styled.div`
   width: 100%;
+  height: 100%;
   max-width: 464px;
   background-color: #fff;
   border-radius: 8px;
@@ -102,7 +102,7 @@ const ImageBox = styled.div`
   max-width: 300px;
   height: 300px;
   background-color: #eee;
-  margin: 40px auto 20px;
+  margin: 100px auto 20px;
   display: flex;
   justify-content: center;
   align-items: center;
