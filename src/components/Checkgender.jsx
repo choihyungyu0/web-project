@@ -1,9 +1,12 @@
 import React from 'react';
 import styled from 'styled-components';
 import { useNavigate } from 'react-router-dom';
+import { useState } from 'react';
 
 const GenderSelectPage = () => {
   const navigate = useNavigate();
+  const [selectedGender, setSelectedGender] = useState('');
+
 
   return (
     <Wrapper>
@@ -17,8 +20,10 @@ const GenderSelectPage = () => {
         <QuestionText>당신의 성별을 알려주세요!</QuestionText>
 
         <GenderButtonGroup>
-          <GenderButton>여자예요</GenderButton>
-          <GenderButton>남자예요</GenderButton>
+          <GenderButton onClick={() => setSelectedGender('female')}
+          selected={selectedGender === 'female'}>여자예요</GenderButton>
+          <GenderButton onClick={() => setSelectedGender('male')}
+          selected={selectedGender === 'male'}>남자예요</GenderButton>
         </GenderButtonGroup>
 
         <ButtonGroup>
@@ -94,14 +99,12 @@ const GenderButtonGroup = styled.div`
 const GenderButton = styled.button`
   padding: 12px 20px;
   font-size: 18px;
-  background-color: #f4f4f4;
   border: 1px solid #ccc;
   border-radius: 4px;
   cursor: pointer;
+  background-color: ${(props) => (props.selected ? '#007BFF' : 'white')};
+  color: ${(props) => (props.selected ? 'white' : 'black')};
 
-  &:hover {
-    background-color: #eaeaea;
-  }
 `;
 
 const ButtonGroup = styled.div`
