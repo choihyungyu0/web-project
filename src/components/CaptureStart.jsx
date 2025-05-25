@@ -2,6 +2,9 @@ import React from 'react';
 import styled from 'styled-components';
 import { useNavigate } from 'react-router-dom';
 import CaptureGuidePage from './CaptureGuidePage';
+import CharacterImg from '../assets/user.png';
+import { CharacterWrap, CharacterImage } from '../styles/CommonImage'; 
+
 
 const CaptureStartPage = () => {
   const  navigate  = useNavigate();
@@ -11,8 +14,9 @@ const CaptureStartPage = () => {
         <TopBar>
           <LogoutButton onClick={() => navigate('/')}>로고</LogoutButton>
           <RightButtons>
-            <NotifyButton onClick={() => navigate('/Alarm')}>알림</NotifyButton>
-            <Hamburger>☰</Hamburger>
+            <CharacterWrap>
+              <CharacterImage onClick={()=> navigate('/Mypage')} src={CharacterImg} alt="캐릭터" />
+            </CharacterWrap>
           </RightButtons>
         </TopBar>
 
@@ -76,18 +80,6 @@ const LogoutButton = styled.button`
 const RightButtons = styled.div`
   display: flex;
   gap: 10px;
-`;
-
-const NotifyButton = styled.button`
-  padding: 6px 12px;
-  border: 1px solid #000;
-  background-color: white;
-  cursor: pointer;
-`;
-
-const Hamburger = styled.div`
-  font-size: 24px;
-  cursor: pointer;
 `;
 
 const BackArrow = styled.div`

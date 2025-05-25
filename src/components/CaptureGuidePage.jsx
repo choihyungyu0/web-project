@@ -1,7 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
-import { createGlobalStyle } from 'styled-components';
 import { useNavigate } from 'react-router-dom';
+import CharacterImg from '../assets/user.png';
+import { CharacterWrap, CharacterImage } from '../styles/CommonImage'; 
+
 function CaptureGuidePage() {
 const [showInstruction, setShowInstruction] = useState(true);
 const [isMounted, setIsMounted] = useState(true);
@@ -43,8 +45,9 @@ const navigate = useNavigate();
         <TopBar>
           <Button onClick={() => navigate('/')}>로고</Button>
           <RightButtons>
-            <Button onClick={() => navigate('/Alarm')}>알림</Button>
-            <Hamburger>☰</Hamburger>
+            <CharacterWrap>
+              <CharacterImage onClick={()=> navigate('/Mypage')} src={CharacterImg} alt="캐릭터" />
+            </CharacterWrap>
           </RightButtons>
         </TopBar>
 
@@ -119,11 +122,6 @@ const Button = styled.button`
 const RightButtons = styled.div`
   display: flex;
   gap: 8px;
-`;
-
-const Hamburger = styled.div`
-  font-size: 20px;
-  cursor: pointer;
 `;
 
 const BackArrow = styled.div`

@@ -1,6 +1,8 @@
 import React from 'react';
 import styled from 'styled-components';
 import { useNavigate } from 'react-router-dom';
+import CharacterImg from '../assets/user.png';
+import { CharacterWrap, CharacterImage } from '../styles/CommonImage'; 
 
 function LearningChoiceContainer() {
   const navigate = useNavigate();
@@ -12,8 +14,9 @@ function LearningChoiceContainer() {
             <LogoButton onClick={() => navigate('/')}>로고</LogoButton>
           </LeftSection>
           <RightButtons>
-            <Button onClick={() => navigate('/Alarm')}>알림</Button>
-            <Hamburger>☰</Hamburger>
+            <CharacterWrap>
+              <CharacterImage onClick={()=> navigate('/Mypage')} src={CharacterImg} alt="캐릭터" />
+            </CharacterWrap>
           </RightButtons>
         </TopBar>
 
@@ -91,11 +94,6 @@ const Button = styled.button`
 
 const LogoButton = styled(Button)`
   font-weight: bold;
-`;
-
-const Hamburger = styled.div`
-  font-size: 20px;
-  cursor: pointer;
 `;
 
 const BackButtonWrapper = styled.div`

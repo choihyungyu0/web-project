@@ -1,6 +1,9 @@
 import React from 'react';
 import styled from 'styled-components';
 import { useNavigate } from 'react-router-dom';
+import CharacterImg from '../assets/user.png'; // 경로는 실제 위치에 맞게 조절
+import { CharacterWrap, CharacterImage } from '../styles/CommonImage'; // 실제 경로에 맞게 수정
+
 
 function LearningChoiceContainer() {
   const navigate = useNavigate();
@@ -12,14 +15,13 @@ function LearningChoiceContainer() {
             <LogoButton onClick={() => navigate('/')}>로고</LogoButton>
           </LeftSection>
           <RightButtons>
-            <Button onClick={() => navigate('/Alarm')}>알림</Button>
-            <Hamburger>☰</Hamburger>
+
+            <CharacterWrap>
+              <CharacterImage onClick={()=> navigate('/Mypage')} src={CharacterImg} alt="캐릭터" />
+            </CharacterWrap>
+
           </RightButtons>
         </TopBar>
-
-        <BackButtonWrapper>
-          <BackButton onClick={() => navigate(-1)}>뒤로가기</BackButton>
-        </BackButtonWrapper>
 
         <Content>
           <QuestionRow>
@@ -30,7 +32,7 @@ function LearningChoiceContainer() {
           </QuestionRow>
 
           <ChoiceButton onClick={() => navigate('/Learning')}>학습하기</ChoiceButton>
-          <ChoiceButton>맞춤 생활 정보 보기</ChoiceButton>
+          <ChoiceButton onClick={()=>navigate('/CustomInfo')}>맞춤 생활 정보 보기</ChoiceButton>
         </Content>
       </ContentWrapper>
     </PageContainer>
@@ -96,16 +98,6 @@ const LogoButton = styled(Button)`
 const Hamburger = styled.div`
   font-size: 20px;
   cursor: pointer;
-`;
-
-const BackButtonWrapper = styled.div`
-  display: flex;
-  justify-content: flex-start;
-  margin-bottom: 16px;
-`;
-
-const BackButton = styled(Button)`
-  font-weight: bold;
 `;
 
 const Content = styled.div`

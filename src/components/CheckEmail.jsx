@@ -56,7 +56,6 @@ export default function LoginForm() {
             type={showPassword ? 'text' : 'password'}
             value={password}
             onChange={(e) => setPassword(e.target.value)}
-            placeholder="비밀번호"
           />
 
           <ToggleButton onClick={() => setShowPassword(!showPassword)}>
