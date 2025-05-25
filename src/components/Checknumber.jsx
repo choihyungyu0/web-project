@@ -1,9 +1,12 @@
 import React from 'react';
 import styled, { createGlobalStyle } from 'styled-components';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useLocation} from 'react-router-dom';
+
 
 export default function PhoneNumberPage() {
   const navigate = useNavigate();
+  const location = useLocation();
+  const name = location.state?.name || ''; // 이전 페이지에서 넘어온 이름
   return (
     <Wrapper>
       <Container>
@@ -19,8 +22,8 @@ export default function PhoneNumberPage() {
         </InputWrapper>
 
         <BottomButtons>
-          <NavButton onClick={() => navigate('/Email')}>이전으로</NavButton>
-          <NavButton onClick={() => navigate('/LoginComplete')}>다음으로</NavButton>
+          <NavButton onClick={() => navigate(-1)}>이전으로</NavButton>
+          <NavButton onClick={() => navigate('/Area',{ state: { name } })}>다음으로</NavButton>
         </BottomButtons>
       </Container>
     </Wrapper>

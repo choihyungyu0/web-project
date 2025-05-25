@@ -1,12 +1,18 @@
-import React from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
-import { useNavigate } from 'react-router-dom';
-import { useState } from 'react';
+import { useNavigate,useLocation} from 'react-router-dom';
 
-const GenderSelectPage = () => {
+const CheckArea = () => {
   const navigate = useNavigate();
-  const [selectedGender, setSelectedGender] = useState('');
+  const location = useLocation();
+  const name = location.state?.name || ''; // 이전 페이지에서 넘어온 이름
+  const [region, setRegion] = useState('');
 
+  const regions = [
+    '서울', '부산', '대구', '인천', '광주', '대전', '울산',
+    '세종', '경기', '강원', '충북', '충남', '전북',
+    '전남', '경북', '경남', '제주'
+  ];
 
   return (
     <Wrapper>
@@ -16,41 +22,42 @@ const GenderSelectPage = () => {
         <ImageBox>
           <p>캐릭터 이미지</p>
         </ImageBox>
-
-        <QuestionText>당신의 성별을 알려주세요!</QuestionText>
-
-        <GenderButtonGroup>
-          <GenderButton onClick={() => setSelectedGender('female')}
-          selected={selectedGender === 'female'}>여자예요</GenderButton>
-          <GenderButton onClick={() => setSelectedGender('male')}
-          selected={selectedGender === 'male'}>남자예요</GenderButton>
-        </GenderButtonGroup>
+        <QuestionText>거주하고 계신 지역을 <br></br>선택해주세요!</QuestionText>
+        <Select value={region} onChange={(e) => setRegion(e.target.value)}>
+          <option value="">선택해주세요</option>
+          {regions.map((region) => (
+            <option key={region} value={region}>{region}</option>
+          ))}
+        </Select>
 
         <ButtonGroup>
-          <NavButton onClick={()=>navigate('/')}>이전으로</NavButton>
-          <NavButton onClick={() => navigate('/Birthday')}>다음으로</NavButton>
+          <NavButton onClick={() => navigate(-1)}>이전으로</NavButton>
+          <NavButton onClick={() =>
+            navigate('/LoginComplete', { state: { name } })}>
+            다음으로
+          </NavButton>
         </ButtonGroup>
       </Container>
     </Wrapper>
   );
 };
 
-export default GenderSelectPage;
+export default CheckArea;
+
 const Wrapper = styled.div`
   width: 100%;
-  height: 100vh; /* ✅ 정확히 한 화면 높이 */
+  height: 100vh;
   background-color: #f9f9f9;
   display: flex;
   justify-content: center;
   align-items: center;
-  box-sizing: border-box;
-  margin: 0;
   padding: 20px;
+  box-sizing: border-box;
 `;
 
 const Container = styled.div`
-  height: 100%;
   width: 100%;
+  height: 100%;
   max-width: 464px;
   background-color: #fff;
   border-radius: 8px;
@@ -59,6 +66,7 @@ const Container = styled.div`
   position: relative;
   padding: 20px;
 `;
+
 
 const LogoutButton = styled.button`
   position: absolute;
@@ -76,49 +84,41 @@ const ImageBox = styled.div`
   max-width: 300px;
   height: 300px;
   background-color: #eee;
-  margin: 100px auto 20px;
+  border: 1px solid #ccc;
   display: flex;
   justify-content: center;
   align-items: center;
-  border: 1px solid #ccc;
+  margin: 100px auto 20px;
 `;
 
 const QuestionText = styled.p`
   font-size: 18px;
   font-weight: bold;
-  margin: 20px 0;
+  text-align: center;
+  margin-bottom: 20px;
+  line-height: 1.5;
 `;
 
-const GenderButtonGroup = styled.div`
-  display: flex;
-  justify-content: center;
-  gap: 16px;
-  margin-bottom: 30px;
-`;
 
-const GenderButton = styled.button`
-  padding: 12px 20px;
-  font-size: 18px;
+const Select = styled.select`
+  padding: 10px 16px;
+  font-size: 16px;
   border: 1px solid #ccc;
   border-radius: 4px;
-  cursor: pointer;
-  background-color: ${(props) => (props.selected ? '#007BFF' : 'white')};
-  color: ${(props) => (props.selected ? 'white' : 'black')};
-
 `;
 
 const ButtonGroup = styled.div`
   display: flex;
-  justify-content: space-between;
+  width: 100%;
   gap: 16px;
 `;
 
 const NavButton = styled.button`
+  flex: 1;
   padding: 12px;
   font-size: 18px;
+  border: 1px solid #000;
   background-color: white;
-  border: 1px solid black;
-  flex: 1;
   border-radius: 4px;
   cursor: pointer;
 `;

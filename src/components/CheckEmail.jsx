@@ -1,11 +1,35 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
 import { Eye, EyeOff } from 'lucide-react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate,useLocation} from 'react-router-dom';
+import { LogoutButton } from '../styles/CommonButtons';
+
 
 export default function LoginForm() {
   const navigate = useNavigate();
   const [showPassword, setShowPassword] = useState(false);
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const location = useLocation();
+  const name = location.state?.name || ''; // 이전 페이지에서 넘어온 이름
+
+  const handleSubmit = async () => {
+    try {
+      const response = await fetch('/api/auth/signup', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        credentials: 'include',
+        body: JSON.stringify({ email, password }),
+      });
+
+      const data = await response.json();
+      console.log(data); // 또는 alert(data.message)
+    } catch (error) {
+      console.error('요청 실패:', error);
+    }
+  };
 
   return (
     <Wrapper>
@@ -19,25 +43,41 @@ export default function LoginForm() {
         <Title>계정과 연결하실 이메일과 비밀번호를<br />입력해주세요!</Title>
 
         <InputLabel>이메일</InputLabel>
-        <InputField type="email" placeholder="예) example@naver.com" />
+        <InputField
+          type="email"
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
+        />
         <EmailHint>예) example@naver.com</EmailHint>
 
         <InputLabel>비밀번호</InputLabel>
         <PasswordWrapper>
-          <InputField type={showPassword ? 'text' : 'password'} placeholder="비밀번호" />
+          <InputField
+            type={showPassword ? 'text' : 'password'}
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+            placeholder="비밀번호"
+          />
+
           <ToggleButton onClick={() => setShowPassword(!showPassword)}>
             {showPassword ? <EyeOff size={20} /> : <Eye size={20} />}
+            <StyleSpan>눈 아이콘을 눌러 비밀번호를 확인하세요.</StyleSpan>
           </ToggleButton>
+
+
         </PasswordWrapper>
 
+
         <ButtonGroup>
-          <NavButton onClick={() => navigate('/Birthday')}>이전으로</NavButton>
-          <NavButton onClick={() => navigate('/Number')}>다음으로</NavButton>
+          <NavButton onClick={() => navigate(-1)}>이전으로</NavButton>
+          <NavButton onClick={() => navigate('/Birthday', { state: { name } })}>다음으로</NavButton>
         </ButtonGroup>
       </Container>
     </Wrapper>
   );
 }
+
+// 아래는 스타일 코드 그대로
 const Wrapper = styled.div`
   width: 100%;
   height: 100%;
@@ -62,17 +102,6 @@ const Container = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-`;
-
-const LogoutButton = styled.button`
-  position: absolute;
-  top: 20px;
-  left: 20px;
-  padding: 6px 12px;
-  border: 1px solid #ccc;
-  border-radius: 4px;
-  background-color: white;
-  cursor: pointer;
 `;
 
 const ImageBox = styled.div`
@@ -113,6 +142,7 @@ const InputField = styled.input`
 `;
 
 const EmailHint = styled.div`
+  display: flex;
   align-self: flex-start;
   font-size: 18px;
   color: #aaa;
@@ -123,6 +153,12 @@ const EmailHint = styled.div`
 const PasswordWrapper = styled.div`
   width: 100%;
   position: relative;
+`;
+
+const StyleSpan = styled.span`
+  position: relative;
+  top: -5px;
+  left: 5px;
 `;
 
 const ToggleButton = styled.button`

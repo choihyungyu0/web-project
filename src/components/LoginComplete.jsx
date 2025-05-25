@@ -1,9 +1,12 @@
 import React from 'react';
 import styled from 'styled-components';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
 
 const LoginComplete = () => {
   const navigate = useNavigate();
+  const location = useLocation();
+  const name = location.state?.name || '회원'; // fallback 처리
+
   return (
     <Wrapper>
       <Container>
@@ -14,7 +17,7 @@ const LoginComplete = () => {
         </ImageBox>
 
         <MessageBox>
-          <p><strong>홍길동님</strong></p>
+          <p><strong>{name}님</strong></p>
           <p>회원가입을 축하드립니다!</p>
         </MessageBox>
 
@@ -25,6 +28,8 @@ const LoginComplete = () => {
 };
 
 export default LoginComplete;
+
+
 const Wrapper = styled.div`
   width: 100%;
   height: 100vh; /* ✅ 정확히 한 화면 높이 */

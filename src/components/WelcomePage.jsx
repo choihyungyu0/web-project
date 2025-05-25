@@ -21,7 +21,7 @@ function WelcomePage() {
         <Input type="text" placeholder="예) 홍길동" />
 
         <DisabledButton onClick={() => navigate('/MainLogin')}>이미 계정이 있어요.</DisabledButton>
-        <NextButton onClick={() => navigate('/Gender')}>다음으로 넘어가기
+        <NextButton onClick={() => navigate('/Name')}>다음으로 넘어가기
         </NextButton>
       </Container>
     </Wrapper>

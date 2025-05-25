@@ -27,6 +27,7 @@ export default function MainLogin() {
           <InputField type={showPassword ? 'text' : 'password'} placeholder="비밀번호" />
           <ToggleButton onClick={() => setShowPassword(!showPassword)}>
             {showPassword ? <EyeOff size={20} /> : <Eye size={20} />}
+            <StyleSpan>눈 아이콘을 눌러 비밀번호를 확인하세요!</StyleSpan>
           </ToggleButton>
         </PasswordWrapper>
 
@@ -123,6 +124,12 @@ const EmailHint = styled.div`
 const PasswordWrapper = styled.div`
   width: 100%;
   position: relative;
+`;
+
+const StyleSpan = styled.span`
+  position: relative;
+  top: -5px;
+  left: 5px;
 `;
 
 const ToggleButton = styled.button`

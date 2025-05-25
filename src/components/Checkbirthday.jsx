@@ -1,9 +1,11 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useLocation} from 'react-router-dom';
 
 const BirthdaySelectPage = () => {
   const navigate = useNavigate();
+  const location = useLocation();
+  const name = location.state?.name || ''; // 이전 페이지에서 넘어온 이름
 
   // ✅ 년/월/일 상태
   const [year, setYear] = useState('');
@@ -50,8 +52,8 @@ const BirthdaySelectPage = () => {
         </SelectGroup>
 
         <ButtonGroup>
-          <NavButton onClick={() => navigate('/Gender')}>이전으로</NavButton>
-          <NavButton onClick={() => navigate('/Email', { state: { year, month, day } })}>
+          <NavButton onClick={() => navigate(-1)}>이전으로</NavButton>
+          <NavButton onClick={() => navigate('/Number', { state: { name } })}>
             다음으로
           </NavButton>
         </ButtonGroup>
