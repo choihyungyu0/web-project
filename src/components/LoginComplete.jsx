@@ -1,11 +1,34 @@
 import React from 'react';
 import styled from 'styled-components';
-import { useNavigate, useLocation } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
+import { useSignUp } from '../styles/SignupContext'; // Context import
+
 
 const LoginComplete = () => {
   const navigate = useNavigate();
-  const location = useLocation();
-  const name = location.state?.name || '회원'; // fallback 처리
+  const { signUpData } = useSignUp();
+
+  // 서버에 회원가입 정보 POST
+  const handleSendData = async () => {
+    try {
+      const response = await fetch("http://3.86.194.222:3000/api/auth/signup", {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(signUpData), // 모든 회원가입 정보 전송
+      });
+      const data = await response.json();
+      if (response.status === 201 || response.status === 200) {
+        alert(data.message || "회원가입이 완료되었습니다!");
+        navigate('/MainLogin');
+      } else {
+        alert(data.message || "회원가입 실패! 입력값을 확인해주세요.");
+      }
+    } catch (error) {
+      alert('회원가입 요청에 실패했습니다: ' + error.message);
+    }
+  };
 
   return (
     <Wrapper>
@@ -17,11 +40,13 @@ const LoginComplete = () => {
         </ImageBox>
 
         <MessageBox>
-          <p><strong>{name}님</strong></p>
+          <p><strong>{signUpData.name || "회원"}님</strong></p>
           <p>회원가입을 축하드립니다!</p>
         </MessageBox>
 
-        <GoLoginButton onClick={() => navigate('/MainLogin')}>로그인하러 가기</GoLoginButton>
+        <GoLoginButton onClick={handleSendData}>
+          로그인하러 가기
+        </GoLoginButton>
       </Container>
     </Wrapper>
   );
@@ -29,7 +54,7 @@ const LoginComplete = () => {
 
 export default LoginComplete;
 
-
+// ----- styled-components 부분 그대로 -----
 const Wrapper = styled.div`
   width: 100%;
   height: 100vh; /* ✅ 정확히 한 화면 높이 */

@@ -1,9 +1,11 @@
+
 import React from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import ReactDOM from 'react-dom/client';
 import './index.css';
-import App from './App';
 import reportWebVitals from './reportWebVitals';
+
+// 회원가입 단계별 페이지 등 import
 import WelcomePage from './components/WelcomePage';
 import CaptureGuidePage from './components/CaptureGuidePage';
 import LearningChoicePage from './components/LearningChoicePage';
@@ -20,9 +22,13 @@ import CheckArea from './components/CheckArea';
 import CustomInfoAlertPage from './components/CustomInfoAlertPage';
 import Mypage from './components/Mypage';
 
+// Context Provider import!
+import { SignUpProvider } from './styles/SignupContext';
+
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
-  <Router>
+  <SignUpProvider>
+    <Router>
       <Routes>
         <Route path="/" element={<WelcomePage />} />
         <Route path="/Mypage" element={<Mypage />} />
@@ -41,9 +47,7 @@ root.render(
         <Route path="/Learning" element={<LearningChoicePage />} />
       </Routes>
     </Router>
+  </SignUpProvider>
 );
 
-// If you want to start measuring performance in your app, pass a function
-// to log results (for example: reportWebVitals(console.log))
-// or send to an analytics endpoint. Learn more: https://bit.ly/CRA-vitals
 reportWebVitals();

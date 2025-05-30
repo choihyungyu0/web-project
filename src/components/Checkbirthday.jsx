@@ -1,21 +1,32 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
-import { useNavigate, useLocation} from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
+import { useSignUp } from '../styles/SignupContext'; // Context import
 
 const BirthdaySelectPage = () => {
   const navigate = useNavigate();
-  const location = useLocation();
-  const name = location.state?.name || ''; // 이전 페이지에서 넘어온 이름
+  const { signUpData, updateSignUpData } = useSignUp();
 
-  // ✅ 년/월/일 상태
-  const [year, setYear] = useState('');
-  const [month, setMonth] = useState('');
-  const [day, setDay] = useState('');
+  // Context에서 이전 값이 있으면 불러오고, 없으면 빈 값
+  const [year, setYear] = useState(signUpData.birthDate?.slice(0, 4) || '');
+  const [month, setMonth] = useState(signUpData.birthDate?.slice(5, 7) || '');
+  const [day, setDay] = useState(signUpData.birthDate?.slice(8, 10) || '');
 
-  // ✅ 연도 리스트
+  // 연도/월/일 리스트
   const years = Array.from({ length: 2024 - 1900 + 1 }, (_, i) => 1900 + i);
   const months = Array.from({ length: 12 }, (_, i) => i + 1);
   const days = Array.from({ length: 31 }, (_, i) => i + 1);
+
+  const handleNext = () => {
+    if (!year || !month || !day) {
+      alert('생년월일을 모두 선택해 주세요.');
+      return;
+    }
+    // yyyy-mm-dd 형태로 저장
+    const birthDate = `${year}-${String(month).padStart(2, '0')}-${String(day).padStart(2, '0')}`;
+    updateSignUpData({ birthDate });
+    navigate('/Number');
+  };
 
   return (
     <Wrapper>
@@ -35,14 +46,12 @@ const BirthdaySelectPage = () => {
               <option key={y} value={y}>{y}년</option>
             ))}
           </Select>
-
           <Select value={month} onChange={(e) => setMonth(e.target.value)}>
             <option value="">월</option>
             {months.map((m) => (
               <option key={m} value={m}>{String(m).padStart(2, '0')}월</option>
             ))}
           </Select>
-
           <Select value={day} onChange={(e) => setDay(e.target.value)}>
             <option value="">일</option>
             {days.map((d) => (
@@ -53,9 +62,7 @@ const BirthdaySelectPage = () => {
 
         <ButtonGroup>
           <NavButton onClick={() => navigate(-1)}>이전으로</NavButton>
-          <NavButton onClick={() => navigate('/Number', { state: { name } })}>
-            다음으로
-          </NavButton>
+          <NavButton onClick={handleNext}>다음으로</NavButton>
         </ButtonGroup>
       </Container>
     </Wrapper>
@@ -64,7 +71,7 @@ const BirthdaySelectPage = () => {
 
 export default BirthdaySelectPage;
 
-// 💄 스타일 정의
+// ---- styled-components 그대로 ----
 const Wrapper = styled.div`
   width: 100%;
   height: 100vh;

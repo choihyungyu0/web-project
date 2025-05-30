@@ -1,5 +1,5 @@
-.App {
-  text-align: center;
+
+.App {  text-align: center;
 }
 
 .App-logo {
@@ -12,6 +12,7 @@
     animation: App-logo-spin infinite 20s linear;
   }
 }
+
 
 .App-header {
   background-color: #282c34;
@@ -41,4 +42,7 @@ html, body, #root {
   margin: 0;
   padding: 0;
   height: 100%;
+}
+body {
+  overflow: hidden;
 }

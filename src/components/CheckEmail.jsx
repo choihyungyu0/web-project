@@ -1,34 +1,35 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
 import { Eye, EyeOff } from 'lucide-react';
-import { useNavigate,useLocation} from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { LogoutButton } from '../styles/CommonButtons';
-
+import { useSignUp } from '../styles/SignupContext'; // Context import
 
 export default function LoginForm() {
   const navigate = useNavigate();
+  const { signUpData, updateSignUpData } = useSignUp();
+
+  const [email, setEmail] = useState(signUpData.email || '');
+  const [password, setPassword] = useState(signUpData.password || '');
   const [showPassword, setShowPassword] = useState(false);
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-  const location = useLocation();
-  const name = location.state?.name || ''; // 이전 페이지에서 넘어온 이름
 
-  const handleSubmit = async () => {
-    try {
-      const response = await fetch('/api/auth/signup', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        credentials: 'include',
-        body: JSON.stringify({ email, password }),
-      });
+  // 이메일 유효성 검사 정규식
+  const isValidEmail = (email) => {
+    // 아주 기본적인 이메일 형식 검사 (더 엄격하게 하고 싶으면 정규식 확장 가능)
+    return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+  };
 
-      const data = await response.json();
-      console.log(data); // 또는 alert(data.message)
-    } catch (error) {
-      console.error('요청 실패:', error);
+  const handleNext = () => {
+    if (!email || !password) {
+      alert('이메일과 비밀번호를 모두 입력하세요.');
+      return;
     }
+    if (!isValidEmail(email)) {
+      alert('올바른 이메일 형식으로 입력해주세요.\n예: example@domain.com');
+      return;
+    }
+    updateSignUpData({ email, password });
+    navigate('/Name');
   };
 
   return (
@@ -40,13 +41,15 @@ export default function LoginForm() {
           <p>캐릭터 이미지</p>
         </ImageBox>
 
-        <Title>계정과 연결하실 이메일과 비밀번호를<br />입력해주세요!</Title>
+        <Title>
+          계정과 연결하실 이메일과 비밀번호를<br />입력해주세요!
+        </Title>
 
         <InputLabel>이메일</InputLabel>
         <InputField
           type="email"
           value={email}
-          onChange={(e) => setEmail(e.target.value)}
+          onChange={e => setEmail(e.target.value)}
         />
         <EmailHint>예) example@naver.com</EmailHint>
 
@@ -55,28 +58,24 @@ export default function LoginForm() {
           <InputField
             type={showPassword ? 'text' : 'password'}
             value={password}
-            onChange={(e) => setPassword(e.target.value)}
+            onChange={e => setPassword(e.target.value)}
           />
-
           <ToggleButton onClick={() => setShowPassword(!showPassword)}>
             {showPassword ? <EyeOff size={20} /> : <Eye size={20} />}
             <StyleSpan>눈 아이콘을 눌러 비밀번호를 확인하세요.</StyleSpan>
           </ToggleButton>
-
-
         </PasswordWrapper>
-
 
         <ButtonGroup>
           <NavButton onClick={() => navigate(-1)}>이전으로</NavButton>
-          <NavButton onClick={() => navigate('/Birthday', { state: { name } })}>다음으로</NavButton>
+          <NavButton onClick={handleNext}>다음으로</NavButton>
         </ButtonGroup>
       </Container>
     </Wrapper>
   );
 }
 
-// 아래는 스타일 코드 그대로
+// ----- styled-components 부분 -----
 const Wrapper = styled.div`
   width: 100%;
   height: 100%;
@@ -104,7 +103,7 @@ const Container = styled.div`
 `;
 
 const ImageBox = styled.div`
-  width: 100%; 
+  width: 100%;
   max-width: 300px;
   height: 300px;
   background-color: #f2f2f2;

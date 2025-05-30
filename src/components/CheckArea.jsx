@@ -1,18 +1,29 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
-import { useNavigate,useLocation} from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
+import { useSignUp } from '../styles/SignupContext'; // Context import
 
 const CheckArea = () => {
   const navigate = useNavigate();
-  const location = useLocation();
-  const name = location.state?.name || ''; // 이전 페이지에서 넘어온 이름
-  const [region, setRegion] = useState('');
+  const { signUpData, updateSignUpData } = useSignUp();
+
+  // 기존 값 있으면 불러오기 (뒤로 갔다 와도 유지)
+  const [region, setRegion] = useState(signUpData.region || '');
 
   const regions = [
     '서울', '부산', '대구', '인천', '광주', '대전', '울산',
     '세종', '경기', '강원', '충북', '충남', '전북',
     '전남', '경북', '경남', '제주'
   ];
+
+  const handleNext = () => {
+    if (!region) {
+      alert('지역을 선택해주세요!');
+      return;
+    }
+    updateSignUpData({ region });
+    navigate('/LoginComplete');
+  };
 
   return (
     <Wrapper>
@@ -22,20 +33,17 @@ const CheckArea = () => {
         <ImageBox>
           <p>캐릭터 이미지</p>
         </ImageBox>
-        <QuestionText>거주하고 계신 지역을 <br></br>선택해주세요!</QuestionText>
-        <Select value={region} onChange={(e) => setRegion(e.target.value)}>
+        <QuestionText>거주하고 계신 지역을 <br />선택해주세요!</QuestionText>
+        <Select value={region} onChange={e => setRegion(e.target.value)}>
           <option value="">선택해주세요</option>
-          {regions.map((region) => (
+          {regions.map(region => (
             <option key={region} value={region}>{region}</option>
           ))}
         </Select>
 
         <ButtonGroup>
           <NavButton onClick={() => navigate(-1)}>이전으로</NavButton>
-          <NavButton onClick={() =>
-            navigate('/LoginComplete', { state: { name } })}>
-            다음으로
-          </NavButton>
+          <NavButton onClick={handleNext}>다음으로</NavButton>
         </ButtonGroup>
       </Container>
     </Wrapper>
@@ -44,6 +52,7 @@ const CheckArea = () => {
 
 export default CheckArea;
 
+// ===== styled-components =====
 const Wrapper = styled.div`
   width: 100%;
   height: 100vh;
@@ -66,7 +75,6 @@ const Container = styled.div`
   position: relative;
   padding: 20px;
 `;
-
 
 const LogoutButton = styled.button`
   position: absolute;
@@ -98,7 +106,6 @@ const QuestionText = styled.p`
   margin-bottom: 20px;
   line-height: 1.5;
 `;
-
 
 const Select = styled.select`
   padding: 10px 16px;

@@ -21,7 +21,7 @@ function WelcomePage() {
         <Input type="text" placeholder="예) 홍길동" />
 
         <DisabledButton onClick={() => navigate('/MainLogin')}>이미 계정이 있어요.</DisabledButton>
-        <NextButton onClick={() => navigate('/Name')}>다음으로 넘어가기
+        <NextButton onClick={() => navigate('/Email')}>다음으로 넘어가기
         </NextButton>
       </Container>
     </Wrapper>
@@ -39,7 +39,7 @@ const Wrapper = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  padding: 20px;
+
   box-sizing: border-box;
 `;
 

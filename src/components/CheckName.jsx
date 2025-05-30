@@ -1,10 +1,21 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
 import { useNavigate } from 'react-router-dom';
+import { useSignUp } from '../styles/SignupContext';
 
 function CheckName() {
   const navigate = useNavigate();
-  const [name, setName] = useState('');
+  const { signUpData, updateSignUpData } = useSignUp();
+
+  // 초기값을 Context에서 가져오도록 하면 뒤로 돌아왔을 때도 값 유지됨
+  const [name, setName] = useState(signUpData.name || '');
+
+  const handleNext = () => {
+    // Context에 이름 저장
+    updateSignUpData({ name });
+    // 다음 페이지로 이동
+    navigate('/Birthday');
+  };
 
   return (
     <Wrapper>
@@ -19,13 +30,13 @@ function CheckName() {
 
         <Input
           type="text"
-          value={name}
-          onChange={(e) => setName(e.target.value)}
           placeholder="예) 홍길동"
+          value={name}
+          onChange={e => setName(e.target.value)}
         />
         <NameHint>예) 홍길동</NameHint>
 
-        <NextButton onClick={() => navigate('/Email', { state: { name } })}>
+        <NextButton onClick={handleNext}>
           다음으로 넘어가기
         </NextButton>
       </Container>
@@ -35,8 +46,7 @@ function CheckName() {
 
 export default CheckName;
 
-
-
+// ---- styled-components 그대로 사용 ----
 const Wrapper = styled.div`
   height: 100%;
   width: 100%;
@@ -101,6 +111,7 @@ const Input = styled.input`
   border-radius: 4px;
   box-sizing: border-box;
 `;
+
 const NameHint = styled.div`
   display: flex;
   align-self: flex-start;
