@@ -2,15 +2,22 @@ import React from 'react';
 import styled from 'styled-components';
 import { useNavigate } from 'react-router-dom';
 import { FcGoogle } from "react-icons/fc";
-import logo from '../assets/logo.png';
+// import logo from '../assets/logo.png'; // 실제 사용시 주석 해제
 
 function WelcomePage() {
   const navigate = useNavigate();
+
+  // 실제 서버 주소/포트에 맞게 수정
+  const GOOGLE_OAUTH_URL = "http://ec2-15-164-99-25.ap-northeast-2.compute.amazonaws.com:8090/oauth2/authorization/google";
+
+  const handleGoogleLogin = () => {
+    window.location.href = GOOGLE_OAUTH_URL;
+  };
+
   return (
     <Wrapper>
       <Container>
-        <LogoButton onClick={() => navigate('/')}>로고
-        </LogoButton>
+        <LogoButton onClick={() => navigate('/')}>로고</LogoButton>
 
         <ImageBox>
           <p>캐릭터 이미지</p>
@@ -21,10 +28,9 @@ function WelcomePage() {
         </WelcomeText>
 
         <LoginButton onClick={() => navigate('/MainLogin')}>로그인</LoginButton>
-        <NextButton onClick={() => navigate('/Email')}>회원가입
-        </NextButton>
+        <NextButton onClick={() => navigate('/Email')}>회원가입</NextButton>
         <Divider />
-        <GoogleButton>
+        <GoogleButton onClick={handleGoogleLogin}>
           <FcGoogle size={26} />
           Google 계정으로 로그인
         </GoogleButton>
@@ -35,6 +41,7 @@ function WelcomePage() {
 
 export default WelcomePage;
 
+// ---- styled-components ----
 
 const Wrapper = styled.div`
   width: 100%;
@@ -88,18 +95,8 @@ const WelcomeText = styled.p`
   line-height: 1.5;
 `;
 
-const Input = styled.input`
-  width: 100%;
-  padding: 12px;
-  font-size: 18px;
-  margin-bottom: 12px;
-  border: 1px solid #ccc;
-  border-radius: 4px;
-  box-sizing: border-box;
-`;
-
 const LoginButton = styled.button`
-width: 240px;
+  width: 240px;
   height: 48px;
   margin-bottom: 16px;
   background: #ff69b4;
@@ -116,7 +113,7 @@ width: 240px;
 `;
 
 const NextButton = styled.button`
-width: 240px;
+  width: 240px;
   height: 48px;
   margin-bottom: 16px;
   background: #ff69b4;
@@ -154,6 +151,7 @@ const GoogleButton = styled.button`
   cursor: pointer;
   transition: 0.1s;
   gap: 10px;
+  margin:0 auto;
   &:hover {
     background: #f5f5f5;
   }

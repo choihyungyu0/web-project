@@ -1,4 +1,3 @@
-
 import React from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import ReactDOM from 'react-dom/client';
@@ -21,6 +20,9 @@ import CheckName from './components/CheckName';
 import CheckArea from './components/CheckArea';
 import CustomInfoAlertPage from './components/CustomInfoAlertPage';
 import Mypage from './components/Mypage';
+
+// 구글 로그인 콜백/추가정보 페이지 import
+import GoogleLoginCallback from "./styles/GoogleLoginCallback";
 
 // Context Provider import!
 import { SignUpProvider } from './styles/SignupContext';
@@ -45,6 +47,9 @@ root.render(
         <Route path="/CaptureGuide" element={<CaptureGuidePage />} />
         <Route path="/CustomInfo" element={<CustomInfoAlertPage />} />
         <Route path="/Learning" element={<LearningChoicePage />} />
+
+        {/* [중요] 구글 인증 콜백/추가정보 입력/메인 라우트 추가 */}
+        <Route path="/oauth2/success" element={<GoogleLoginCallback />} />
       </Routes>
     </Router>
   </SignUpProvider>

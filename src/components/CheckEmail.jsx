@@ -78,8 +78,7 @@ export default function LoginForm() {
 // ----- styled-components 부분 -----
 const Wrapper = styled.div`
   width: 100%;
-  height: 100%;
-  min-height: 100vh;
+  height: 100vh;
   background-color: #f9f9f9;
   display: flex;
   justify-content: center;
@@ -89,17 +88,15 @@ const Wrapper = styled.div`
 `;
 
 const Container = styled.div`
-  height: 100%;
   width: 100%;
+  height: 100%;
   max-width: 464px;
   background-color: #fff;
   border-radius: 8px;
   box-shadow: 0 0 10px rgba(0,0,0,0.05);
-  padding: 20px;
+  text-align: center;
   position: relative;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
+  padding: 20px;
 `;
 
 const ImageBox = styled.div`

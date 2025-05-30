@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 import { useNavigate } from "react-router-dom";
 import CharacterImg from "../assets/user.png";
@@ -6,7 +6,29 @@ import { CharacterWrap, CharacterImage } from "../styles/CommonImage";
 
 export default function CustomInfoAlertPage() {
   const navigate = useNavigate();
+  const [alerts, setAlerts] = useState([]);
   const [selectedAlert, setSelectedAlert] = useState(null);
+
+  // 페이지네이션 관련
+  const [currentPage, setCurrentPage] = useState(1);
+  const ITEMS_PER_PAGE = 4;
+
+  // 서버에서 데이터 불러오기
+  useEffect(() => {
+    fetch("http://15.164.99.25:8090/api/welfare/list")
+    
+      .then(res => res.json())
+      .then(data => setAlerts(data));
+  }, []);
+
+  // 전체 페이지 개수 계산
+  const totalPages = Math.ceil(alerts.length / ITEMS_PER_PAGE);
+
+  // 현재 페이지에 보여줄 데이터만 자르기
+  const pagedAlerts = alerts.slice(
+    (currentPage - 1) * ITEMS_PER_PAGE,
+    currentPage * ITEMS_PER_PAGE
+  );
 
   const handleOpenModal = (alert) => setSelectedAlert(alert);
   const handleCloseModal = () => setSelectedAlert(null);
@@ -43,43 +65,73 @@ export default function CustomInfoAlertPage() {
         </HeaderBox>
 
         <AlertList>
-          {alerts.map((item, idx) => (
-            <AlertItem key={idx} onClick={() => handleOpenModal(item)}>
-              <CategoryText>{item.category}</CategoryText>
-              <ContentText>{item.content}</ContentText>
+          {pagedAlerts.map((item, idx) => (
+            <AlertItem key={idx}>
+              <CategoryText>
+                {item.intrsThemaArray
+                  ? item.intrsThemaArray.split(",")[0].trim()
+                  : ""}
+              </CategoryText>
+              <ContentText>{item.servNm}</ContentText>
+              <DetailButton onClick={() => handleOpenModal(item)}>
+                자세히 보기
+              </DetailButton>
             </AlertItem>
           ))}
         </AlertList>
 
         <Pagination>
-          <span>&lt;</span>
-          <span>1 / 2</span>
-          <span>&gt;</span>
+          <span
+            style={{
+              cursor: currentPage > 1 ? "pointer" : "default",
+              opacity: currentPage > 1 ? 1 : 0.3
+            }}
+            onClick={() => currentPage > 1 && setCurrentPage(currentPage - 1)}
+          >
+            &lt;
+          </span>
+          <span>{currentPage} / {totalPages}</span>
+          <span
+            style={{
+              cursor: currentPage < totalPages ? "pointer" : "default",
+              opacity: currentPage < totalPages ? 1 : 0.3
+            }}
+            onClick={() => currentPage < totalPages && setCurrentPage(currentPage + 1)}
+          >
+            &gt;
+          </span>
         </Pagination>
 
         {selectedAlert && (
           <ModalOverlay onClick={handleCloseModal}>
             <ModalBox onClick={(e) => e.stopPropagation()}>
               <TagRow>
-                <Tag>카테고리</Tag>
-                <Tag>카테고리</Tag>
-                <Tag>카테고리</Tag>
+                {selectedAlert.intrsThemaArray &&
+                  selectedAlert.intrsThemaArray.split(",").map((theme, i) => (
+                    <Tag key={i}>{theme.trim()}</Tag>
+                  ))}
               </TagRow>
-              <Title>{selectedAlert.category}</Title>
-              <Description>{selectedAlert.content}</Description>
+              <Title>{selectedAlert.servNm}</Title>
+              <Description>{selectedAlert.servDgst}</Description>
               <InfoRow>
-                <strong>담당부서</strong> <span>예시부서</span>
+                <strong>담당부서</strong> <span>{selectedAlert.jurMnOn}</span>
               </InfoRow>
               <InfoRow>
-                <strong>지원주기</strong> <span>월 1회</span>
+                <strong>지원주기</strong> <span>{selectedAlert.sprtCycNm}</span>
               </InfoRow>
               <InfoRow>
-                <strong>제공유형</strong> <span>안내형</span>
+                <strong>제공유형</strong> <span>{selectedAlert.srvPvsnNm}</span>
               </InfoRow>
               <InfoRow>
-                <strong>문의처</strong> <span>1234-5678</span>
+                <strong>문의처</strong> <span>{selectedAlert.rprsCtadr}</span>
               </InfoRow>
-              <LinkButton>복지로 사이트로 이동해 자세히 보기</LinkButton>
+              <LinkButton
+                onClick={() =>
+                  window.open(selectedAlert.servDtlLink, "_blank")
+                }
+              >
+                복지로 사이트로 이동해 자세히 보기
+              </LinkButton>
             </ModalBox>
           </ModalOverlay>
         )}
@@ -88,19 +140,11 @@ export default function CustomInfoAlertPage() {
   );
 }
 
-const alerts = [
-  { category: "카테고리", content: "알림내용" },
-  { category: "카테고리", content: "알림내용" },
-  { category: "카테고리", content: "알림내용" },
-  { category: "카테고리", content: "알림내용" },
-  { category: "카테고리", content: "알림내용" },
-  { category: "카테고리", content: "알림내용" },
-];
+// styled-components ------------------------------------
 
 const PageContainer = styled.div`
-  height: 100%;
   width: 100%;
-  min-height: 100vh;
+  height: 100vh;
   background-color: #f9f9f9;
   display: flex;
   justify-content: center;
@@ -110,15 +154,15 @@ const PageContainer = styled.div`
 `;
 
 const ContentWrapper = styled.div`
-  height: 100%;
   width: 100%;
+  height: 100%;
   max-width: 464px;
   background-color: #fff;
   border-radius: 8px;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.05);
+  box-shadow: 0 0 10px rgba(0,0,0,0.05);
+  text-align: center;
+  position: relative;
   padding: 20px;
-  display: flex;
-  flex-direction: column;
 `;
 
 const TopBar = styled.div`
@@ -137,6 +181,22 @@ const RightButtons = styled.div`
   display: flex;
   align-items: center;
   gap: 8px;
+`;
+
+const DetailButton = styled.button`
+  background: none;
+  border: 1.5px solid #f982ae;
+  color: #f982ae;
+  font-size: 13px;
+  font-weight: 500;
+  padding: 4px 12px;
+  border-radius: 20px;
+  cursor: pointer;
+  transition: 0.2s;
+  margin-left: auto;
+  &:hover {
+    background: #ffeaf4;
+  }
 `;
 
 const Button = styled.button`
@@ -190,8 +250,10 @@ const AlertList = styled.div`
 const AlertItem = styled.div`
   border-bottom: 1px solid #ccc;
   padding: 20px 15px;
+  display: flex;          
+  align-items: center;  
   font-size: 0;
-  cursor: pointer;
+  gap: 16px;
 `;
 
 const CategoryText = styled.span`
@@ -203,7 +265,8 @@ const CategoryText = styled.span`
 
 const ContentText = styled.span`
   font-size: 20px;
-  display: inline-block;
+  flex: 1;
+  text-align: left;
 `;
 
 const Pagination = styled.div`
@@ -231,6 +294,7 @@ const ModalBox = styled.div`
   border-radius: 16px;
   padding: 24px;
   width: 448px;
+  max-width: 95vw;
   height: 612px;
   display: flex;
   flex-direction: column;
@@ -241,6 +305,7 @@ const TagRow = styled.div`
   display: flex;
   gap: 8px;
   margin-bottom: 12px;
+  flex-wrap: wrap;
 `;
 
 const Tag = styled.div`

@@ -11,7 +11,7 @@ const LoginComplete = () => {
   // 서버에 회원가입 정보 POST
   const handleSendData = async () => {
     try {
-      const response = await fetch("http://3.86.194.222:3000/api/auth/signup", {
+      const response = await fetch("http://15.164.99.25:8090/api/auth/signup", {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
