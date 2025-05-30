@@ -1,28 +1,33 @@
 import React from 'react';
 import styled from 'styled-components';
 import { useNavigate } from 'react-router-dom';
+import { FcGoogle } from "react-icons/fc";
+import logo from '../assets/logo.png';
 
 function WelcomePage() {
   const navigate = useNavigate();
   return (
     <Wrapper>
       <Container>
-        <LogoutButton onClick={() => navigate('/')}>로고</LogoutButton>
+        <LogoButton onClick={() => navigate('/')}>로고
+        </LogoButton>
 
         <ImageBox>
           <p>캐릭터 이미지</p>
         </ImageBox>
 
         <WelcomeText>
-          안녕하세요! 튜터톡에 오신 걸을 환영합니다🥲<br />
-          당신의 이름을 알려주세요!
+          안녕하세요! 노하우에 오신것을 환영합니다!
         </WelcomeText>
 
-        <Input type="text" placeholder="예) 홍길동" />
-
-        <DisabledButton onClick={() => navigate('/MainLogin')}>이미 계정이 있어요.</DisabledButton>
-        <NextButton onClick={() => navigate('/Email')}>다음으로 넘어가기
+        <LoginButton onClick={() => navigate('/MainLogin')}>로그인</LoginButton>
+        <NextButton onClick={() => navigate('/Email')}>회원가입
         </NextButton>
+        <Divider />
+        <GoogleButton>
+          <FcGoogle size={26} />
+          Google 계정으로 로그인
+        </GoogleButton>
       </Container>
     </Wrapper>
   );
@@ -32,37 +37,35 @@ export default WelcomePage;
 
 
 const Wrapper = styled.div`
-  height: 100%;
   width: 100%;
-  min-height: 100vh;
+  height: 100vh;
   background-color: #f9f9f9;
   display: flex;
   justify-content: center;
   align-items: center;
-
+  padding: 20px;
   box-sizing: border-box;
 `;
 
 const Container = styled.div`
-  height: 100%;
   width: 100%;
-  max-width: 464px; 
-  padding: 20px;
+  height: 100%;
+  max-width: 464px;
   background-color: #fff;
   border-radius: 8px;
   box-shadow: 0 0 10px rgba(0,0,0,0.05);
   text-align: center;
   position: relative;
+  padding: 20px;
 `;
 
-const LogoutButton = styled.button`
+const LogoButton = styled.button`
   position: absolute;
   top: 20px;
   left: 20px;
   padding: 6px 12px;
-  border: 1px solid #ccc;
-  border-radius: 4px;
   background-color: white;
+  border: none;
   cursor: pointer;
 `;
 
@@ -95,23 +98,63 @@ const Input = styled.input`
   box-sizing: border-box;
 `;
 
-const DisabledButton = styled.button`
-  background-color: #eee;
-  border: 1px solid #ccc;
-  color: #888;
-  padding: 10px;
-  margin-bottom: 20px;
-  width: 100%;
-  border-radius: 4px;
+const LoginButton = styled.button`
+width: 240px;
+  height: 48px;
+  margin-bottom: 16px;
+  background: #ff69b4;
+  color: #fff;
+  border: none;
+  border-radius: 14px;
+  font-size: 20px;
+  font-weight: 500;
   cursor: pointer;
+  transition: 0.1s;
+  &:hover {
+    opacity: 0.92;
+  }
 `;
 
 const NextButton = styled.button`
-  padding: 12px;
-  font-size: 18px;
-  background-color: white;
-  border: 1px solid black;
-  width: 100%;
-  border-radius: 4px;
+width: 240px;
+  height: 48px;
+  margin-bottom: 16px;
+  background: #ff69b4;
+  color: #fff;
+  border: none;
+  border-radius: 14px;
+  font-size: 20px;
+  font-weight: 500;
   cursor: pointer;
+  transition: 0.1s;
+  &:hover {
+    opacity: 0.92;
+  }
+`;
+
+const Divider = styled.hr`
+  width: 90%;
+  margin: 26px 0 22px 0;
+  border: 0;
+  border-top: 2px solid #eee;
+`;
+
+const GoogleButton = styled.button`
+  width: 260px;
+  height: 44px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #fff;
+  border: 2px solid #222;
+  border-radius: 10px;
+  font-size: 18px;
+  font-weight: 500;
+  color: #222;
+  cursor: pointer;
+  transition: 0.1s;
+  gap: 10px;
+  &:hover {
+    background: #f5f5f5;
+  }
 `;
