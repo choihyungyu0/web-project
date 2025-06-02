@@ -44,7 +44,7 @@ function LearningChoiceContainer() {
         </ImageBox>
           </QuestionRow>
 
-          <ChoiceButton onClick={() => navigate('/CaptureStart')}>스마트폰 사용법 배우기</ChoiceButton>
+          <ChoiceButton onClick={() => navigate('/Smartphone')}>스마트폰 사용법 배우기</ChoiceButton>
           <ChoiceButton>어플리케이션 사용법 배우기</ChoiceButton>
         </Content>
       </ContentWrapper>

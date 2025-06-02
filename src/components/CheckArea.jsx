@@ -100,10 +100,10 @@ const LogoutButton = styled.button`
 
 const ImageBox = styled.div`
   width: 100%;
-  max-width: 300px;
-  height: 300px;
-  background-color: #eee;
-  border: 1px solid #ccc;
+max-width: 219px;
+  height: 302px;
+  
+ padding-bottom:10px;
   display: flex;
   justify-content: center;
   align-items: center;

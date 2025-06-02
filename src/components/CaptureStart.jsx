@@ -1,9 +1,8 @@
 import React from 'react';
 import styled from 'styled-components';
 import { useNavigate } from 'react-router-dom';
-import CaptureGuidePage from './CaptureGuideFirst';
-import CharacterImg from '../assets/user.png';
-import { CharacterWrap, CharacterImage } from '../styles/CommonImage'; 
+import StyledRemoteImage from '../styles/RemoteImage';
+import { LogoButtons, MypageWrap, MypageButton } from '../styles/CommonButtons';
 import { BellButton } from '../styles/CommonButtons';
 
 
@@ -13,19 +12,27 @@ const CaptureStartPage = () => {
     <Wrapper>
       <Container>
         <TopBar>
-          <LogoutButton onClick={() => navigate('/')}>로고</LogoutButton>
+          <LogoButtons onClick={() => navigate('/')}>
+            <StyledRemoteImage imageKey="Logo_0" alt="로고"/>
+          </LogoButtons>
           <RightButtons>
-            <BellButton>알림</BellButton>
-            <CharacterWrap>
-              <CharacterImage onClick={()=> navigate('/Mypage')} src={CharacterImg} alt="캐릭터" />
-            </CharacterWrap>
+            <BellButton>
+              <StyledRemoteImage imageKey="Bell_0" alt="알림"/>
+            </BellButton>  
+            <MypageWrap>
+              <MypageButton
+                onClick={() => navigate('/Mypage')}
+              >            
+              <StyledRemoteImage imageKey="Mypage_0" alt="마이페이지"/>
+              </MypageButton>
+            </MypageWrap>
           </RightButtons>
         </TopBar>
 
         <BackArrow onClick={() => navigate(-1)}>❮</BackArrow>
 
         <ImageBox>
-          <p>캐릭터 이미지</p>
+          <StyledRemoteImage imageKey="CaptureStartCharacter_0" alt="캐릭터" />
         </ImageBox>
 
         <Description>

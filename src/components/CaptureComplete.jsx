@@ -1,8 +1,8 @@
 import React from 'react';
 import styled from 'styled-components';
 import { useNavigate } from 'react-router-dom';
-import CharacterImg from '../assets/user.png';
-import { CharacterWrap, CharacterImage } from '../styles/CommonImage';
+import StyledRemoteImage from '../styles/RemoteImage';
+import { LogoButtons, MypageWrap, MypageButton } from '../styles/CommonButtons';
 import { BellButton } from '../styles/CommonButtons';
 
 const CaptureGuidePage = () => {
@@ -17,17 +17,25 @@ const CaptureGuidePage = () => {
     <Wrapper>
       <Container>
         <TopBar>
-          <LogoutButton onClick={() => navigate('/')}>로고</LogoutButton>
+          <LogoButtons onClick={() => navigate('/')}>
+            <StyledRemoteImage imageKey="Logo_0" alt="로고"/>
+          </LogoButtons>
           <RightButtons>
-            <BellButton>알림</BellButton>
-            <CharacterWrap>
-              <CharacterImage onClick={() => navigate('/Mypage')} src={CharacterImg} alt="캐릭터" />
-            </CharacterWrap>
+           <BellButton>
+              <StyledRemoteImage imageKey="Bell_0" alt="알림"/>
+            </BellButton>
+            <MypageWrap>
+              <MypageButton
+                onClick={() => navigate('/Mypage')}
+              >            
+              <StyledRemoteImage imageKey="Mypage_0" alt="마이페이지"/>
+              </MypageButton>
+            </MypageWrap>
           </RightButtons>
         </TopBar>
         <BackArrow onClick={() => navigate(-1)}>❮</BackArrow>
         <ImageBox>
-          <p>캐릭터 이미지</p>
+          <StyledRemoteImage imageKey="CaptureCompleteCharacter_0" alt="캐릭터" />
         </ImageBox>
         <Description>
           &lt;사진찍기&gt;를<br />
@@ -73,16 +81,9 @@ const TopBar = styled.div`
   align-items: center;
 `;
 
-const LogoutButton = styled.button`
-  padding: 6px 12px;
-  border: 1px solid #000;
-  background-color: white;
-  cursor: pointer;
-`;
 
 const RightButtons = styled.div`
   display: flex;
-  gap: 10px;
 `;
 
 const BackArrow = styled.div`
@@ -96,7 +97,6 @@ const ImageBox = styled.div`
   width: 312px;
   height: 312px;
   background-color: #eee;
-  border: 1px solid #ccc;
   margin: 0 auto;
   display: flex;
   justify-content: center;

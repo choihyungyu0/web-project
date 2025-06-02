@@ -119,10 +119,10 @@ const Container = styled.div`
 
 const ImageBox = styled.div`
   width: 100%;
-  max-width: 294px;
-  height: 230px;
+  max-width: 144px;
+  height: 160px;
   background-color: #f2f2f2;
-  border: 1px solid #ccc;
+
   display: flex;
   justify-content: center;
   align-items: center;

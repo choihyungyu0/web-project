@@ -1,9 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import { useNavigate } from 'react-router-dom';
-import CharacterImg from '../assets/user.png';
-import { CharacterWrap, CharacterImage } from '../styles/CommonImage';
+import StyledRemoteImage from '../styles/RemoteImage';
+import { LogoButtons, MypageWrap, MypageButton } from '../styles/CommonButtons';
 import { BellButton } from '../styles/CommonButtons';
+import CaptureBox from '../styles/GuideImageBox';
 
 function CaptureGuideSecond() {
   const [showInstruction, setShowInstruction] = useState(true);
@@ -43,24 +44,40 @@ function CaptureGuideSecond() {
     <PageWrapper>
       <Container>
         <TopBar>
-          <Button onClick={() => navigate('/')}>로고</Button>
+          <LogoButtons onClick={() => navigate('/')}>
+            <StyledRemoteImage imageKey="Logo_0" alt="로고"/>
+          </LogoButtons>
           <RightButtons>
-            <CharacterWrap>
-              <BellButton>알림</BellButton>
-              <CharacterImage onClick={() => navigate('/Mypage')} src={CharacterImg} alt="캐릭터" />
-            </CharacterWrap>
+           <BellButton>
+              <StyledRemoteImage imageKey="Bell_0" alt="알림"/>
+            </BellButton>  
+            <MypageWrap>
+              <MypageButton
+                onClick={() => navigate('/Mypage')}
+              >            
+              <StyledRemoteImage imageKey="Mypage_0" alt="마이페이지"/>
+              </MypageButton>
+            </MypageWrap>
+
           </RightButtons>
         </TopBar>
         <BackArrow onClick={() => navigate(-1)}>❮</BackArrow>
         <ContentContainer>
-          <CaptureBox>스마트폰 캡처 이미지</CaptureBox>
+          <CaptureBox
+            imageKey="SmartphoneGuideSecond_0"
+            alt="이미지캡처"
+          />
           {isMounted && (
             <InstructionBox $visible={showInstruction}>
               <InstructionTitle onClick={handleCloseInstruction}>설명 닫아두기</InstructionTitle>
               <SpeechRow>
                 <SpeechBubble>하단 중앙에 있는 촬영 버튼을 터치하세요!</SpeechBubble>
               </SpeechRow>
-              <CharacterBox>캐릭터 이미지</CharacterBox>
+              <CharacterBox>
+                            <ImageBox>
+              <StyledRemoteImage imageKey="CaptureStartCharacter_0" alt="캐릭터" />
+            </ImageBox>
+              </CharacterBox>
             </InstructionBox>
           )}
           {/* 설명 닫힌 경우 */}
@@ -144,19 +161,6 @@ const ContentContainer = styled.div`
   padding-bottom: 80px;
 `;
 
-const CaptureBox = styled.div`
-  width: 70%;
-  flex: 1;
-  min-height: 180px;
-  max-height: 100%;
-  background: #eee;
-  border: 1px solid #999;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  margin-bottom: 30px;
-  z-index: 1;
-`;
 
 const InstructionBox = styled.div`
   position: absolute;
@@ -215,6 +219,19 @@ const SpeechBubble = styled.div`
     transform: translateX(-50%);
     z-index: 0;
   }
+`;
+const ImageBox = styled.div`
+
+  width: 100%;
+  max-width: 294px;
+  height: 230px;
+  background-color: #f2f2f2;
+   object-fit: cover;
+  clip-path: inset(0px 2px 1px 1px); /* top right bottom left */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 100px auto 10px;
 `;
 
 const CharacterBox = styled.div`

@@ -1,10 +1,12 @@
 import React from 'react';
 import styled from 'styled-components';
 import { useNavigate, useLocation } from 'react-router-dom';
-import CharacterImg from '../assets/user.png';
+import StyledRemoteImage from '../styles/RemoteImage'; // RemoteImage import
+import { LogoButtons, MypageWrap, MypageButton, BellButton } from '../styles/CommonButtons'; // 로고 버튼, 마이페이지 버튼, 알림 버튼 import
+import { SoftSpeechBubble } from '../styles/SoftSpeechBubble'; // SoftSpeechBubble import
 import CarrotBefore from '../assets/CarrotBefore.png';
 import CarrotAfter from '../assets/CarrotAfter.png'; // 새 이미지 import
-import { CharacterWrap, CharacterImage } from '../styles/CommonImage';
+
 
 const carrotTexts = [
   "사진 찍기",
@@ -27,12 +29,21 @@ function SmartphoneGuide() {
       <ContentWrapper>
         <TopBar>
           <LeftSection>
-            <LogoButton onClick={() => navigate('/')}>로고</LogoButton>
+          <LogoButtons onClick={() => navigate('/')}>
+            <StyledRemoteImage imageKey="Logo_0" alt="로고"/>
+          </LogoButtons>
           </LeftSection>
           <RightButtons>
-            <CharacterWrap>
-              <CharacterImage onClick={() => navigate('/Mypage')} src={CharacterImg} alt="캐릭터" />
-            </CharacterWrap>
+            <BellButton>
+              <StyledRemoteImage imageKey="Bell_0" alt="알림"/>
+            </BellButton>  
+            <MypageWrap>
+              <MypageButton
+                onClick={() => navigate('/Mypage')}
+              >            
+              <StyledRemoteImage imageKey="Mypage_0" alt="마이페이지"/>
+              </MypageButton>
+            </MypageWrap>
           </RightButtons>
         </TopBar>
 
@@ -45,7 +56,9 @@ function SmartphoneGuide() {
             <SpeechBubble>
               <Text>무엇을 배워볼까요?</Text>
             </SpeechBubble>
-            <CharacterBox>캐릭터 이미지</CharacterBox>
+        <ImageBox>
+          <StyledRemoteImage imageKey="CheckBirthdayCharacter_0" alt="캐릭터" />
+        </ImageBox>
           </QuestionRow>
         </Content>
 
@@ -136,9 +149,22 @@ const Button = styled.button`
   font-size: 16px;
 `;
 
-const LogoButton = styled(Button)`
+const ImageBox = styled.div`
+   width: 100px;
+  height: 100px;
+  background-color:#eee;
+  border: 2px solid black;
+  margin-top:10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 14px;
+  color: black;
   font-weight: bold;
+  margin-left:18px;
+  margin-top:50px;
 `;
+
 
 const BackButtonWrapper = styled.div`
   display: flex;

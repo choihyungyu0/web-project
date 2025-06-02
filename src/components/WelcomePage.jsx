@@ -68,9 +68,10 @@ const Container = styled.div`
 
 const ImageBox = styled.div`
   width: 100%;
-  max-width: 200px;
-  height: 200px;
-  background-color: #eee;
+  max-width: 216px;
+  height: 310px;
+    object-fit: cover;
+  clip-path: inset(0px 2px 1px 0px); /* top right bottom left */
   margin: 100px auto 20px;
   display: flex;
   justify-content: center;

@@ -40,7 +40,7 @@ export default function PhoneNumberPage() {
         <InputWrapper>
           <Input
             type="tel"
-            placeholder="예) 010-0000-0000"
+            placeholder=" "
             value={phone}
             onChange={e => setPhone(e.target.value)}
             maxLength={13}
@@ -66,21 +66,22 @@ const Wrapper = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  box-sizing: border-box;
-  margin: 0;
   padding: 20px;
+  box-sizing: border-box;
 `;
 
 const Container = styled.div`
-  height: 100%;
+height: 100%;
   width: 100%;
   max-width: 464px;
   background-color: #fff;
   border-radius: 8px;
   box-shadow: 0 0 10px rgba(0,0,0,0.05);
-  text-align: center;
-  position: relative;
   padding: 20px;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 `;
 
 const TopButton = styled.button`
@@ -97,14 +98,15 @@ const TopButton = styled.button`
 
 const ImageBox = styled.div`
   width: 100%;
-  max-width: 300px;
-  height: 300px;
-  background-color: #eee;
+  max-width: 210px;
+  height: 220px;
+  padding-bottom:80px;
+ 
   margin: 100px auto 20px;
   display: flex;
   justify-content: center;
   align-items: center;
-  border: 1px solid #ccc;
+
 `;
 
 const Instruction = styled.div`
@@ -118,19 +120,23 @@ const InputWrapper = styled.div`
   width: 100%;
   margin-bottom: 40px;
 `;
-
 const Input = styled.input`
   width: 100%;
-  padding: 14px;
-  border: 1px solid #333;
-  font-size: 18px;
+  background-color: #F2F2F7;
+  padding: 15px;
+  font-size: 20px;
+  margin-bottom: 12px;
+  border-radius: 40px;
   box-sizing: border-box;
+  border: 2px solid #C7C7CC;
 `;
 
 const Hint = styled.div`
+  margin-left:10px;
   margin-top: 4px;
   font-size: 18px;
   color: #999;
+  text-align: left;
 `;
 
 const BottomButtons = styled.div`
@@ -140,10 +146,17 @@ const BottomButtons = styled.div`
 `;
 
 const NavButton = styled.button`
-  padding: 12px 24px;
-  border: 1px solid #333;
-  background: white;
-  font-size: 18px;
-  font-weight: bold;
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  gap: 16px;
+  margin-top: 12px;
+  background: rgba(120, 120, 128, 0.2);
+  width: 200px;
+  border: 1px solid #000;
+  padding: 15px 0;
+  font-size: 20px;
+  border-radius: 10px;
   cursor: pointer;
+  margin: 3px;
 `;

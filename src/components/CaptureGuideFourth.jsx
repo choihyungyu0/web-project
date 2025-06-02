@@ -1,9 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import { useNavigate } from 'react-router-dom';
-import CharacterImg from '../assets/user.png';
-import { CharacterWrap, CharacterImage } from '../styles/CommonImage';
+import StyledRemoteImage from '../styles/RemoteImage';
+import { LogoButtons, MypageWrap, MypageButton } from '../styles/CommonButtons';
 import { BellButton } from '../styles/CommonButtons';
+import CaptureBox from '../styles/GuideImageBox';
+import { SoftSpeechBubble } from '../styles/SoftSpeechBubble';
 
 function CaptureGuideFourth() {
   const [showInstruction, setShowInstruction] = useState(true);
@@ -43,22 +45,35 @@ function CaptureGuideFourth() {
     <PageWrapper>
       <Container>
         <TopBar>
-          <Button onClick={() => navigate('/')}>로고</Button>
+          <LogoButtons onClick={() => navigate('/')}>
+            <StyledRemoteImage imageKey="Logo_0" alt="로고"/>
+          </LogoButtons>
           <RightButtons>
-            <BellButton>알림</BellButton>
-            <CharacterWrap>
-              <CharacterImage onClick={() => navigate('/Mypage')} src={CharacterImg} alt="캐릭터" />
-            </CharacterWrap>
+           <BellButton>
+              <StyledRemoteImage imageKey="Bell_0" alt="알림"/>
+            </BellButton>
+            <MypageWrap>
+              <MypageButton
+                onClick={() => navigate('/Mypage')}
+              >            
+              <StyledRemoteImage imageKey="Mypage_0" alt="마이페이지"/>
+              </MypageButton>
+            </MypageWrap>
           </RightButtons>
         </TopBar>
         <BackArrow onClick={() => navigate(-1)}>❮</BackArrow>
         <ContentContainer>
-          <CaptureBox>스마트폰 캡처 이미지</CaptureBox>
+          <CaptureBox
+            imageKey="SmartphoneGuideFourth_0"
+            alt="이미지캡처"
+          />
           {isMounted && (
             <InstructionBox $visible={showInstruction}>
               <InstructionTitle onClick={handleCloseInstruction}>설명 닫아두기</InstructionTitle>
               <SpeechRow>
-                <SpeechBubble>방금 찍은 사진을 확인하세요!</SpeechBubble>
+                <SoftSpeechBubble style={{ marginRight: '32px' }}>
+                  방금찍은 사진을 확인하세요
+                  </SoftSpeechBubble>
               </SpeechRow>
               <CharacterBox>캐릭터 이미지</CharacterBox>
             </InstructionBox>
@@ -144,20 +159,6 @@ const ContentContainer = styled.div`
   padding-bottom: 80px;
 `;
 
-const CaptureBox = styled.div`
-  width: 70%;
-  flex: 1;
-  min-height: 180px;
-  max-height: 100%;
-  background: #eee;
-  border: 1px solid #999;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  margin-bottom: 30px;
-  z-index: 1;
-`;
-
 const InstructionBox = styled.div`
   position: absolute;
   left: 0; right: 0; bottom: 0;
@@ -221,7 +222,6 @@ const CharacterBox = styled.div`
   margin-left: auto;
   width:150px;
   height: 150px;
-  border: 1px solid #ccc;
   padding: 8px;
   background: #f5f5f5;
 `;

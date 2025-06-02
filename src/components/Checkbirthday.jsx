@@ -124,14 +124,14 @@ const LogoutButton = styled.button`
 
 const ImageBox = styled.div`
   width: 100%;
-  max-width: 300px;
-  height: 300px;
-  background-color: #eee;
+ max-width: 198px;
+  height: 220px;
+
   margin: 100px auto 20px;
   display: flex;
   justify-content: center;
   align-items: center;
-  border: 1px solid #ccc;
+  padding-bottom:80px;
 `;
 
 const QuestionText = styled.p`

@@ -40,7 +40,7 @@ export default function LoginForm() {
             <StyledRemoteImage imageKey="Logo_0" alt="로고"/>
           </LogoButton>
         <ImageBox>
-          <StyledRemoteImage imageKey="SplashCharacter_0" alt="캐릭터" />
+          <StyledRemoteImage imageKey="CheckEmailCharacter_0" alt="캐릭터" />
         </ImageBox>
 
         <Title>
@@ -101,6 +101,7 @@ const Container = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
+   overflow: hidden;
 `;
 
 const ImageBox = styled.div`
@@ -109,11 +110,12 @@ const ImageBox = styled.div`
   max-width: 294px;
   height: 230px;
   background-color: #f2f2f2;
-  border: 1px solid #ccc;
+   object-fit: cover;
+  clip-path: inset(0px 2px 1px 1px); /* top right bottom left */
   display: flex;
   justify-content: center;
   align-items: center;
-  margin: 120px auto 10px;
+  margin: 100px auto 10px;
 `;
 
 const Title = styled.div`

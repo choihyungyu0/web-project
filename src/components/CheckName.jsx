@@ -92,14 +92,14 @@ const LogoutButton = styled.button`
 
 const ImageBox = styled.div`
   width: 100%;
-  max-width: 300px;
-  height: 300px;
+  max-width: 219px;
+  height: 312px;
   background-color: #eee;
   margin: 100px auto 20px;
   display: flex;
   justify-content: center;
   align-items: center;
-  border: 1px solid #ccc;
+ 
 `;
 
 const WelcomeText = styled.p`

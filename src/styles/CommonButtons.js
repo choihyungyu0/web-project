@@ -11,8 +11,8 @@ export const LogoButton = styled.button`
 `;
 
 export const BellButton = styled.button`
-  padding: 6px 12px;
-  border: 1px solid #ccc;
+  padding: 0px 0px -1px 0px;
+  border: none;
   border-radius: 6px;
   background: white;
   cursor: pointer;
@@ -48,10 +48,10 @@ export const MypageButton = styled.button`
 
 export const LogoButtons = styled.button`
   padding: 6px 12px;
-  border: 1px solid #ccc;
+  border:none;
   background: white;
   cursor: pointer;
   font-size: 16px;
-  height: 48px;
+  height: 55px;
   width: 134px;
 `;
