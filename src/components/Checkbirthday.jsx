@@ -43,7 +43,7 @@ const BirthdaySelectPage = () => {
   return (
     <Wrapper>
       <Container>
-        <LogoButton onClick={() => navigate('/')}>
+        <LogoButton onClick={() => navigate('/Welcome')}>
           <StyledRemoteImage imageKey="Logo_0" alt="로고" />
         </LogoButton>
         <ImageBox>
@@ -125,19 +125,21 @@ const LogoutButton = styled.button`
 const ImageBox = styled.div`
   width: 100%;
  max-width: 198px;
-  height: 220px;
+  height: 30%;
 
   margin: 100px auto 20px;
   display: flex;
   justify-content: center;
   align-items: center;
   padding-bottom:80px;
+  
 `;
 
 const QuestionText = styled.p`
   font-size: 20px;
   font-weight: bold;
   margin: 22px 0;
+  margin-bottom: 114px;
 `;
 
 const SelectGroup = styled.div`

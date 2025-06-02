@@ -47,11 +47,28 @@ export const MypageButton = styled.button`
 `;
 
 export const LogoButtons = styled.button`
-  padding: 6px 12px;
-  border:none;
+  border: none;
   background: white;
   cursor: pointer;
   font-size: 16px;
-  height: 55px;
-  width: 134px;
+  height: 50px;
+  width: 146px;
+`;
+
+// ✅ AlertModal에서 쓰는 닫기 버튼 (공통화)
+export const RoundedModalButtonWrapper = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 180px;
+  height: 70px;
+  background: #ffd7e9;
+  border-radius: 20px;
+  cursor: pointer;
+  align-self: center;
+`;
+
+export const RoundedModalButtonText = styled.div`
+  font-size: 24px;
+  font-weight: 600;
 `;

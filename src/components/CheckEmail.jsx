@@ -36,7 +36,7 @@ export default function LoginForm() {
   return (
     <Wrapper>
       <Container>
-          <LogoButton onClick={() => navigate('/')}>
+          <LogoButton onClick={() => navigate('/Welcome')}>
             <StyledRemoteImage imageKey="Logo_0" alt="로고"/>
           </LogoButton>
         <ImageBox>
@@ -105,17 +105,17 @@ const Container = styled.div`
 `;
 
 const ImageBox = styled.div`
-
-  width: 100%;
-  max-width: 294px;
-  height: 230px;
+width: 100%;
+  max-width: 191px;
+  height: 30%;
   background-color: #f2f2f2;
    object-fit: cover;
-  clip-path: inset(0px 2px 1px 1px); /* top right bottom left */
+  clip-path: inset(0px 0px 0px 0px); /* top right bottom left */
   display: flex;
   justify-content: center;
   align-items: center;
-  margin: 100px auto 10px;
+  margin: 80px;
+  margin-top:100px;
 `;
 
 const Title = styled.div`
@@ -124,6 +124,7 @@ const Title = styled.div`
   font-size: 17px;
   line-height: 1.5;
   margin-bottom: 4px;
+  
 `;
 
 const InputLabel = styled.label`

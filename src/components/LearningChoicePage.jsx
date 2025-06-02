@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
 import { useNavigate } from 'react-router-dom';
 import { MypageWrap, MypageButton } from '../styles/CommonButtons';
@@ -6,19 +6,23 @@ import { SoftSpeechBubble } from '../styles/SoftSpeechBubble';
 import StyledRemoteImage from '../styles/RemoteImage'; // RemoteImage import
 import { LogoButtons } from '../styles/CommonButtons'; // 로고 버튼 import
 import { BellButton } from '../styles/CommonButtons'; // BellButton import
+import AlertModal from '../styles/AlertModal'; // 실제 파일 경로에 맞게 수정
 
 function LearningChoiceContainer() {
   const navigate = useNavigate();
+  const [showModal, setShowModal] = useState(false);
   return (
     <PageContainer>
       <ContentWrapper>
         <TopBar>
-          <LogoButtons onClick={() => navigate('/')}>
+          <LogoButtons onClick={() => navigate('/Menu')}>
             <StyledRemoteImage imageKey="Logo_0" alt="로고"/>
           </LogoButtons>
         <RightProfileArea>
             <BellButton>
-              <StyledRemoteImage imageKey="Bell_0" alt="알림"/>
+               <BellButton onClick={() => setShowModal(true)}>
+            <StyledRemoteImage imageKey="Bell_0" alt="알림" />
+          </BellButton>
             </BellButton>  
             <MypageWrap>
               <MypageButton
@@ -31,7 +35,7 @@ function LearningChoiceContainer() {
         </TopBar>
 
         <BackButtonWrapper>
-          <BackButton onClick={() => navigate(-1)}>뒤로가기</BackButton>
+          <BackButton onClick={() => navigate('/Menu')}>뒤로가기</BackButton>
         </BackButtonWrapper>
 
         <Content>
@@ -47,6 +51,7 @@ function LearningChoiceContainer() {
           <ChoiceButton onClick={() => navigate('/Smartphone')}>스마트폰 사용법 배우기</ChoiceButton>
           <ChoiceButton>어플리케이션 사용법 배우기</ChoiceButton>
         </Content>
+          {showModal && <AlertModal onClose={() => setShowModal(false)} />}
       </ContentWrapper>
     </PageContainer>
   );
@@ -100,10 +105,10 @@ const TopBar = styled.div`
 
 
 const ImageBox = styled.div`
-   width: 100px;
-  height: 100px;
+   width: 108px;
+  height: 120px;
   background-color:#eee;
-  border: 2px solid black;
+
   margin-top:10px;
   display: flex;
   align-items: center;
@@ -168,7 +173,7 @@ const Content = styled.div`
 
 const QuestionRow = styled.div`
   display: flex;
-  justify-content: space-between;
+  justify-content: flex-end;
   align-items: center;
   width: 100%;
   margin-bottom: 50px;
@@ -192,7 +197,7 @@ const SpeechBubble = styled.div`
   font-family: 'Pretendard Variable', sans-serif;
   font-style: normal;
   font-weight: 600;
-  font-size: 28px;
+  font-size: 34px;
   line-height: 48px;
   color: #000;
  
@@ -210,16 +215,18 @@ const SpeechBubble = styled.div`
 `;
 
 const Text = styled.div`
-  font-size: 18px;
+ font-size: 1.6rem;
+  font-weight: bold;
+  color: #111;
   text-align: center;
-  
+
 `;
 
 const CharacterBox = styled.div`
   width: 100px;
   height: 100px;
   background-color:#eee;
-  border: 2px solid black;
+
   margin-top:10px;
   display: flex;
   align-items: center;

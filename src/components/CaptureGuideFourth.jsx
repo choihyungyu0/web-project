@@ -6,12 +6,20 @@ import { LogoButtons, MypageWrap, MypageButton } from '../styles/CommonButtons';
 import { BellButton } from '../styles/CommonButtons';
 import CaptureBox from '../styles/GuideImageBox';
 import { SoftSpeechBubble } from '../styles/SoftSpeechBubble';
+import AlertModal from '../styles/AlertModal'; // ✅ 모달 컴포넌트 import
 
 function CaptureGuideFourth() {
   const [showInstruction, setShowInstruction] = useState(true);
   const [isMounted, setIsMounted] = useState(true);
   const navigate = useNavigate();
+  const [showModal, setShowModal] = useState(false); // ✅ 모달 열림 여부
+  const [selectedAlert, setSelectedAlert] = useState(null);
 
+  const handleOpenModal = (alert) => setSelectedAlert(alert);
+  const handleCloseModal = () => {
+    setSelectedAlert(null);
+    setShowModal(false); // ✅ Bell 버튼 모달 닫기
+  };
   useEffect(() => {
     const slideTimer = setTimeout(() => {
       setShowInstruction(false);
@@ -45,11 +53,11 @@ function CaptureGuideFourth() {
     <PageWrapper>
       <Container>
         <TopBar>
-          <LogoButtons onClick={() => navigate('/')}>
+          <LogoButtons onClick={() => navigate('/Menu')}>
             <StyledRemoteImage imageKey="Logo_0" alt="로고"/>
           </LogoButtons>
           <RightButtons>
-           <BellButton>
+            <BellButton onClick={() => setShowModal(true)}>
               <StyledRemoteImage imageKey="Bell_0" alt="알림"/>
             </BellButton>
             <MypageWrap>
@@ -61,7 +69,7 @@ function CaptureGuideFourth() {
             </MypageWrap>
           </RightButtons>
         </TopBar>
-        <BackArrow onClick={() => navigate(-1)}>❮</BackArrow>
+        <BackArrow onClick={() => navigate('/CaptureGuideThird')}>❮</BackArrow>
         <ContentContainer>
           <CaptureBox
             imageKey="SmartphoneGuideFourth_0"
@@ -71,11 +79,16 @@ function CaptureGuideFourth() {
             <InstructionBox $visible={showInstruction}>
               <InstructionTitle onClick={handleCloseInstruction}>설명 닫아두기</InstructionTitle>
               <SpeechRow>
-                <SoftSpeechBubble style={{ marginRight: '32px' }}>
-                  방금찍은 사진을 확인하세요
-                  </SoftSpeechBubble>
+              <SoftSpeechBubble
+                style={{ marginRight: '32px' }}
+                padding="0px"
+              >
+                방금찍은 사진을 확인하세요!
+              </SoftSpeechBubble>
               </SpeechRow>
-              <CharacterBox>캐릭터 이미지</CharacterBox>
+              <CharacterBox>
+              <StyledRemoteImage imageKey="CaptureStartCharacter_0" alt="캐릭터" />
+              </CharacterBox>
             </InstructionBox>
           )}
           {/* 설명 닫힌 경우 */}
@@ -89,6 +102,7 @@ function CaptureGuideFourth() {
         {!isMounted && (
           <MoreButton onClick={handleShowAgain}>설명 자세히 보기</MoreButton>
         )}
+        {showModal && <AlertModal onClose={handleCloseModal} />}
       </Container>
     </PageWrapper>
   );
@@ -220,10 +234,9 @@ const SpeechBubble = styled.div`
 
 const CharacterBox = styled.div`
   margin-left: auto;
-  width:150px;
-  height: 150px;
-  padding: 8px;
-  background: #f5f5f5;
+  width:120px;
+  height: 120px;
+
 `;
 
 const NextButton = styled.button`
@@ -246,12 +259,12 @@ const MoreButton = styled.button`
   position: absolute;
   left: 0; right: 0; bottom: 0;
   width: 100%;
-  padding: 20px 0;
+  padding: 27px 0;
   background: #ff62b0;
   color: #fff;
   font-size: 19px;
   font-weight: bold;
   border: none;
-  border-radius: 0 0 8px 8px;
+  border-radius: 10px;
   z-index: 10;
 `;

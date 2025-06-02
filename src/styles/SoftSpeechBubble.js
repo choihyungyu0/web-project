@@ -1,11 +1,10 @@
-// src/styles/SoftSpeechBubble.js
 import React from 'react';
 import styled from 'styled-components';
 
-export function SoftSpeechBubble({ children, style }) {
+export function SoftSpeechBubble({ children, style, padding, width, height }) {
   return (
     <SpeechBubbleWrap style={style}>
-      <SpeechBubbleBox>
+      <SpeechBubbleBox padding={padding} width={width} height={height}>
         {children}
       </SpeechBubbleBox>
       <SpeechBubbleTail
@@ -33,12 +32,13 @@ const SpeechBubbleWrap = styled.div`
 `;
 
 const SpeechBubbleBox = styled.div`
-  width: 260px;
-  min-height: 70px;
+  width: ${({ width }) => width || '260px'};
+  min-height: ${({ height }) => height || '70px'};
   background: #fff;
   border-radius: 20px;
-  padding: 20px 10px 28px 10px;
+  padding: ${({ padding }) => padding || '20px 10px 28px 10px'};
   border: 2px solid #ff3593;
+  font-weight: 600;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -46,6 +46,6 @@ const SpeechBubbleBox = styled.div`
 `;
 
 const SpeechBubbleTail = styled.svg`
-  margin-top: -3px;
+  margin-top: -3.5px;
   margin-left: 135px;
 `;

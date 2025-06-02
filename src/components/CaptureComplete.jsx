@@ -1,27 +1,35 @@
-import React from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
 import { useNavigate } from 'react-router-dom';
 import StyledRemoteImage from '../styles/RemoteImage';
 import { LogoButtons, MypageWrap, MypageButton } from '../styles/CommonButtons';
 import { BellButton } from '../styles/CommonButtons';
+import AlertModal from '../styles/AlertModal'; // ✅ 모달 컴포넌트 import
 
 const CaptureGuidePage = () => {
   const navigate = useNavigate();
+  const [showModal, setShowModal] = useState(false); // ✅ 모달 열림 여부
+    const [selectedAlert, setSelectedAlert] = useState(null);
 
-  // 버튼 클릭시 state와 함께 이동
   const handleGoLearning = () => {
     navigate('/Smartphone', { state: { carrotAfter: true } });
+  }
+
+  const handleOpenModal = (alert) => setSelectedAlert(alert);
+  const handleCloseModal = () => {
+    setSelectedAlert(null);
+    setShowModal(false); // ✅ Bell 버튼 모달 닫기
   };
 
   return (
     <Wrapper>
       <Container>
         <TopBar>
-          <LogoButtons onClick={() => navigate('/')}>
+          <LogoButtons onClick={() => navigate('/Menu')}>
             <StyledRemoteImage imageKey="Logo_0" alt="로고"/>
           </LogoButtons>
           <RightButtons>
-           <BellButton>
+            <BellButton onClick={() => setShowModal(true)}>
               <StyledRemoteImage imageKey="Bell_0" alt="알림"/>
             </BellButton>
             <MypageWrap>
@@ -33,7 +41,7 @@ const CaptureGuidePage = () => {
             </MypageWrap>
           </RightButtons>
         </TopBar>
-        <BackArrow onClick={() => navigate(-1)}>❮</BackArrow>
+        <BackArrow onClick={() => navigate('/CaptureGuideFourth')}>❮</BackArrow>
         <ImageBox>
           <StyledRemoteImage imageKey="CaptureCompleteCharacter_0" alt="캐릭터" />
         </ImageBox>
@@ -42,6 +50,7 @@ const CaptureGuidePage = () => {
           모두 배웠어요!
         </Description>
         <StartButton onClick={handleGoLearning}>다른 공부하러 가기</StartButton>
+        {showModal && <AlertModal onClose={handleCloseModal} />}
       </Container>
     </Wrapper>
   );
@@ -94,26 +103,26 @@ const BackArrow = styled.div`
 `;
 
 const ImageBox = styled.div`
-  width: 312px;
+  width: 384px;
   height: 312px;
   background-color: #eee;
-  margin: 0 auto;
+  margin: auto auto 0 auto;
   display: flex;
   justify-content: center;
   align-items: center;
 `;
 
 const Description = styled.p`
-  font-size: 18px;
+  font-size: 25px;
   font-weight: bold;
   text-align: center;
-  margin: 20px 0 40px;
+  margin: 40px 0 40px;
   line-height: 1.6;
 `;
 
 const StartButton = styled.button`
-  width: 240px;
-  height: 48px;
+  width: 236px;
+  height: 72px;
   background: #ff69b4;
   color: #fff;
   border: none;
@@ -122,7 +131,7 @@ const StartButton = styled.button`
   font-weight: 500;
   cursor: pointer;
   transition: 0.1s;
-  margin: 0 auto;
+  margin:auto;
   &:hover {
     opacity: 0.92;
   }

@@ -6,11 +6,22 @@ import StyledRemoteImage from '../styles/RemoteImage';
 import { LogoButtons, MypageWrap, MypageButton } from '../styles/CommonButtons';
 import { BellButton } from '../styles/CommonButtons';
 import { SoftSpeechBubble } from '../styles/SoftSpeechBubble';
+import AlertModal from '../styles/AlertModal'; // ✅ 모달 컴포넌트 import
 
 function CaptureGuideFirst() {
   const [showInstruction, setShowInstruction] = useState(true);
   const [isMounted, setIsMounted] = useState(true);
   const navigate = useNavigate();
+  const [showModal, setShowModal] = useState(false); // ✅ 모달 열림 여부
+  const [selectedAlert, setSelectedAlert] = useState(null);
+
+
+  const handleOpenModal = (alert) => setSelectedAlert(alert);
+  const handleCloseModal = () => {
+    setSelectedAlert(null);
+    setShowModal(false); // ✅ Bell 버튼 모달 닫기
+  };
+
 
   useEffect(() => {
     const slideTimer = setTimeout(() => {
@@ -45,11 +56,11 @@ function CaptureGuideFirst() {
     <PageWrapper>
       <Container>
         <TopBar>
-          <LogoButtons onClick={() => navigate('/')}>
+          <LogoButtons onClick={() => navigate('/Menu')}>
             <StyledRemoteImage imageKey="Logo_0" alt="로고"/>
           </LogoButtons>
           <RightButtons>
-            <BellButton>
+            <BellButton onClick={() => setShowModal(true)}>
               <StyledRemoteImage imageKey="Bell_0" alt="알림"/>
             </BellButton>  
             <MypageWrap>
@@ -61,7 +72,7 @@ function CaptureGuideFirst() {
             </MypageWrap>
           </RightButtons>
         </TopBar>
-        <BackArrow onClick={() => navigate(-1)}>❮</BackArrow>
+        <BackArrow onClick={() => navigate('/CaptureStart')}>❮</BackArrow>
         <ContentContainer>
           <CaptureBox
             imageKey="SmartphoneGuideFirst_0"
@@ -71,11 +82,16 @@ function CaptureGuideFirst() {
             <InstructionBox $visible={showInstruction}>
               <InstructionTitle onClick={handleCloseInstruction}>설명 닫아두기</InstructionTitle>
               <SpeechRow>
-                <SpeechBubble>카메라 아이콘을 터치하세요!</SpeechBubble>
+              <SoftSpeechBubble
+                style={{ marginRight: '32px' }}
+                padding="0px"
+              >
+                카메라 아이콘을 터치하세요!
+              </SoftSpeechBubble>
               </SpeechRow>
-            <ImageBox>
+              <CharacterBox>
               <StyledRemoteImage imageKey="CaptureStartCharacter_0" alt="캐릭터" />
-            </ImageBox>
+              </CharacterBox>
             </InstructionBox>
           )}
           {/* 설명 닫힌 경우 */}
@@ -89,6 +105,7 @@ function CaptureGuideFirst() {
         {!isMounted && (
           <MoreButton onClick={handleShowAgain}>설명 자세히 보기</MoreButton>
         )}
+        {showModal && <AlertModal onClose={handleCloseModal} />}
       </Container>
     </PageWrapper>
   );
@@ -148,6 +165,13 @@ const BackArrow = styled.div`
   margin: 12px 0 0 20px;
   cursor: pointer;
   align-self: flex-start;
+`;
+
+const CharacterBox = styled.div`
+  margin-left: auto;
+  width:120px;
+  height: 120px;
+
 `;
 
 const ContentContainer = styled.div`
@@ -254,12 +278,12 @@ const MoreButton = styled.button`
   position: absolute;
   left: 0; right: 0; bottom: 0;
   width: 100%;
-  padding: 20px 0;
+  padding: 27px 0;
   background: #ff62b0;
   color: #fff;
   font-size: 19px;
   font-weight: bold;
   border: none;
-  border-radius: 0 0 8px 8px;
+  border-radius: 10px;
   z-index: 10;
 `;

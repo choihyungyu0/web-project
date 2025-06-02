@@ -1,32 +1,37 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
-import { useNavigate, useLocation } from 'react-router-dom'; // ← useLocation 추가!
+import { useNavigate, useLocation } from 'react-router-dom';
 import { useSignUp } from '../styles/SignupContext';
-import { LogoButton } from '../styles/CommonButtons'; // ← 로고 버튼 스타일 import
-import StyledRemoteImage from '../styles/RemoteImage'; // ← 이미지 컴포넌트 import
-
+import { LogoButton } from '../styles/CommonButtons';
+import StyledRemoteImage from '../styles/RemoteImage';
 
 function CheckName() {
   const navigate = useNavigate();
-  const location = useLocation(); // ← 변수명 겹치지 않게!
+  const location = useLocation();
   const { signUpData, updateSignUpData } = useSignUp();
-  const isProfileComplete = location.state?.isProfileComplete; // ← 이렇게 접근!
-  console.log(isProfileComplete);
-
-  // 초기값을 Context에서 가져오도록 하면 뒤로 돌아왔을 때도 값 유지됨
+  const isProfileComplete = location.state?.isProfileComplete;
   const [name, setName] = useState(signUpData.name || '');
+  const [error, setError] = useState('');
 
   const handleNext = () => {
-    // Context에 이름 저장
+    if (!name.trim()) {
+      setError('이름을 입력해주세요.');
+      return;
+    }
+    setError('');
     updateSignUpData({ name });
-    // 다음 페이지로 isProfileComplete도 함께 넘겨주기
     navigate('/Birthday', { state: { isProfileComplete } });
+  };
+
+  const handleInputChange = (e) => {
+    setName(e.target.value);
+    if (e.target.value.trim()) setError('');
   };
 
   return (
     <Wrapper>
       <Container>
-        <LogoButton onClick={() => navigate('/')}>
+        <LogoButton onClick={() => navigate('/Welcome')}>
           <StyledRemoteImage imageKey="Logo_0" alt="로고" />
         </LogoButton>
         <ImageBox>
@@ -37,9 +42,10 @@ function CheckName() {
           type="text"
           placeholder=""
           value={name}
-          onChange={e => setName(e.target.value)}
+          onChange={handleInputChange}
         />
         <NameHint>예) 홍길동</NameHint>
+        {error && <ErrorMessage>{error}</ErrorMessage>}
         <NextButton onClick={handleNext}>
           다음으로 넘어가기
         </NextButton>
@@ -52,10 +58,8 @@ export default CheckName;
 
 // ---- styled-components 등 아래 코드 동일 ----
 
-
-// ---- styled-components 그대로 사용 ----
 const Wrapper = styled.div`
-   width: 100%;
+  width: 100%;
   height: 100vh;
   background-color: #f9f9f9;
   display: flex;
@@ -66,7 +70,7 @@ const Wrapper = styled.div`
 `;
 
 const Container = styled.div`
-   height: 100%;
+  height: 100%;
   width: 100%;
   max-width: 464px;
   background-color: #fff;
@@ -79,38 +83,26 @@ const Container = styled.div`
   align-items: center;
 `;
 
-const LogoutButton = styled.button`
-  position: absolute;
-  top: 20px;
-  left: 20px;
-  padding: 6px 12px;
-  border: 1px solid #ccc;
-  border-radius: 4px;
-  background-color: white;
-  cursor: pointer;
-`;
-
 const ImageBox = styled.div`
   width: 100%;
   max-width: 219px;
-  height: 312px;
+  height: 40%;
   background-color: #eee;
   margin: 100px auto 20px;
   display: flex;
   justify-content: center;
   align-items: center;
- 
 `;
 
 const WelcomeText = styled.p`
   font-size: 20px;
   font-weight: bold;
-  margin-bottom: 30px;
+  margin-bottom: 80px;
   line-height: 1.5;
 `;
 
 const Input = styled.input`
-    width: 100%;
+  width: 100%;
   background-color: #F2F2F7;
   padding: 15px;
   font-size: 20px;
@@ -128,6 +120,15 @@ const NameHint = styled.div`
   margin-top: -12px;
   margin-bottom: 20px;
   margin-left:5px;
+`;
+
+const ErrorMessage = styled.div`
+  color: #ff3267;
+  font-size: 16px;
+  font-weight: 500;
+  margin-bottom: 16px;
+  align-self: flex-start;
+  margin-left: 5px;
 `;
 
 const NextButton = styled.button`

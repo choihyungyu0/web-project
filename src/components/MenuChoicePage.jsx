@@ -1,30 +1,31 @@
-import React from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
 import { useNavigate } from 'react-router-dom';
-import { MypageWrap, MypageButton } from '../styles/CommonButtons';
+import { MypageWrap, MypageButton, BellButton, LogoButtons } from '../styles/CommonButtons';
 import { SoftSpeechBubble } from '../styles/SoftSpeechBubble';
-import StyledRemoteImage from '../styles/RemoteImage'; // RemoteImage import
-import {BellButton} from '../styles/CommonButtons'; // BellButton import
-import { LogoButtons } from '../styles/CommonButtons'; // 로고 버튼 import
+import StyledRemoteImage from '../styles/RemoteImage';
+import AlertModal from '../styles/AlertModal'; // ✅ 모달 import
 
 function LearningChoiceContainer() {
   const navigate = useNavigate();
+  const [showModal, setShowModal] = useState(false); // ✅ 모달 상태
+
   return (
     <PageContainer>
       <ContentWrapper>
         <TopBar>
-          <LogoButtons onClick={() => navigate('/')}>
-            <StyledRemoteImage imageKey="Logo_0" alt="로고"/>
+          <LogoButtons onClick={() => navigate('/Menu')}>
+            <StyledRemoteImage imageKey="Logo_0" alt="로고" />
           </LogoButtons>
+
           <RightButtons>
-            <BellButton>
-              <StyledRemoteImage imageKey="Bell_0" alt="알림"/>
+            <BellButton onClick={() => setShowModal(true)}>
+              <StyledRemoteImage imageKey="Bell_0" alt="알림" />
             </BellButton>
+
             <MypageWrap>
-              <MypageButton
-                onClick={() => navigate('/Mypage')}
-              >            
-              <StyledRemoteImage imageKey="Mypage_0" alt="마이페이지지"/>
+              <MypageButton onClick={() => navigate('/Mypage')}>
+                <StyledRemoteImage imageKey="Mypage_0" alt="마이페이지지" />
               </MypageButton>
             </MypageWrap>
           </RightButtons>
@@ -35,14 +36,22 @@ function LearningChoiceContainer() {
             <SoftSpeechBubble style={{ minWidth: 240, fontSize: 28 }}>
               <Text>원하시는 메뉴를<br /> 선택해주세요!</Text>
             </SoftSpeechBubble>
-        <ImageBox>
-          <StyledRemoteImage imageKey="MenuChoicePageCharacter_0" alt="캐릭터" />
-        </ImageBox>
+
+            <ImageBox>
+              <StyledRemoteImage imageKey="MenuChoicePageCharacter_0" alt="캐릭터" />
+            </ImageBox>
           </QuestionRow>
 
-          <ChoiceButton onClick={() => navigate('/Learning')}>학습하기</ChoiceButton>
-          <ChoiceButton onClick={() => navigate('/CustomInfo')}>맞춤 생활 정보 보기</ChoiceButton>
+          <ChoiceButton onClick={() => navigate('/Learning')}>
+            학습하기
+          </ChoiceButton>
+          <ChoiceButton onClick={() => navigate('/CustomInfo')}>
+            맞춤 생활 정보 보기
+          </ChoiceButton>
         </Content>
+
+        {/* ✅ AlertModal 조건부 렌더링 */}
+        {showModal && <AlertModal onClose={() => setShowModal(false)} />}
       </ContentWrapper>
     </PageContainer>
   );
@@ -99,9 +108,8 @@ const Content = styled.div`
 const QuestionRow = styled.div`
   display: flex;
   justify-content: center;
-  align-items: flex-start;
-  gap: 12px;
-  margin: 32px 0;
+  align-items: flex-end;
+  margin: 56px 0;
 `;
 
 // ===== SpeechBubble SVG 꼬리 버전 =====
@@ -117,11 +125,12 @@ const SpeechBubbleBox = styled.div`
   min-height: 110px;
   background: #fff;
   border-radius: 28px;
-  padding: 24px 16px 18px 16px;
+  padding: 24px 16px 108px 16px;
   border: 2px solid #ff3593;
   display: flex;
   align-items: center;
   justify-content: center;
+
 `;
 
 const SpeechBubbleTail = styled.svg`
@@ -138,10 +147,10 @@ const Text = styled.div`
 `;
 
 const ImageBox = styled.div`
-   width: 100px;
-  height: 100px;
+   width: 108px;
+  height: 120px;
   background-color:#eee;
-  border: 2px solid black;
+
   margin-top:10px;
   display: flex;
   align-items: center;
@@ -168,4 +177,8 @@ const ChoiceButton = styled.button`
   justify-content: center;
   align-items: center;
   text-align: center;
+  margin-top:14px;
+   &:first-of-type {
+    margin-top: 73px; // ✅ 첫 번째 버튼만 더 아래로
+  }
 `;

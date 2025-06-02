@@ -1,29 +1,36 @@
-import React from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
 import { useNavigate } from 'react-router-dom';
 import StyledRemoteImage from '../styles/RemoteImage';
 import { LogoButtons, MypageWrap, MypageButton } from '../styles/CommonButtons';
 import { BellButton } from '../styles/CommonButtons';
+import AlertModal from '../styles/AlertModal'; // ✅ 모달 컴포넌트 import
 
 
 const CaptureStartPage = () => {
-  const  navigate  = useNavigate();
+  const navigate = useNavigate();
+  const [showModal, setShowModal] = useState(false); // ✅ 모달 열림 여부
+  const [selectedAlert, setSelectedAlert] = useState(null);
+  const handleOpenModal = (alert) => setSelectedAlert(alert);
+  const handleCloseModal = () => {
+    setSelectedAlert(null);
+    setShowModal(false); // ✅ Bell 버튼 모달 닫기
+  };
+
   return (
     <Wrapper>
       <Container>
         <TopBar>
-          <LogoButtons onClick={() => navigate('/')}>
+          <LogoButtons onClick={() => navigate('/Menu')}>
             <StyledRemoteImage imageKey="Logo_0" alt="로고"/>
           </LogoButtons>
           <RightButtons>
-            <BellButton>
+            <BellButton onClick={() => setShowModal(true)}>
               <StyledRemoteImage imageKey="Bell_0" alt="알림"/>
             </BellButton>  
             <MypageWrap>
-              <MypageButton
-                onClick={() => navigate('/Mypage')}
-              >            
-              <StyledRemoteImage imageKey="Mypage_0" alt="마이페이지"/>
+              <MypageButton onClick={() => navigate('/Smartphone')}>            
+                <StyledRemoteImage imageKey="Mypage_0" alt="마이페이지"/>
               </MypageButton>
             </MypageWrap>
           </RightButtons>
@@ -41,6 +48,7 @@ const CaptureStartPage = () => {
         </Description>
 
         <StartButton onClick={()=>navigate('/CaptureGuideFirst')}>시작하기</StartButton>
+        {showModal && <AlertModal onClose={handleCloseModal} />}        
       </Container>
     </Wrapper>
   );
@@ -48,6 +56,7 @@ const CaptureStartPage = () => {
 
 export default CaptureStartPage;
 
+// styled-components
 const Wrapper = styled.div`
   width: 100vw;
   height: 100vh;
@@ -92,37 +101,33 @@ const RightButtons = styled.div`
 `;
 
 const BackArrow = styled.div`
-
-font-size: 28px;
+  font-size: 28px;
   cursor: pointer;
   margin: 20px 0;
   align-self: flex-start;  
 `;
 
-
 const ImageBox = styled.div`
-  width: 312px;
-  height: 312px;
+  width: 274px;
+  height: 304px;
   background-color: #eee;
-  border: 1px solid #ccc;
-  margin: 20px 0;
+  margin: auto auto 0 auto;
   display: flex;
   justify-content: center;
   align-items: center;
-  margin: 0 auto;
 `;
 
 const Description = styled.p`
   font-size: 18px;
   font-weight: bold;
   text-align: center;
-  margin: 20px 0 40px;
+  margin: 40px 0 40px;
   line-height: 1.6;
-`;
+;`
 
 const StartButton = styled.button`
-  width: 240px;
-  height: 48px;
+  width: 236px;
+  height: 72px;
   background: #ff69b4;
   color: #fff;
   border: none;
@@ -131,8 +136,8 @@ const StartButton = styled.button`
   font-weight: 500;
   cursor: pointer;
   transition: 0.1s;
-  margin: 0 auto;
+  margin: auto auto;
   &:hover {
     opacity: 0.92;
   }
-`;
+;`

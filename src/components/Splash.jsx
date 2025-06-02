@@ -98,13 +98,15 @@ const CharacterBox = styled.div`
 
 const ImageBox = styled.div`
   width: 100%;
-  max-width: 200px;
-  height: 200px;
+  max-width: 286px;
+  height: 316px;
   background-color: #eee;
   margin: 100px auto 20px;
   display: flex;
   justify-content: center;
   align-items: center;
+   object-fit: cover;
+  clip-path: inset(0px 2px 2px 0px); /* top right bottom left */
 `;
 
 // 로고 이미지 영역

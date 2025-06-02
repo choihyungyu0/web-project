@@ -6,11 +6,11 @@ import { LogoButtons, MypageWrap, MypageButton } from '../styles/CommonButtons';
 import { SoftSpeechBubble } from '../styles/SoftSpeechBubble';
 import { useSignUp } from '../styles/SignupContext';
 import { BellButton } from '../styles/CommonButtons';
-
+import AlertModal from '../styles/AlertModal'; // 실제 파일 경로에 맞게 수정
 export default function MyPage() {
   const navigate = useNavigate();
   const { signUpData } = useSignUp();
-
+const [showModal, setShowModal] = useState(false);
   return (
     <PageContainer>
       <ContentWrapper>
@@ -19,9 +19,9 @@ export default function MyPage() {
             <StyledRemoteImage imageKey="Logo_0" alt="로고"/>
           </LogoButtons>
           <RightButtons>
-            <BellButton>
-              <StyledRemoteImage imageKey="Bell_0" alt="알림"/>
-            </BellButton>  
+            <BellButton onClick={() => setShowModal(true)}>
+            <StyledRemoteImage imageKey="Bell_0" alt="알림" />
+          </BellButton>
             <MypageWrap>
               <MypageButton
                 onClick={() => navigate('/Mypage')}
@@ -37,11 +37,9 @@ export default function MyPage() {
         </BackButtonWrapper>
 
         <HeaderBox>
-          <Message>
-            <p>
-              <strong>{signUpData.name || '회원'}님</strong>의 화면이에요
-            </p>
-          </Message>
+              <SoftSpeechBubble style={{ minWidth: 240, fontSize: 28 }}>
+              {signUpData.name || '회원'}님의 화면이에요.
+              </SoftSpeechBubble>
         <ImageBox>
           <StyledRemoteImage imageKey="SmartphoneGuideCharacter_0" alt="캐릭터" />
         </ImageBox>
@@ -74,7 +72,7 @@ export default function MyPage() {
           </IconButton>
         </IconGrid>
 
-
+  {showModal && <AlertModal onClose={() => setShowModal(false)} />}
       </ContentWrapper>
     </PageContainer>
   );
@@ -175,9 +173,7 @@ const BackButton = styled(Button)`
 
 const HeaderBox = styled.div`
   display: flex;
-  justify-content: center;
-  align-items: flex-start;
-  gap: 8px;
+  justify-content: flex-end;
   margin: 20px 0;
 `;
 
@@ -219,7 +215,7 @@ const ImageBox = styled.div`
    width: 100px;
   height: 100px;
   background-color:#eee;
-  border: 2px solid black;
+
   margin-top:10px;
   display: flex;
   align-items: center;

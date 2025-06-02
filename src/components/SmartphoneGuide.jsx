@@ -1,11 +1,12 @@
-import React from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
 import { useNavigate, useLocation } from 'react-router-dom';
-import StyledRemoteImage from '../styles/RemoteImage'; // RemoteImage import
-import { LogoButtons, MypageWrap, MypageButton, BellButton } from '../styles/CommonButtons'; // 로고 버튼, 마이페이지 버튼, 알림 버튼 import
-import { SoftSpeechBubble } from '../styles/SoftSpeechBubble'; // SoftSpeechBubble import
+import StyledRemoteImage from '../styles/RemoteImage';
+import { LogoButtons, MypageWrap, MypageButton, BellButton } from '../styles/CommonButtons';
+import { SoftSpeechBubble } from '../styles/SoftSpeechBubble';
 import CarrotBefore from '../assets/CarrotBefore.png';
-import CarrotAfter from '../assets/CarrotAfter.png'; // 새 이미지 import
+import CarrotAfter from '../assets/CarrotAfter.png';
+import AlertModal from '../styles/AlertModal'; // ✅ 모달 import
 
 
 const carrotTexts = [
@@ -21,50 +22,53 @@ const carrotTexts = [
 function SmartphoneGuide() {
   const navigate = useNavigate();
   const location = useLocation();
-  // state로 넘어온 값
   const carrotAfter = location.state?.carrotAfter;
-
+  const [showModal, setShowModal] = useState(false); // ✅ 모달 상태
+  
   return (
     <PageContainer>
       <ContentWrapper>
         <TopBar>
           <LeftSection>
-          <LogoButtons onClick={() => navigate('/')}>
-            <StyledRemoteImage imageKey="Logo_0" alt="로고"/>
-          </LogoButtons>
+            <LogoButtons onClick={() => navigate('/Menu')}>
+              <StyledRemoteImage imageKey="Logo_0" alt="로고"/>
+            </LogoButtons>
           </LeftSection>
           <RightButtons>
-            <BellButton>
-              <StyledRemoteImage imageKey="Bell_0" alt="알림"/>
-            </BellButton>  
+              <BellButton onClick={() => setShowModal(true)}>
+                <StyledRemoteImage imageKey="Bell_0" alt="알림"/>
+              </BellButton>
             <MypageWrap>
-              <MypageButton
-                onClick={() => navigate('/Mypage')}
-              >            
-              <StyledRemoteImage imageKey="Mypage_0" alt="마이페이지"/>
+              <MypageButton onClick={() => navigate('/Mypage')}>
+                <StyledRemoteImage imageKey="Mypage_0" alt="마이페이지"/>
               </MypageButton>
             </MypageWrap>
           </RightButtons>
         </TopBar>
 
         <BackButtonWrapper>
-          <BackButton onClick={() => navigate(-1)}>뒤로가기</BackButton>
+          <BackButton onClick={() => navigate('/Learning')}>뒤로가기</BackButton>
         </BackButtonWrapper>
 
         <Content>
           <QuestionRow>
-            <SpeechBubble>
-              <Text>무엇을 배워볼까요?</Text>
-            </SpeechBubble>
-        <ImageBox>
-          <StyledRemoteImage imageKey="CheckBirthdayCharacter_0" alt="캐릭터" />
-        </ImageBox>
+            <SoftSpeechBubble
+              width="287px"
+              height="93px"
+            >
+              <span style={{ fontSize: "21px", fontWeight: 700 }}>
+                스마트폰 사용법에 대해 <br />
+                알아보아요!
+              </span>
+            </SoftSpeechBubble>
+            <ImageBox>
+              <StyledRemoteImage imageKey="SmartphoneGuideCharacter_0" alt="캐릭터" />
+            </ImageBox>
           </QuestionRow>
         </Content>
 
         <CarrotList>
           {carrotTexts.map((text, idx) => {
-            // 위치와 패딩 설정
             let align = 'center';
             let paddingLeft = 0;
             if (idx === 0) align = 'right';
@@ -75,7 +79,6 @@ function SmartphoneGuide() {
             if (idx === 5) { align = 'left'; paddingLeft = 200; }
             if (idx === 6) align = 'right';
 
-            // 첫 번째 당근만 이미지 변경
             const carrotImg = idx === 0 && carrotAfter ? CarrotAfter : CarrotBefore;
 
             return (
@@ -91,6 +94,7 @@ function SmartphoneGuide() {
             );
           })}
         </CarrotList>
+        {showModal && <AlertModal onClose={() => setShowModal(false)} />}
       </ContentWrapper>
     </PageContainer>
   );
@@ -98,8 +102,7 @@ function SmartphoneGuide() {
 
 export default SmartphoneGuide;
 
-// ----------- styled-components -----------
-
+// styled-components (아래는 동일)
 const PageContainer = styled.div`
   width: 100vw;
   min-height: 100vh;
@@ -150,10 +153,10 @@ const Button = styled.button`
 `;
 
 const ImageBox = styled.div`
-   width: 100px;
-  height: 100px;
+  width: 108px;
+  height: 120px;
   background-color:#eee;
-  border: 2px solid black;
+  border:none;
   margin-top:10px;
   display: flex;
   align-items: center;
@@ -165,15 +168,37 @@ const ImageBox = styled.div`
   margin-top:50px;
 `;
 
-
 const BackButtonWrapper = styled.div`
   display: flex;
   justify-content: flex-start;
   margin-bottom: 16px;
+  
 `;
 
 const BackButton = styled(Button)`
   font-weight: bold;
+  /* Frame 2031 */
+
+/* Auto layout */
+display: flex;
+flex-direction: row;
+justify-content: center;
+align-items: center;
+padding: 12px 32px;
+gap: 10px;
+
+width: 147px;
+height: 56px;
+
+/* Fills/Secondary */
+background: rgba(120, 120, 128, 0.16);
+border-radius: 20px;
+
+/* Inside auto layout */
+flex: none;
+order: 0;
+flex-grow: 0;
+
 `;
 
 const Content = styled.div`
@@ -181,72 +206,15 @@ const Content = styled.div`
   flex-direction: column;
   align-items: center;
   gap: 24px;
-  
 `;
 
 const QuestionRow = styled.div`
   display: flex;
-  justify-content: space-between;
+  justify-content: flex-end;
   align-items: center;
   width: 100%;
   margin-bottom: 50px;
 `;
-
-const SpeechBubble = styled.div`
-    position: relative;
-  width: 271px;
-  height: 70px;
-  background: #fff;
-  border-radius: 20px;
-  padding: 10px;
-  box-sizing: border-box;
-  border: 2px solid #ff3593;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  text-align: right;
-  margin-left:70px;
-  
-  font-family: 'Pretendard Variable', sans-serif;
-  font-style: normal;
-  font-weight: 600;
-  font-size: 28px;
-  line-height: 48px;
-  color: #000;
- 
-  /* 꼬리 만들기 */
-  &::after {
-    content: '';
-    position: absolute;
-    bottom: -20px;
-    left: 80%;
-    transform: translateX(-50%);
-    border-width: 10px;
-    border-style: solid;
-    border-color: #ff3593 transparent transparent transparent;
-  }
-`;
-
-const Text = styled.div`
-  font-size: 18px;
-  text-align: center;
-  
-`;
-
-const CharacterBox = styled.div`
-  width: 100px;
-  height: 100px;
-  background-color:#eee;
-  border: 2px solid black;
-  margin-top:10px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 14px;
-  color: black;
-  font-weight: bold;
-`;
-
 
 const CarrotList = styled.div`
   display: flex;

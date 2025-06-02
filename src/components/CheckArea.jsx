@@ -35,7 +35,7 @@ const CheckArea = () => {
   return (
     <Wrapper>
       <Container>
-        <LogoButton onClick={() => navigate('/')}>
+        <LogoButton onClick={() => navigate('/Welcome')}>
           <StyledRemoteImage imageKey="Logo_0" alt="로고" />
         </LogoButton>
         <ImageBox>
@@ -101,7 +101,7 @@ const LogoutButton = styled.button`
 const ImageBox = styled.div`
   width: 100%;
 max-width: 219px;
-  height: 302px;
+  height: 40%;
   
  padding-bottom:10px;
   display: flex;
@@ -116,6 +116,7 @@ const QuestionText = styled.p`
   text-align: center;
   margin-bottom: 50px;
   line-height: 1.5;
+  margin-bottom: 100px;
 `;
 
 const Select = styled.select`
@@ -123,7 +124,8 @@ const Select = styled.select`
   font-size: 20px;
   border: 1px solid #ccc;
   border-radius: 4px;
-  margin-bottom: 6px;
+  margin-bottom: 20px;
+
 `;
 
 const ButtonGroup = styled.div`

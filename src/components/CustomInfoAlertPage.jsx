@@ -2,27 +2,24 @@ import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 import { useNavigate } from "react-router-dom";
 import StyledRemoteImage from '../styles/RemoteImage';
-import { MypageWrap, MypageButton } from '../styles/CommonButtons';
-import { LogoButtons } from '../styles/CommonButtons';
+import { MypageWrap, MypageButton, LogoButtons, BellButton } from '../styles/CommonButtons';
 import { SoftSpeechBubble } from '../styles/SoftSpeechBubble';
-import { BellButton } from '../styles/CommonButtons';
+import AlertModal from '../styles/AlertModal'; // ✅ 모달 컴포넌트 import
 
 export default function CustomInfoAlertPage() {
   const navigate = useNavigate();
   const [alerts, setAlerts] = useState([]);
   const [selectedAlert, setSelectedAlert] = useState(null);
+  const [showModal, setShowModal] = useState(false); // ✅ 모달 열림 여부
 
-  // 페이지네이션 관련
   const [currentPage, setCurrentPage] = useState(1);
   const ITEMS_PER_PAGE = 4;
 
-  // 서버에서 데이터 불러오기 (토큰 포함)
   useEffect(() => {
-    const token = localStorage.getItem('accessToken'); // 로그인 시 저장된 토큰 가져오기
+    const token = localStorage.getItem('accessToken');
     fetch("https://knowhow.it.com/api/welfare/list", {
       headers: {
         Authorization: `Bearer ${token}`,
-        // 필요하다면 'Content-Type': 'application/json' 등도 추가
       }
     })
       .then(res => {
@@ -36,35 +33,35 @@ export default function CustomInfoAlertPage() {
       });
   }, []);
 
-  // 전체 페이지 개수 계산
   const totalPages = Math.ceil(alerts.length / ITEMS_PER_PAGE);
-
-  // 현재 페이지에 보여줄 데이터만 자르기
   const pagedAlerts = alerts.slice(
     (currentPage - 1) * ITEMS_PER_PAGE,
     currentPage * ITEMS_PER_PAGE
   );
 
+
   const handleOpenModal = (alert) => setSelectedAlert(alert);
-  const handleCloseModal = () => setSelectedAlert(null);
+  const handleCloseModal = () => {
+    setSelectedAlert(null);
+    setShowModal(false); // ✅ Bell 버튼 모달 닫기
+  };
+
   return (
     <PageContainer>
       <ContentWrapper>
         <TopBar>
           <LeftSection>
-          <LogoButtons onClick={() => navigate('/')}>
-            <StyledRemoteImage imageKey="Logo_0" alt="로고"/>
-          </LogoButtons>
+            <LogoButtons onClick={() => navigate('/')}>
+              <StyledRemoteImage imageKey="Logo_0" alt="로고" />
+            </LogoButtons>
           </LeftSection>
           <RightButtons>
-            <BellButton>
-              <StyledRemoteImage imageKey="Bell_0" alt="알림"/>
-            </BellButton> 
+            <BellButton onClick={() => setShowModal(true)}>
+              <StyledRemoteImage imageKey="Bell_0" alt="알림" />
+            </BellButton>
             <MypageWrap>
-              <MypageButton
-                onClick={() => navigate('/Mypage')}
-              >            
-              <StyledRemoteImage imageKey="Mypage_0" alt="마이페이지"/>
+              <MypageButton onClick={() => navigate('/Mypage')}>
+                <StyledRemoteImage imageKey="Mypage_0" alt="마이페이지" />
               </MypageButton>
             </MypageWrap>
           </RightButtons>
@@ -74,14 +71,14 @@ export default function CustomInfoAlertPage() {
           <BackButton onClick={() => navigate(-1)}>뒤로가기</BackButton>
         </BackButtonWrapper>
 
-          <QuestionRow>
-            <SpeechBubble>
-              <Text>무엇을 배워볼까요?</Text>
-            </SpeechBubble>
-        <ImageBox>
-          <StyledRemoteImage imageKey="LearningChoicePageCharacter_0" alt="캐릭터" />
-        </ImageBox>
-          </QuestionRow>
+        <QuestionRow>
+              <SoftSpeechBubble style={{ minWidth: 240, fontSize: 28 }}>
+                            <Text>맞춤 생활 정보를 확인해보세요!</Text>
+                          </SoftSpeechBubble>
+          <ImageBox>
+            <StyledRemoteImage imageKey="LearningChoicePageCharacter_0" alt="캐릭터" />
+          </ImageBox>
+        </QuestionRow>
 
         <AlertList>
           {pagedAlerts.map((item, idx) => (
@@ -121,6 +118,7 @@ export default function CustomInfoAlertPage() {
           </span>
         </Pagination>
 
+        {/* 기존 상세 모달 */}
         {selectedAlert && (
           <ModalOverlay onClick={handleCloseModal}>
             <ModalBox onClick={(e) => e.stopPropagation()}>
@@ -132,32 +130,24 @@ export default function CustomInfoAlertPage() {
               </TagRow>
               <Title>{selectedAlert.servNm}</Title>
               <Description>{selectedAlert.servDgst}</Description>
-              <InfoRow>
-                <strong>담당부서</strong> <span>{selectedAlert.jurMnOn}</span>
-              </InfoRow>
-              <InfoRow>
-                <strong>지원주기</strong> <span>{selectedAlert.sprtCycNm}</span>
-              </InfoRow>
-              <InfoRow>
-                <strong>제공유형</strong> <span>{selectedAlert.srvPvsnNm}</span>
-              </InfoRow>
-              <InfoRow>
-                <strong>문의처</strong> <span>{selectedAlert.rprsCtadr}</span>
-              </InfoRow>
-              <LinkButton
-                onClick={() =>
-                  window.open(selectedAlert.servDtlLink, "_blank")
-                }
-              >
+              <InfoRow><strong>담당부서</strong><span>{selectedAlert.jurMnOn}</span></InfoRow>
+              <InfoRow><strong>지원주기</strong><span>{selectedAlert.sprtCycNm}</span></InfoRow>
+              <InfoRow><strong>제공유형</strong><span>{selectedAlert.srvPvsnNm}</span></InfoRow>
+              <InfoRow><strong>문의처</strong><span>{selectedAlert.rprsCtadr}</span></InfoRow>
+              <LinkButton onClick={() => window.open(selectedAlert.servDtlLink, "_blank")}>
                 복지로 사이트로 이동해 자세히 보기
               </LinkButton>
             </ModalBox>
           </ModalOverlay>
         )}
+
+        {/* ✅ Bell 버튼용 AlertModal */}
+        {showModal && <AlertModal onClose={handleCloseModal} />}
       </ContentWrapper>
     </PageContainer>
   );
 }
+
 
 // styled-components ------------------------------------
 
@@ -194,8 +184,7 @@ const TopBar = styled.div`
 const ImageBox = styled.div`
    width: 100px;
   height: 100px;
-  background-color:#eee;
-  border: 2px solid black;
+ 
   margin-top:10px;
   display: flex;
   align-items: center;
@@ -283,7 +272,7 @@ flex-grow: 0;
 
 const QuestionRow = styled.div`
   display: flex;
-  justify-content: space-between;
+  justify-content: flex-end;
   align-items: center;
   width: 100%;
   margin-bottom: 50px;

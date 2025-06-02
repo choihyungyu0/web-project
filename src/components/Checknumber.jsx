@@ -30,7 +30,7 @@ export default function PhoneNumberPage() {
   return (
     <Wrapper>
       <Container>
-        <LogoButton onClick={() => navigate('/')}>
+        <LogoButton onClick={() => navigate('/Welcome')}>
           <StyledRemoteImage imageKey="Logo_0" alt="로고" />
         </LogoButton>
         <ImageBox>
@@ -99,7 +99,7 @@ const TopButton = styled.button`
 const ImageBox = styled.div`
   width: 100%;
   max-width: 210px;
-  height: 220px;
+  height: 30%;
   padding-bottom:80px;
  
   margin: 100px auto 20px;
@@ -113,7 +113,7 @@ const Instruction = styled.div`
   text-align: center;
   font-size: 20px;
   font-weight: bold;
-  margin-bottom: 24px;
+  margin-bottom: 100px;
 `;
 
 const InputWrapper = styled.div`
