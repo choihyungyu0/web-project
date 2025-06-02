@@ -18,3 +18,9 @@ export const CharacterImage = styled.img`
   object-fit: cover;
   border-radius: 50%;
 `;
+
+export const BellIcon = styled.img`
+  width: 45px;
+  height: 45px;
+
+`;

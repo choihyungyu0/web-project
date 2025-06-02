@@ -1,11 +1,15 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom'; // useLocation 추가!
 import { useSignUp } from '../styles/SignupContext'; // Context import
 
 const BirthdaySelectPage = () => {
   const navigate = useNavigate();
+  const location = useLocation(); // ← 추가
   const { signUpData, updateSignUpData } = useSignUp();
+
+  // isProfileComplete 값 받기 (이전 페이지에서 넘어옴)
+  const isProfileComplete = location.state?.isProfileComplete;
 
   // Context에서 이전 값이 있으면 불러오고, 없으면 빈 값
   const [year, setYear] = useState(signUpData.birthDate?.slice(0, 4) || '');
@@ -25,7 +29,13 @@ const BirthdaySelectPage = () => {
     // yyyy-mm-dd 형태로 저장
     const birthDate = `${year}-${String(month).padStart(2, '0')}-${String(day).padStart(2, '0')}`;
     updateSignUpData({ birthDate });
-    navigate('/Number');
+    // 다음 페이지로 isProfileComplete 같이 넘김!
+    navigate('/Number', { state: { isProfileComplete } });
+  };
+
+  const handlePrev = () => {
+    // 이전 페이지로도 isProfileComplete 넘겨주고 싶으면 아래처럼!
+    navigate(-1, { state: { isProfileComplete } });
   };
 
   return (
@@ -61,7 +71,7 @@ const BirthdaySelectPage = () => {
         </SelectGroup>
 
         <ButtonGroup>
-          <NavButton onClick={() => navigate(-1)}>이전으로</NavButton>
+          <NavButton onClick={handlePrev}>이전으로</NavButton>
           <NavButton onClick={handleNext}>다음으로</NavButton>
         </ButtonGroup>
       </Container>
@@ -70,6 +80,9 @@ const BirthdaySelectPage = () => {
 };
 
 export default BirthdaySelectPage;
+
+// ---- styled-components 아래는 동일하게 사용 ----
+
 
 // ---- styled-components 그대로 ----
 const Wrapper = styled.div`
@@ -119,16 +132,16 @@ const ImageBox = styled.div`
 `;
 
 const QuestionText = styled.p`
-  font-size: 18px;
+  font-size: 20px;
   font-weight: bold;
-  margin: 20px 0;
+  margin: 22px 0;
 `;
 
 const SelectGroup = styled.div`
   display: flex;
   justify-content: center;
   gap: 12px;
-  margin: 20px 0 40px;
+  margin: 37px 0 80px;
 `;
 
 const Select = styled.select`
@@ -139,17 +152,25 @@ const Select = styled.select`
 `;
 
 const ButtonGroup = styled.div`
-  display: flex;
-  justify-content: space-between;
+ display: flex;
+   justify-content: center;
   gap: 16px;
+  width: 100%;
+  margin-top: 11px;
 `;
 
 const NavButton = styled.button`
-  padding: 12px;
-  font-size: 18px;
-  background-color: white;
-  border: 1px solid black;
-  flex: 1;
-  border-radius: 4px;
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  gap: 16px;
+  margin-top: 12px;
+  background: rgba(120, 120, 128, 0.2);
+  width: 200px;
+  border: 1px solid #000;
+   padding: 15px;
+  font-size: 20px;
+  border-radius: 10px;
   cursor: pointer;
+  margin: 3px;
 `;

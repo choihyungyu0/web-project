@@ -1,11 +1,15 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom'; // useLocation 추가!
 import { useSignUp } from '../styles/SignupContext';
 
 export default function PhoneNumberPage() {
   const navigate = useNavigate();
+  const location = useLocation(); // ← 추가!
   const { signUpData, updateSignUpData } = useSignUp();
+
+  // Birthday에서 전달받은 isProfileComplete 값 받기
+  const isProfileComplete = location.state?.isProfileComplete;
 
   // Context에 저장된 값으로 초기화
   const [phone, setPhone] = useState(signUpData.phone || '');
@@ -17,18 +21,16 @@ export default function PhoneNumberPage() {
       return;
     }
     updateSignUpData({ phone });
-    navigate('/Area');
+    // 다음 페이지로 isProfileComplete 값 넘김!
+    navigate('/Area', { state: { isProfileComplete } });
   };
 
   return (
     <Wrapper>
       <Container>
         <TopButton onClick={() => navigate('/')}>로고</TopButton>
-
         <CharacterBox>캐릭터 이미지</CharacterBox>
-
         <Instruction>전화번호를 입력해주세요!</Instruction>
-
         <InputWrapper>
           <Input
             type="tel"
@@ -39,9 +41,11 @@ export default function PhoneNumberPage() {
           />
           <Hint>예) 010-0000-0000</Hint>
         </InputWrapper>
-
         <BottomButtons>
-          <NavButton onClick={() => navigate(-1)}>이전으로</NavButton>
+          {/* 이전 페이지로도 isProfileComplete 넘겨주고 싶다면 아래처럼! */}
+          <NavButton onClick={() => navigate(-1, { state: { isProfileComplete } })}>
+            이전으로
+          </NavButton>
           <NavButton onClick={handleNext}>다음으로</NavButton>
         </BottomButtons>
       </Container>

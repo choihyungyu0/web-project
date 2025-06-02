@@ -2,34 +2,38 @@ import React from 'react';
 import styled from 'styled-components';
 import { useNavigate } from 'react-router-dom';
 import CharacterImg from '../assets/user.png';
-import { CharacterWrap, CharacterImage } from '../styles/CommonImage'; 
+import { CharacterWrap, CharacterImage } from '../styles/CommonImage';
+import { BellButton } from '../styles/CommonButtons';
 
 const CaptureGuidePage = () => {
   const navigate = useNavigate();
+
+  // 버튼 클릭시 state와 함께 이동
+  const handleGoLearning = () => {
+    navigate('/Smartphone', { state: { carrotAfter: true } });
+  };
+
   return (
     <Wrapper>
       <Container>
         <TopBar>
           <LogoutButton onClick={() => navigate('/')}>로고</LogoutButton>
           <RightButtons>
+            <BellButton>알림</BellButton>
             <CharacterWrap>
-              <CharacterImage onClick={()=> navigate('/Mypage')} src={CharacterImg} alt="캐릭터" />
+              <CharacterImage onClick={() => navigate('/Mypage')} src={CharacterImg} alt="캐릭터" />
             </CharacterWrap>
           </RightButtons>
         </TopBar>
-
         <BackArrow onClick={() => navigate(-1)}>❮</BackArrow>
-
         <ImageBox>
           <p>캐릭터 이미지</p>
         </ImageBox>
-
         <Description>
-            &lt;사진찍기&gt;를<br />
-  모두 배웠어요!
+          &lt;사진찍기&gt;를<br />
+          모두 배웠어요!
         </Description>
-
-        <StartButton onClick={() => navigate('/Learning')}>다른 공부하러 가기</StartButton>
+        <StartButton onClick={handleGoLearning}>다른 공부하러 가기</StartButton>
       </Container>
     </Wrapper>
   );
@@ -37,9 +41,10 @@ const CaptureGuidePage = () => {
 
 export default CaptureGuidePage;
 
+// styled-components 이하 동일
 const Wrapper = styled.div`
-  width: 100%;
-  height: 100%;
+  width: 100vw;
+  height: 100vh;
   min-height: 100vh;
   background-color: #f9f9f9;
   display: flex;
@@ -81,8 +86,7 @@ const RightButtons = styled.div`
 `;
 
 const BackArrow = styled.div`
-
-font-size: 28px;
+  font-size: 28px;
   cursor: pointer;
   margin: 20px 0;
   align-self: flex-start;  
@@ -108,10 +112,18 @@ const Description = styled.p`
 `;
 
 const StartButton = styled.button`
-  padding: 12px 20px;
-  font-size: 18px;
-  background-color: white;
-  border: 1px solid #000;
-  border-radius: 4px;
+  width: 240px;
+  height: 48px;
+  background: #ff69b4;
+  color: #fff;
+  border: none;
+  border-radius: 14px;
+  font-size: 20px;
+  font-weight: 500;
   cursor: pointer;
+  transition: 0.1s;
+  margin: 0 auto;
+  &:hover {
+    opacity: 0.92;
+  }
 `;

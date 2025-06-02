@@ -1,31 +1,34 @@
-import React, { useEffect } from "react";
-import { useNavigate } from "react-router-dom";
+import { useEffect } from 'react';
+import { useNavigate, useLocation } from 'react-router-dom';
 
-function GoogleLoginCallback() {
+const GoogleLoginCallback = () => {
   const navigate = useNavigate();
+  const location = useLocation();
 
   useEffect(() => {
-    const query = new URLSearchParams(window.location.search);
-    const token = query.get('token');
-    const isProfileComplete = query.get('isProfileComplete');
+    const params = new URLSearchParams(location.search);
+    const token = params.get('token');
+    const isProfileComplete = params.get('isProfileComplete');
 
-    // 토큰 저장
     if (token) {
       localStorage.setItem('token', token);
-    }
+      localStorage.setItem('isProfileComplete', isProfileComplete);
 
-    // URL에서 쿼리스트링 제거 (replaceState)
-    window.history.replaceState({}, document.title, window.location.pathname);
-
-    // 분기 이동
-    if (isProfileComplete === 'false') {
-      navigate('/');
+      if (isProfileComplete === 'true') {
+        navigate('/Menu', { replace: true }); // 이미 추가정보 입력 완료된 사용자 → 메인 페이지로 이동
+      } else {
+        navigate('/Name', { 
+            replace: true,
+            state: { isProfileComplete }   // ← 이렇게 추가!
+          }); // 구글 로그인 첫 사용자 → 추가정보 입력 페이지로 이동
+      }
     } else {
-      navigate('/');
+      alert('로그인 실패. 다시 시도해주세요.');
+      navigate('/', { replace: true });
     }
-  }, [navigate]);
+  }, [location, navigate]);
 
-  return <div>로그인 처리중...</div>;
-}
+  return null; // 아무것도 렌더링하지 않음
+};
 
 export default GoogleLoginCallback;

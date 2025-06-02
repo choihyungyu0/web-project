@@ -3,6 +3,7 @@ import styled from "styled-components";
 import { useNavigate } from "react-router-dom";
 import CharacterImg from "../assets/user.png";
 import { CharacterWrap, CharacterImage } from "../styles/CommonImage";
+import { BellButton } from '../styles/CommonButtons';
 
 export default function CustomInfoAlertPage() {
   const navigate = useNavigate();
@@ -13,12 +14,24 @@ export default function CustomInfoAlertPage() {
   const [currentPage, setCurrentPage] = useState(1);
   const ITEMS_PER_PAGE = 4;
 
-  // 서버에서 데이터 불러오기
+  // 서버에서 데이터 불러오기 (토큰 포함)
   useEffect(() => {
-    fetch("http://15.164.99.25:8090/api/welfare/list")
-    
-      .then(res => res.json())
-      .then(data => setAlerts(data));
+    const token = localStorage.getItem('accessToken'); // 로그인 시 저장된 토큰 가져오기
+    fetch("https://knowhow.it.com/api/welfare/list", {
+      headers: {
+        Authorization: `Bearer ${token}`,
+        // 필요하다면 'Content-Type': 'application/json' 등도 추가
+      }
+    })
+      .then(res => {
+        if (!res.ok) throw new Error("서버 오류: " + res.status);
+        return res.json();
+      })
+      .then(data => setAlerts(data))
+      .catch(error => {
+        console.error("fetch 에러:", error);
+        alert("서버에서 데이터를 가져오지 못했습니다: " + error.message);
+      });
   }, []);
 
   // 전체 페이지 개수 계산
@@ -32,7 +45,6 @@ export default function CustomInfoAlertPage() {
 
   const handleOpenModal = (alert) => setSelectedAlert(alert);
   const handleCloseModal = () => setSelectedAlert(null);
-
   return (
     <PageContainer>
       <ContentWrapper>
@@ -41,6 +53,7 @@ export default function CustomInfoAlertPage() {
             <LogoButton onClick={() => navigate("/")}>로고</LogoButton>
           </LeftSection>
           <RightButtons>
+            <BellButton>알림</BellButton>
             <CharacterWrap>
               <CharacterImage
                 onClick={() => navigate("/MYpage")}
@@ -55,14 +68,12 @@ export default function CustomInfoAlertPage() {
           <BackButton onClick={() => navigate(-1)}>뒤로가기</BackButton>
         </BackButtonWrapper>
 
-        <HeaderBox>
-          <HeaderText>
-            맞춤 생활 정보를
-            <br />
-            확인하세요!
-          </HeaderText>
-          <HeaderText>캐릭터 이미지</HeaderText>
-        </HeaderBox>
+          <QuestionRow>
+            <SpeechBubble>
+              <Text>무엇을 배워볼까요?</Text>
+            </SpeechBubble>
+            <CharacterBox>캐릭터 이미지</CharacterBox>
+          </QuestionRow>
 
         <AlertList>
           {pagedAlerts.map((item, idx) => (
@@ -215,32 +226,100 @@ const BackButtonWrapper = styled.div`
   display: flex;
   justify-content: flex-start;
   margin-bottom: 16px;
+  
 `;
 
 const BackButton = styled(Button)`
   font-weight: bold;
+  /* Frame 2031 */
+
+/* Auto layout */
+display: flex;
+flex-direction: row;
+justify-content: center;
+align-items: center;
+padding: 12px 32px;
+gap: 10px;
+
+width: 147px;
+height: 56px;
+
+/* Fills/Secondary */
+background: rgba(120, 120, 128, 0.16);
+border-radius: 20px;
+
+/* Inside auto layout */
+flex: none;
+order: 0;
+flex-grow: 0;
+
 `;
 
-const HeaderBox = styled.div`
+
+
+const QuestionRow = styled.div`
   display: flex;
-  justify-content: center;
-  align-items: flex-start;
-  gap: 8px;
-  margin: 16px 0 20px 0;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  margin-bottom: 50px;
 `;
 
-const HeaderText = styled.div`
-  padding: 8px;
-  border: 1px solid black;
-  font-weight: bold;
-  text-align: center;
-  width: 200px;
-  height: 60px;
+const SpeechBubble = styled.div`
+    position: relative;
+  width: 271px;
+  height: 70px;
+  background: #fff;
+  border-radius: 20px;
+  padding: 10px;
+  box-sizing: border-box;
+  border: 2px solid #ff3593;
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 18px;
+  text-align: right;
+  margin-left:70px;
+  
+  font-family: 'Pretendard Variable', sans-serif;
+  font-style: normal;
+  font-weight: 600;
+  font-size: 28px;
+  line-height: 48px;
+  color: #000;
+ 
+  /* 꼬리 만들기 */
+  &::after {
+    content: '';
+    position: absolute;
+    bottom: -20px;
+    left: 80%;
+    transform: translateX(-50%);
+    border-width: 10px;
+    border-style: solid;
+    border-color: #ff3593 transparent transparent transparent;
+  }
 `;
+
+const Text = styled.div`
+  font-size: 18px;
+  text-align: center;
+  
+`;
+
+const CharacterBox = styled.div`
+  width: 100px;
+  height: 100px;
+  background-color:#eee;
+  border: 2px solid black;
+  margin-top:10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 14px;
+  color: black;
+  font-weight: bold;
+`;
+
 
 const AlertList = styled.div`
   display: flex;
@@ -264,7 +343,7 @@ const CategoryText = styled.span`
 `;
 
 const ContentText = styled.span`
-  font-size: 20px;
+  font-size: 17px;
   flex: 1;
   text-align: left;
 `;

@@ -2,13 +2,11 @@ import React from 'react';
 import styled from 'styled-components';
 import { useNavigate } from 'react-router-dom';
 import { FcGoogle } from "react-icons/fc";
-// import logo from '../assets/logo.png'; // 실제 사용시 주석 해제
+import RemoteImage from '../styles/RemoteImage'; // 경로 주의!
 
 function WelcomePage() {
   const navigate = useNavigate();
-
-  // 실제 서버 주소/포트에 맞게 수정
-  const GOOGLE_OAUTH_URL = "http://ec2-15-164-99-25.ap-northeast-2.compute.amazonaws.com:8090/oauth2/authorization/google";
+  const GOOGLE_OAUTH_URL = "https://knowhow.it.com/oauth2/authorization/google";
 
   const handleGoogleLogin = () => {
     window.location.href = GOOGLE_OAUTH_URL;
@@ -17,16 +15,15 @@ function WelcomePage() {
   return (
     <Wrapper>
       <Container>
-        <LogoButton onClick={() => navigate('/')}>로고</LogoButton>
-
+        <LogoButton onClick={() => navigate('/')}>
+          <StyledRemoteImage imageKey="Logo_0" alt="로고" />
+        </LogoButton>
         <ImageBox>
-          <p>캐릭터 이미지</p>
+          <StyledRemoteImage imageKey="WelcomePageCharacter_0" alt="캐릭터" />
         </ImageBox>
-
         <WelcomeText>
           안녕하세요! 노하우에 오신것을 환영합니다!
         </WelcomeText>
-
         <LoginButton onClick={() => navigate('/MainLogin')}>로그인</LoginButton>
         <NextButton onClick={() => navigate('/Email')}>회원가입</NextButton>
         <Divider />
@@ -41,7 +38,12 @@ function WelcomePage() {
 
 export default WelcomePage;
 
-// ---- styled-components ----
+// ---- styled-components ---- 아래 코드는 그대로 두세요
+const StyledRemoteImage = styled(RemoteImage)`
+  width: 100%;
+  height: 100%;
+  border:none;
+`;
 
 const Wrapper = styled.div`
   width: 100%;
@@ -78,14 +80,13 @@ const LogoButton = styled.button`
 
 const ImageBox = styled.div`
   width: 100%;
-  max-width: 300px;
-  height: 300px;
+  max-width: 200px;
+  height: 200px;
   background-color: #eee;
   margin: 100px auto 20px;
   display: flex;
   justify-content: center;
   align-items: center;
-  border: 1px solid #ccc;
 `;
 
 const WelcomeText = styled.p`
@@ -130,8 +131,8 @@ const NextButton = styled.button`
 `;
 
 const Divider = styled.hr`
-  width: 90%;
-  margin: 26px 0 22px 0;
+  width: 56%;
+  margin: 26px 0 22px 104px;
   border: 0;
   border-top: 2px solid #eee;
 `;

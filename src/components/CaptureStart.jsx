@@ -1,9 +1,10 @@
 import React from 'react';
 import styled from 'styled-components';
 import { useNavigate } from 'react-router-dom';
-import CaptureGuidePage from './CaptureGuidePage';
+import CaptureGuidePage from './CaptureGuideFirst';
 import CharacterImg from '../assets/user.png';
 import { CharacterWrap, CharacterImage } from '../styles/CommonImage'; 
+import { BellButton } from '../styles/CommonButtons';
 
 
 const CaptureStartPage = () => {
@@ -14,6 +15,7 @@ const CaptureStartPage = () => {
         <TopBar>
           <LogoutButton onClick={() => navigate('/')}>로고</LogoutButton>
           <RightButtons>
+            <BellButton>알림</BellButton>
             <CharacterWrap>
               <CharacterImage onClick={()=> navigate('/Mypage')} src={CharacterImg} alt="캐릭터" />
             </CharacterWrap>
@@ -31,7 +33,7 @@ const CaptureStartPage = () => {
           알아보아요!
         </Description>
 
-        <StartButton onClick={()=>navigate('/CaptureGuide')}>시작하기</StartButton>
+        <StartButton onClick={()=>navigate('/CaptureGuideFirst')}>시작하기</StartButton>
       </Container>
     </Wrapper>
   );
@@ -90,6 +92,7 @@ font-size: 28px;
   align-self: flex-start;  
 `;
 
+
 const ImageBox = styled.div`
   width: 312px;
   height: 312px;
@@ -111,10 +114,18 @@ const Description = styled.p`
 `;
 
 const StartButton = styled.button`
-  padding: 12px 20px;
-  font-size: 18px;
-  background-color: white;
-  border: 1px solid #000;
-  border-radius: 4px;
+  width: 240px;
+  height: 48px;
+  background: #ff69b4;
+  color: #fff;
+  border: none;
+  border-radius: 14px;
+  font-size: 20px;
+  font-weight: 500;
   cursor: pointer;
+  transition: 0.1s;
+  margin: 0 auto;
+  &:hover {
+    opacity: 0.92;
+  }
 `;

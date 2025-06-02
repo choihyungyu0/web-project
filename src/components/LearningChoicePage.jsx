@@ -2,7 +2,10 @@ import React from 'react';
 import styled from 'styled-components';
 import { useNavigate } from 'react-router-dom';
 import CharacterImg from '../assets/user.png';
-import { CharacterWrap, CharacterImage } from '../styles/CommonImage'; 
+import { CharacterWrap, CharacterImage} from '../styles/CommonImage'; 
+import { BellButton } from '../styles/CommonButtons';
+import { SoftSpeechBubble } from '../styles/SoftSpeechBubble';
+
 
 function LearningChoiceContainer() {
   const navigate = useNavigate();
@@ -10,14 +13,14 @@ function LearningChoiceContainer() {
     <PageContainer>
       <ContentWrapper>
         <TopBar>
-          <LeftSection>
-            <LogoButton onClick={() => navigate('/')}>로고</LogoButton>
-          </LeftSection>
-          <RightButtons>
-            <CharacterWrap>
-              <CharacterImage onClick={()=> navigate('/Mypage')} src={CharacterImg} alt="캐릭터" />
-            </CharacterWrap>
-          </RightButtons>
+        <Button onClick={() => navigate('/')}>로고</Button>
+
+        <RightProfileArea>
+        <BellButton>알림</BellButton>  
+          <CharacterWrap>
+            <CharacterImage src={CharacterImg} alt="캐릭터" onClick={() => navigate('/Mypage')}/>
+          </CharacterWrap>
+        </RightProfileArea>
         </TopBar>
 
         <BackButtonWrapper>
@@ -26,9 +29,9 @@ function LearningChoiceContainer() {
 
         <Content>
           <QuestionRow>
-            <SpeechBubble>
-              <Text>무엇을 배워볼까요?</Text>
-            </SpeechBubble>
+              <SoftSpeechBubble style={{ minWidth: 240, fontSize: 28 }}>
+                            <Text>무엇을 배워볼까요?</Text>
+                          </SoftSpeechBubble>
             <CharacterBox>캐릭터 이미지</CharacterBox>
           </QuestionRow>
 
@@ -41,6 +44,18 @@ function LearningChoiceContainer() {
 }
 
 export default LearningChoiceContainer;
+
+const RightProfileArea = styled.div`
+  display: flex;
+  align-items: center;
+  gap: 8px;
+`;
+
+const BellIcon = styled.img`
+  width: 46px;
+  height: 46px;
+  
+`;
 
 const PageContainer = styled.div`
   width: 100vw;
@@ -100,10 +115,33 @@ const BackButtonWrapper = styled.div`
   display: flex;
   justify-content: flex-start;
   margin-bottom: 16px;
+  
 `;
 
 const BackButton = styled(Button)`
   font-weight: bold;
+  /* Frame 2031 */
+
+/* Auto layout */
+display: flex;
+flex-direction: row;
+justify-content: center;
+align-items: center;
+padding: 12px 32px;
+gap: 10px;
+
+width: 147px;
+height: 56px;
+
+/* Fills/Secondary */
+background: rgba(120, 120, 128, 0.16);
+border-radius: 20px;
+
+/* Inside auto layout */
+flex: none;
+order: 0;
+flex-grow: 0;
+
 `;
 
 const Content = styled.div`
@@ -111,6 +149,7 @@ const Content = styled.div`
   flex-direction: column;
   align-items: center;
   gap: 24px;
+  
 `;
 
 const QuestionRow = styled.div`
@@ -118,40 +157,77 @@ const QuestionRow = styled.div`
   justify-content: space-between;
   align-items: center;
   width: 100%;
+  margin-bottom: 50px;
 `;
 
 const SpeechBubble = styled.div`
-  position: relative;
-  border: 1px solid #ccc;
-  background: white;
-  padding: 16px;
-  font-weight: bold;
-  width: 250px;
-  margin-right: 8px;
+    position: relative;
+  width: 271px;
+  height: 70px;
+  background: #fff;
+  border-radius: 20px;
+  padding: 10px;
+  box-sizing: border-box;
+  border: 2px solid #ff3593;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: right;
+  margin-left:70px;
+  
+  font-family: 'Pretendard Variable', sans-serif;
+  font-style: normal;
+  font-weight: 600;
+  font-size: 28px;
+  line-height: 48px;
+  color: #000;
+ 
+  /* 꼬리 만들기 */
+  &::after {
+    content: '';
+    position: absolute;
+    bottom: -20px;
+    left: 80%;
+    transform: translateX(-50%);
+    border-width: 10px;
+    border-style: solid;
+    border-color: #ff3593 transparent transparent transparent;
+  }
 `;
 
 const Text = styled.div`
   font-size: 18px;
   text-align: center;
+  
 `;
 
 const CharacterBox = styled.div`
-  border: 1px solid #ccc;
-  background: #f5f5f5;
-  padding: 16px;
   width: 100px;
-  text-align: center;
+  height: 100px;
+  background-color:#eee;
+  border: 2px solid black;
+  margin-top:10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 14px;
+  color: black;
+  font-weight: bold;
 `;
 
 const ChoiceButton = styled.button`
   width: 100%;
-  max-width: 464px;
-  height: 148px;
-  padding: 16px;
-  margin: 8px 0;
-  border: 1px solid #333;
+  height: 64px;
+  padding: 60px;
+  margin: 12px 0;
+  border: 2px solid #333;
   background: white;
-  font-size: 18px;
+  font-size: 23px;
   font-weight: bold;
   cursor: pointer;
+  border-radius: 50px;
+  display: flex;
+  justify-content: center; /* 가로 중앙 */
+  align-items: center;     /* 세로 중앙 */
+  text-align: center;
 `;

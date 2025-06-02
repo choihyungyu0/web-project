@@ -1,27 +1,60 @@
 import React from 'react';
 import styled from 'styled-components';
-import { useNavigate } from 'react-router-dom';
-import { useSignUp } from '../styles/SignupContext'; // Context import
-
+import { useNavigate, useLocation } from 'react-router-dom';
+import { useSignUp } from '../styles/SignupContext';
 
 const LoginComplete = () => {
   const navigate = useNavigate();
+  const location = useLocation();
   const { signUpData } = useSignUp();
 
-  // 서버에 회원가입 정보 POST
+  // isProfileComplete 값 받기
+  const isProfileComplete = location.state?.isProfileComplete;
+
+  // 회원가입 정보 전송 함수 (POST 또는 PATCH)
   const handleSendData = async () => {
     try {
-      const response = await fetch("http://15.164.99.25:8090/api/auth/signup", {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(signUpData), // 모든 회원가입 정보 전송
+      console.log("회원가입 정보:", signUpData);
+
+      let url = "https://knowhow.it.com/api/auth/signup";
+      let method = "POST";
+      let headers = { 'Content-Type': 'application/json' };
+
+      // 구글 추가정보(처음 소셜 사용자)일 경우 PATCH와 엔드포인트, 토큰 변경
+      if (isProfileComplete === 'false') {
+        url = "https://knowhow.it.com/api/auth/additional-info";
+        method = "PATCH";
+        const token = localStorage.getItem('token');
+        if (token) {
+          headers['Authorization'] = `Bearer ${token}`;
+        }
+      }
+
+      const response = await fetch(url, {
+        method,
+        headers,
+        body: JSON.stringify(signUpData),
       });
-      const data = await response.json();
+
+      // 빈 응답/HTML 응답 예외처리
+      const text = await response.text();
+      let data = {};
+      if (text) {
+        try {
+          data = JSON.parse(text);
+        } catch {
+          data = { message: text };
+        }
+      }
+
       if (response.status === 201 || response.status === 200) {
         alert(data.message || "회원가입이 완료되었습니다!");
-        navigate('/MainLogin');
+        // 경로 분기
+        if (isProfileComplete === 'false') {
+          navigate('/Menu');       // 구글 추가정보 → 메인 메뉴
+        } else {
+          navigate('/MainLogin');  // 일반 회원가입 → 로그인페이지
+        }
       } else {
         alert(data.message || "회원가입 실패! 입력값을 확인해주세요.");
       }
@@ -34,16 +67,13 @@ const LoginComplete = () => {
     <Wrapper>
       <Container>
         <LogoutButton onClick={() => navigate('/')}>로고</LogoutButton>
-
         <ImageBox>
           <p>캐릭터 이미지</p>
         </ImageBox>
-
         <MessageBox>
           <p><strong>{signUpData.name || "회원"}님</strong></p>
           <p>회원가입을 축하드립니다!</p>
         </MessageBox>
-
         <GoLoginButton onClick={handleSendData}>
           로그인하러 가기
         </GoLoginButton>
@@ -101,17 +131,23 @@ const ImageBox = styled.div`
 `;
 
 const MessageBox = styled.div`
-  font-size: 18px;
+  font-size: 20px;
   font-weight: bold;
   line-height: 1.6;
-  margin: 30px 0;
+  margin-bottom:106px;
 `;
 
 const GoLoginButton = styled.button`
-  padding: 12px 20px;
-  font-size: 18px;
-  background-color: white;
-  border: 1px solid black;
-  border-radius: 4px;
+  justify-content: center;
+  width: 100%;
+  gap: 16px;
+  margin-top: 12px;
+  background: rgba(120, 120, 128, 0.2);
+  width: 200px;
+  border: 1px solid #000;
+  padding: 15px 0;
+  font-size: 20px;
+  border-radius: 10px;
   cursor: pointer;
+  margin: 3px;
 `;

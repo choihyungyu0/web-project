@@ -23,16 +23,15 @@ export default function MainLogin() {
       return;
     }
     try {
-      const response = await fetch('http://3.86.194.222:3000/api/auth/login', {
+      const response = await fetch('https://knowhow.it.com/api/auth/login', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ email, password }),
       });
       const data = await response.json();
-      if (response.status === 200 && data.accessToken) {
+      if (response.status === 200 && data.Token) {
         // 토큰 저장
-        localStorage.setItem('accessToken', data.accessToken);
-        if (data.refreshToken) localStorage.setItem('refreshToken', data.refreshToken);
+        localStorage.setItem('accessToken', data.Token);
         alert('로그인 성공!');
         navigate('/Menu');
       } else {
@@ -86,17 +85,16 @@ export default function MainLogin() {
   );
 }
 
-// 스타일 컴포넌트 그대로
 const Wrapper = styled.div`
   width: 100%;
-  height: 100%;
-  min-height: 100vh;
+  height: 100vh;
   background-color: #f9f9f9;
   display: flex;
   justify-content: center;
   align-items: center;
   padding: 20px;
   box-sizing: border-box;
+  position: relative;
 `;
 
 const Container = styled.div`
@@ -125,23 +123,23 @@ const LogoutButton = styled.button`
 `;
 
 const ImageBox = styled.div`
-  width: 100%; 
-  max-width: 200px;
-  height: 200px;
+  width: 100%;
+  max-width: 294px;
+  height: 230px;
   background-color: #f2f2f2;
   border: 1px solid #ccc;
   display: flex;
   justify-content: center;
   align-items: center;
-  margin: 100px auto 20px;
+  margin: 100px auto 10px;
 `;
 
 const Title = styled.div`
   text-align: center;
   font-weight: bold;
-  font-size: 18px;
+  font-size: 20px;
   line-height: 1.5;
-  margin-bottom: 32px;
+  margin-bottom: 20px;
 `;
 
 const InputLabel = styled.label`
@@ -152,26 +150,37 @@ const InputLabel = styled.label`
 
 const InputField = styled.input`
   width: 100%;
-  background-color: #f2f2f2;
-  border: none;
-  padding: 12px;
-  font-size: 18px;
-  margin-bottom: 16px;
-  border-radius: 4px;
+  background-color:#F2F2F7;
+  padding: 15px;
+  font-size: 20px;
+  margin-bottom: 8px;
+  border-radius: 40px;
   box-sizing: border-box;
+  border: 2px solid #C7C7CC;
 `;
 
 const EmailHint = styled.div`
   align-self: flex-start;
-  font-size: 18px;
+  font-size: 15px;
   color: #aaa;
-  margin-top: -12px;
-  margin-bottom: 20px;
+  margin-top: -8px;
+  margin-bottom: 12px;
+  margin-left:5px;
 `;
 
 const PasswordWrapper = styled.div`
   width: 100%;
   position: relative;
+`;
+
+const ToggleButton = styled.button`
+  position: absolute;
+  top: 100%;
+  left: 1px;
+  transform: translateY(-30%);
+  background: transparent;
+  border: none;
+  cursor: pointer;
 `;
 
 const StyleSpan = styled.span`
@@ -180,33 +189,29 @@ const StyleSpan = styled.span`
   left: 5px;
 `;
 
-const ToggleButton = styled.button`
-  position: absolute;
-  top: 100%;
-  left: 1px;
-  transform: translateY(-50%);
-  background: transparent;
-  border: none;
-  cursor: pointer;
-`;
-
 const ButtonGroup = styled.div`
   display: flex;
   flex-direction: column;
+  align-items: center;
   gap: 16px;
   width: 100%;
-  margin-top: 32px;
+  margin-top: 20px;
 `;
 
 const NavButton = styled.button`
-  flex: 1;
+  width: 240px;
   height: 48px;
-  border: 1px solid #000;
-  padding: 12px 0;
-  background-color: white;
-  font-size: 18px;
-  border-radius: 4px;
+  background: #ff69b4;
+  color: #fff;
+  border: none;
+  border-radius: 14px;
+  font-size: 20px;
+  font-weight: 500;
   cursor: pointer;
+  transition: 0.1s;
+  &:hover {
+    opacity: 0.92;
+  }
 `;
 
 const ForgotText = styled.p`
@@ -215,10 +220,9 @@ const ForgotText = styled.p`
   font-size: 18px;
   color: #999;
   text-align: center;
-  margin-top: 16px;
+  margin-top: 5px;
   cursor: pointer;
   text-decoration: underline;
-
   &:hover {
     color: #666;
   }

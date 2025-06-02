@@ -88,66 +88,73 @@ const Wrapper = styled.div`
 `;
 
 const Container = styled.div`
-  width: 100%;
   height: 100%;
+  width: 100%;
   max-width: 464px;
   background-color: #fff;
   border-radius: 8px;
   box-shadow: 0 0 10px rgba(0,0,0,0.05);
-  text-align: center;
-  position: relative;
   padding: 20px;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 `;
 
 const ImageBox = styled.div`
+
   width: 100%;
-  max-width: 300px;
-  height: 300px;
+  max-width: 294px;
+  height: 230px;
   background-color: #f2f2f2;
   border: 1px solid #ccc;
   display: flex;
   justify-content: center;
   align-items: center;
-  margin: 100px auto 20px;
+  margin: 120px auto 10px;
 `;
 
 const Title = styled.div`
   text-align: center;
   font-weight: bold;
-  font-size: 18px;
+  font-size: 17px;
   line-height: 1.5;
-  margin-bottom: 32px;
+  margin-bottom: 4px;
 `;
 
 const InputLabel = styled.label`
   align-self: flex-start;
-  font-size: 18px;
-  margin-bottom: 6px;
+  font-size: 20px;
+  margin-bottom: 10px;
 `;
 
 const InputField = styled.input`
   width: 100%;
-  background-color: #f2f2f2;
-  border: none;
-  padding: 12px;
-  font-size: 18px;
-  margin-bottom: 16px;
-  border-radius: 4px;
+  background-color:#F2F2F7;
+ 
+  padding: 15px;
+  font-size: 20px;
+  margin-bottom: 12px;
+  border-radius: 40px;
   box-sizing: border-box;
+  border: 2px solid #C7C7CC;
+  
 `;
 
 const EmailHint = styled.div`
-  display: flex;
+ display: flex;
   align-self: flex-start;
-  font-size: 18px;
+  font-size: 13px;
   color: #aaa;
   margin-top: -12px;
-  margin-bottom: 20px;
+  margin-bottom: 10px;
+  
 `;
 
 const PasswordWrapper = styled.div`
   width: 100%;
   position: relative;
+  
 `;
 
 const StyleSpan = styled.span`
@@ -167,18 +174,20 @@ const ToggleButton = styled.button`
 `;
 
 const ButtonGroup = styled.div`
-  display: flex;
+display: flex;
+   justify-content: center;
   gap: 16px;
   width: 100%;
-  margin-top: 32px;
+  margin-top: 12px;
 `;
 
 const NavButton = styled.button`
-  flex: 1;
+background: rgba(120, 120, 128, 0.2);
+  width: 120px;
   border: 1px solid #000;
-  padding: 12px 0;
-  background-color: white;
-  font-size: 18px;
-  border-radius: 4px;
+  padding: 10px 0;
+  font-size: 20px;
+  border-radius: 10px;
   cursor: pointer;
+  margin: 15px;
 `;
