@@ -1,9 +1,11 @@
 import React from 'react';
 import styled from 'styled-components';
 import { useNavigate } from 'react-router-dom';
-import CharacterImg from '../assets/user.png';
-import { CharacterWrap, CharacterImage } from '../styles/CommonImage';
+import { MypageWrap, MypageButton } from '../styles/CommonButtons';
 import { SoftSpeechBubble } from '../styles/SoftSpeechBubble';
+import StyledRemoteImage from '../styles/RemoteImage'; // RemoteImage import
+import {BellButton} from '../styles/CommonButtons'; // BellButton import
+import { LogoButtons } from '../styles/CommonButtons'; // 로고 버튼 import
 
 function LearningChoiceContainer() {
   const navigate = useNavigate();
@@ -11,16 +13,20 @@ function LearningChoiceContainer() {
     <PageContainer>
       <ContentWrapper>
         <TopBar>
-          <LogoButton onClick={() => navigate('/')}>로고</LogoButton>
+          <LogoButtons onClick={() => navigate('/')}>
+            <StyledRemoteImage imageKey="Logo_0" alt="로고"/>
+          </LogoButtons>
           <RightButtons>
-            <BellButton>알림</BellButton>
-            <CharacterWrap>
-              <CharacterImage
-                src={CharacterImg}
-                alt="캐릭터"
+            <BellButton>
+              <StyledRemoteImage imageKey="Bell_0" alt="알림"/>
+            </BellButton>
+            <MypageWrap>
+              <MypageButton
                 onClick={() => navigate('/Mypage')}
-              />
-            </CharacterWrap>
+              >            
+              <StyledRemoteImage imageKey="Mypage_0" alt="마이페이지지"/>
+              </MypageButton>
+            </MypageWrap>
           </RightButtons>
         </TopBar>
 
@@ -29,7 +35,9 @@ function LearningChoiceContainer() {
             <SoftSpeechBubble style={{ minWidth: 240, fontSize: 28 }}>
               <Text>원하시는 메뉴를<br /> 선택해주세요!</Text>
             </SoftSpeechBubble>
-            <CharacterBox>캐릭터 이미지</CharacterBox>
+        <ImageBox>
+          <StyledRemoteImage imageKey="MenuChoicePageCharacter_0" alt="캐릭터" />
+        </ImageBox>
           </QuestionRow>
 
           <ChoiceButton onClick={() => navigate('/Learning')}>학습하기</ChoiceButton>
@@ -75,31 +83,11 @@ const TopBar = styled.div`
   margin-bottom: 16px;
 `;
 
-const LogoButton = styled.button`
-  padding: 6px 12px;
-  border: 1px solid #ccc;
-  background: white;
-  cursor: pointer;
-  font-size: 16px;
-  height: 48px;
-  width: 134px;
-`;
-
 const RightButtons = styled.div`
   display: flex;
   align-items: center;
-  gap: 16px;
 `;
 
-const BellButton = styled.button`
-  padding: 6px 12px;
-  border: 1px solid #ccc;
-  background: white;
-  cursor: pointer;
-  font-size: 16px;
-  height: 48px;
-  width: 134px;
-`;
 
 const Content = styled.div`
   display: flex;
@@ -141,6 +129,7 @@ const SpeechBubbleTail = styled.svg`
   margin-left: 135px;
 `;
 
+
 const Text = styled.div`
   font-size: 1.6rem;
   font-weight: bold;
@@ -148,7 +137,7 @@ const Text = styled.div`
   text-align: center;
 `;
 
-const CharacterBox = styled.div`
+const ImageBox = styled.div`
    width: 100px;
   height: 100px;
   background-color:#eee;

@@ -2,6 +2,9 @@ import React, { useState } from 'react';
 import styled from 'styled-components';
 import { useNavigate, useLocation } from 'react-router-dom'; // ← useLocation 추가!
 import { useSignUp } from '../styles/SignupContext';
+import { LogoButton } from '../styles/CommonButtons'; // ← 로고 버튼 스타일 import
+import StyledRemoteImage from '../styles/RemoteImage'; // ← 이미지 컴포넌트 import
+
 
 function CheckName() {
   const navigate = useNavigate();
@@ -23,9 +26,11 @@ function CheckName() {
   return (
     <Wrapper>
       <Container>
-        <LogoutButton onClick={() => navigate('/')}>로고</LogoutButton>
+        <LogoButton onClick={() => navigate('/')}>
+          <StyledRemoteImage imageKey="Logo_0" alt="로고" />
+        </LogoButton>
         <ImageBox>
-          <p>캐릭터 이미지</p>
+          <StyledRemoteImage imageKey="CheckNameCharacter_0" alt="캐릭터" />
         </ImageBox>
         <WelcomeText>성함을 입력해주세요!</WelcomeText>
         <Input

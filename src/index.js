@@ -36,7 +36,7 @@ root.render(
     <Router>
       <Routes>
         {/* Splash → Welcome 만 애니메이션 적용 */}
-        <Route path="/" element={<WelcomePage />} />
+        <Route path="/" element={<Splash />} />
         <Route path="/welcome" element={<WelcomePage />} />
         <Route path="/oauth-callback" element={<GoogleLoginCallback />} />
         <Route path="/profile-setup" element={<ProfileSetupPage />} />

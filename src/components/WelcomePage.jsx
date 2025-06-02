@@ -2,7 +2,9 @@ import React from 'react';
 import styled from 'styled-components';
 import { useNavigate } from 'react-router-dom';
 import { FcGoogle } from "react-icons/fc";
-import RemoteImage from '../styles/RemoteImage'; // 경로 주의!
+import RemoteImage from '../styles/RemoteImage'; 
+import StyledRemoteImage from '../styles/RemoteImage';
+import { LogoButton } from '../styles/CommonButtons';
 
 function WelcomePage() {
   const navigate = useNavigate();
@@ -39,11 +41,6 @@ function WelcomePage() {
 export default WelcomePage;
 
 // ---- styled-components ---- 아래 코드는 그대로 두세요
-const StyledRemoteImage = styled(RemoteImage)`
-  width: 100%;
-  height: 100%;
-  border:none;
-`;
 
 const Wrapper = styled.div`
   width: 100%;
@@ -68,15 +65,6 @@ const Container = styled.div`
   padding: 20px;
 `;
 
-const LogoButton = styled.button`
-  position: absolute;
-  top: 20px;
-  left: 20px;
-  padding: 6px 12px;
-  background-color: white;
-  border: none;
-  cursor: pointer;
-`;
 
 const ImageBox = styled.div`
   width: 100%;

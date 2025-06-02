@@ -2,8 +2,9 @@ import React, { useState } from 'react';
 import styled from 'styled-components';
 import { Eye, EyeOff } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
-import { LogoutButton } from '../styles/CommonButtons';
 import { useSignUp } from '../styles/SignupContext'; // Context import
+import StyledRemoteImage from '../styles/RemoteImage'; // RemoteImage import
+import { LogoButton } from '../styles/CommonButtons'; // 로고 버튼 import
 
 export default function LoginForm() {
   const navigate = useNavigate();
@@ -35,10 +36,11 @@ export default function LoginForm() {
   return (
     <Wrapper>
       <Container>
-        <LogoutButton onClick={() => navigate('/')}>로고</LogoutButton>
-
+          <LogoButton onClick={() => navigate('/')}>
+            <StyledRemoteImage imageKey="Logo_0" alt="로고"/>
+          </LogoButton>
         <ImageBox>
-          <p>캐릭터 이미지</p>
+          <StyledRemoteImage imageKey="SplashCharacter_0" alt="캐릭터" />
         </ImageBox>
 
         <Title>

@@ -1,31 +1,57 @@
-// src/styles/CommonButtons.js
 import styled from 'styled-components';
 
-export const LogoutButton = styled.button`
-  height: 48px;
-  width: 120px;
+export const LogoButton = styled.button`
   position: absolute;
-  top: 32px;
-  left: 28px;
-  padding: 10px 10px;
-  border: 1px solid #ccc;
-  border-radius: 4px;
+  top: 20px;
+  left: 20px;
+  padding: 6px 12px;
   background-color: white;
+  border: none;
   cursor: pointer;
 `;
 
-// "알림" 버튼용 BellButton (재사용 가능)
 export const BellButton = styled.button`
-  height: 48px;
-  width: 134px;
   padding: 6px 12px;
   border: 1px solid #ccc;
   border-radius: 6px;
   background: white;
   cursor: pointer;
   font-size: 16px;
+  height: 48px;
+`;
+
+export const MypageWrap = styled.div`
+  width: 46px;
+  height: 46px;
+  border-radius: 50%;
+  overflow: hidden;
   display: flex;
   align-items: center;
   justify-content: center;
-  /* 나중에 서버에서 이미지 오면 내부에 <img>나 <span> 텍스트/이미지 넣어서 사용! */
+  background: transparent;
+  cursor: pointer;
+`;
+
+export const MypageButton = styled.button`
+  width: 100%;
+  height: 100%;
+  border: none;
+  background: transparent;
+  border-radius: 50%;
+  padding: 0;
+  overflow: hidden;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+`;
+
+export const LogoButtons = styled.button`
+  padding: 6px 12px;
+  border: 1px solid #ccc;
+  background: white;
+  cursor: pointer;
+  font-size: 16px;
+  height: 48px;
+  width: 134px;
 `;

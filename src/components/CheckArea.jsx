@@ -2,6 +2,8 @@ import React, { useState } from 'react';
 import styled from 'styled-components';
 import { useNavigate, useLocation } from 'react-router-dom'; // useLocation 추가!
 import { useSignUp } from '../styles/SignupContext'; // Context import
+import StyledRemoteImage from '../styles/RemoteImage'; // RemoteImage import
+import { LogoButton } from '../styles/CommonButtons'; // 로고 버튼 import
 
 const CheckArea = () => {
   const navigate = useNavigate();
@@ -33,9 +35,11 @@ const CheckArea = () => {
   return (
     <Wrapper>
       <Container>
-        <LogoutButton onClick={() => navigate('/')}>로고</LogoutButton>
+        <LogoButton onClick={() => navigate('/')}>
+          <StyledRemoteImage imageKey="Logo_0" alt="로고" />
+        </LogoButton>
         <ImageBox>
-          <p>캐릭터 이미지</p>
+          <StyledRemoteImage imageKey="CheckAreaCharacter_0" alt="캐릭터" />
         </ImageBox>
         <QuestionText>
           거주하고 계신 지역을 <br />

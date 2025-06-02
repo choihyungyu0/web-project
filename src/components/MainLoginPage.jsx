@@ -2,6 +2,8 @@ import React, { useState } from 'react';
 import styled from 'styled-components';
 import { Eye, EyeOff } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
+import StyledRemoteImage from '../styles/RemoteImage';
+import { LogoButton } from '../styles/CommonButtons';
 
 export default function MainLogin() {
   const navigate = useNavigate();
@@ -45,10 +47,11 @@ export default function MainLogin() {
   return (
     <Wrapper>
       <Container>
-        <LogoutButton onClick={() => navigate('/')}>로고</LogoutButton>
-
+        <LogoButton onClick={() => navigate('/')}>
+          <StyledRemoteImage imageKey="Logo_0" alt="로고" />
+        </LogoButton>
         <ImageBox>
-          <p>캐릭터 이미지</p>
+          <StyledRemoteImage imageKey="MainLoginCharacter_0" alt="캐릭터 이미지" />
         </ImageBox>
 
         <Title>계정과 연결하실 이메일과 비밀번호를<br />입력해주세요!</Title>
@@ -85,6 +88,7 @@ export default function MainLogin() {
   );
 }
 
+
 const Wrapper = styled.div`
   width: 100%;
   height: 100vh;
@@ -111,16 +115,7 @@ const Container = styled.div`
   align-items: center;
 `;
 
-const LogoutButton = styled.button`
-  position: absolute;
-  top: 20px;
-  left: 20px;
-  padding: 6px 12px;
-  border: 1px solid #ccc;
-  border-radius: 4px;
-  background-color: white;
-  cursor: pointer;
-`;
+
 
 const ImageBox = styled.div`
   width: 100%;

@@ -1,11 +1,11 @@
 import React from 'react';
 import styled from 'styled-components';
 import { useNavigate } from 'react-router-dom';
-import CharacterImg from '../assets/user.png';
-import { CharacterWrap, CharacterImage} from '../styles/CommonImage'; 
-import { BellButton } from '../styles/CommonButtons';
+import { MypageWrap, MypageButton } from '../styles/CommonButtons';
 import { SoftSpeechBubble } from '../styles/SoftSpeechBubble';
-
+import StyledRemoteImage from '../styles/RemoteImage'; // RemoteImage import
+import { LogoButtons } from '../styles/CommonButtons'; // 로고 버튼 import
+import { BellButton } from '../styles/CommonButtons'; // BellButton import
 
 function LearningChoiceContainer() {
   const navigate = useNavigate();
@@ -13,13 +13,20 @@ function LearningChoiceContainer() {
     <PageContainer>
       <ContentWrapper>
         <TopBar>
-        <Button onClick={() => navigate('/')}>로고</Button>
-
+          <LogoButtons onClick={() => navigate('/')}>
+            <StyledRemoteImage imageKey="Logo_0" alt="로고"/>
+          </LogoButtons>
         <RightProfileArea>
-        <BellButton>알림</BellButton>  
-          <CharacterWrap>
-            <CharacterImage src={CharacterImg} alt="캐릭터" onClick={() => navigate('/Mypage')}/>
-          </CharacterWrap>
+            <BellButton>
+              <StyledRemoteImage imageKey="Bell_0" alt="알림"/>
+            </BellButton>  
+            <MypageWrap>
+              <MypageButton
+                onClick={() => navigate('/Mypage')}
+              >            
+              <StyledRemoteImage imageKey="Mypage_0" alt="마이페이지"/>
+              </MypageButton>
+            </MypageWrap>
         </RightProfileArea>
         </TopBar>
 
@@ -32,7 +39,9 @@ function LearningChoiceContainer() {
               <SoftSpeechBubble style={{ minWidth: 240, fontSize: 28 }}>
                             <Text>무엇을 배워볼까요?</Text>
                           </SoftSpeechBubble>
-            <CharacterBox>캐릭터 이미지</CharacterBox>
+        <ImageBox>
+          <StyledRemoteImage imageKey="LearningChoicePageCharacter_0" alt="캐릭터" />
+        </ImageBox>
           </QuestionRow>
 
           <ChoiceButton onClick={() => navigate('/CaptureStart')}>스마트폰 사용법 배우기</ChoiceButton>
@@ -88,15 +97,22 @@ const TopBar = styled.div`
   margin-bottom: 16px;
 `;
 
-const LeftSection = styled.div`
-  display: flex;
-  align-items: center;
-`;
 
-const RightButtons = styled.div`
+
+const ImageBox = styled.div`
+   width: 100px;
+  height: 100px;
+  background-color:#eee;
+  border: 2px solid black;
+  margin-top:10px;
   display: flex;
   align-items: center;
-  gap: 8px;
+  justify-content: center;
+  font-size: 14px;
+  color: black;
+  font-weight: bold;
+  margin-left:18px;
+  margin-top:50px;
 `;
 
 const Button = styled.button`
@@ -107,9 +123,7 @@ const Button = styled.button`
   font-size: 16px;
 `;
 
-const LogoButton = styled(Button)`
-  font-weight: bold;
-`;
+
 
 const BackButtonWrapper = styled.div`
   display: flex;

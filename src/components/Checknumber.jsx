@@ -2,6 +2,8 @@ import React, { useState } from 'react';
 import styled from 'styled-components';
 import { useNavigate, useLocation } from 'react-router-dom'; // useLocation 추가!
 import { useSignUp } from '../styles/SignupContext';
+import StyledRemoteImage from '../styles/RemoteImage'; // RemoteImage import
+import { LogoButton } from '../styles/CommonButtons'; // 로고 버튼 import
 
 export default function PhoneNumberPage() {
   const navigate = useNavigate();
@@ -28,8 +30,12 @@ export default function PhoneNumberPage() {
   return (
     <Wrapper>
       <Container>
-        <TopButton onClick={() => navigate('/')}>로고</TopButton>
-        <CharacterBox>캐릭터 이미지</CharacterBox>
+        <LogoButton onClick={() => navigate('/')}>
+          <StyledRemoteImage imageKey="Logo_0" alt="로고" />
+        </LogoButton>
+        <ImageBox>
+          <StyledRemoteImage imageKey="CheckNumberCharacter_0" alt="캐릭터" />
+        </ImageBox>
         <Instruction>전화번호를 입력해주세요!</Instruction>
         <InputWrapper>
           <Input
@@ -89,7 +95,7 @@ const TopButton = styled.button`
   cursor: pointer;
 `;
 
-const CharacterBox = styled.div`
+const ImageBox = styled.div`
   width: 100%;
   max-width: 300px;
   height: 300px;

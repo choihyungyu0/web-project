@@ -1,6 +1,8 @@
 import React, { useEffect } from 'react';
 import styled from 'styled-components';
 import { useNavigate } from 'react-router-dom';
+import StyledRemoteImage from '../styles/RemoteImage'; // RemoteImage import
+import { LogoButton } from '../styles/CommonButtons'; // 로고 버튼 import
 
 const Splash = () => {
   const navigate = useNavigate();
@@ -14,21 +16,23 @@ useEffect(() => {
     } else {
       navigate('/Welcome');
     }
-  }, 3000);
+  }, 2500);
   return () => clearTimeout(timer);
 }, [navigate]);
   return (
     <Wrapper>
       <Container>
         <CharacterArea> 
-          <CharacterBox>
-            캐릭터 이미지
-          </CharacterBox>
+        <ImageBox>
+          <StyledRemoteImage imageKey="SplashCharacter_0" alt="캐릭터" />
+        </ImageBox>
         </CharacterArea>
 
         <LogoArea>
           <LogoBox>
-            로고 이미지
+          <LogoButtons onClick={() => navigate('/')}>
+            <StyledRemoteImage imageKey="Logo_0" alt="로고"/>
+          </LogoButtons>
           </LogoBox>
         </LogoArea>
 
@@ -92,6 +96,17 @@ const CharacterBox = styled.div`
   margin-bottom: 18px;
 `;
 
+const ImageBox = styled.div`
+  width: 100%;
+  max-width: 200px;
+  height: 200px;
+  background-color: #eee;
+  margin: 100px auto 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+`;
+
 // 로고 이미지 영역
 const LogoArea = styled.div`
   display: flex;
@@ -100,9 +115,17 @@ const LogoArea = styled.div`
   margin-bottom: 16px;
 `;
 
+const LogoButtons = styled(LogoButton)`
+  position: static;
+  color: #bbb;
+  font-size: 18px;
+  font-weight: 600;
+  width: 100%;
+`;
+
 const LogoBox = styled.div`
-  width: 100px;
-  height: 38px;
+  width: 200px;
+  height: 58px;
   background: #eee;
   border-radius: 14px;
   display: flex;

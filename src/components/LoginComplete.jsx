@@ -2,6 +2,8 @@ import React from 'react';
 import styled from 'styled-components';
 import { useNavigate, useLocation } from 'react-router-dom';
 import { useSignUp } from '../styles/SignupContext';
+import StyledRemoteImage from '../styles/RemoteImage';
+import { LogoButton } from '../styles/CommonButtons'; // 로고 버튼 스타일 import
 
 const LoginComplete = () => {
   const navigate = useNavigate();
@@ -66,9 +68,11 @@ const LoginComplete = () => {
   return (
     <Wrapper>
       <Container>
-        <LogoutButton onClick={() => navigate('/')}>로고</LogoutButton>
+        <LogoButton onClick={() => navigate('/')}>
+          <StyledRemoteImage imageKey="Logo_0" alt="로고" />
+        </LogoButton>
         <ImageBox>
-          <p>캐릭터 이미지</p>
+          <StyledRemoteImage imageKey="LoginCompleteCharacter_0" alt="캐릭터" />
         </ImageBox>
         <MessageBox>
           <p><strong>{signUpData.name || "회원"}님</strong></p>

@@ -1,8 +1,10 @@
 import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 import { useNavigate } from "react-router-dom";
-import CharacterImg from "../assets/user.png";
-import { CharacterWrap, CharacterImage } from "../styles/CommonImage";
+import StyledRemoteImage from '../styles/RemoteImage';
+import { MypageWrap, MypageButton } from '../styles/CommonButtons';
+import { LogoButtons } from '../styles/CommonButtons';
+import { SoftSpeechBubble } from '../styles/SoftSpeechBubble';
 import { BellButton } from '../styles/CommonButtons';
 
 export default function CustomInfoAlertPage() {
@@ -50,17 +52,21 @@ export default function CustomInfoAlertPage() {
       <ContentWrapper>
         <TopBar>
           <LeftSection>
-            <LogoButton onClick={() => navigate("/")}>로고</LogoButton>
+          <LogoButtons onClick={() => navigate('/')}>
+            <StyledRemoteImage imageKey="Logo_0" alt="로고"/>
+          </LogoButtons>
           </LeftSection>
           <RightButtons>
-            <BellButton>알림</BellButton>
-            <CharacterWrap>
-              <CharacterImage
-                onClick={() => navigate("/MYpage")}
-                src={CharacterImg}
-                alt="캐릭터"
-              />
-            </CharacterWrap>
+            <BellButton>
+              <StyledRemoteImage imageKey="Bell_0" alt="알림"/>
+            </BellButton> 
+            <MypageWrap>
+              <MypageButton
+                onClick={() => navigate('/Mypage')}
+              >            
+              <StyledRemoteImage imageKey="Mypage_0" alt="마이페이지"/>
+              </MypageButton>
+            </MypageWrap>
           </RightButtons>
         </TopBar>
 
@@ -72,7 +78,9 @@ export default function CustomInfoAlertPage() {
             <SpeechBubble>
               <Text>무엇을 배워볼까요?</Text>
             </SpeechBubble>
-            <CharacterBox>캐릭터 이미지</CharacterBox>
+        <ImageBox>
+          <StyledRemoteImage imageKey="LearningChoicePageCharacter_0" alt="캐릭터" />
+        </ImageBox>
           </QuestionRow>
 
         <AlertList>
@@ -181,6 +189,22 @@ const TopBar = styled.div`
   justify-content: space-between;
   align-items: center;
   margin-bottom: 16px;
+`;
+
+const ImageBox = styled.div`
+   width: 100px;
+  height: 100px;
+  background-color:#eee;
+  border: 2px solid black;
+  margin-top:10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 14px;
+  color: black;
+  font-weight: bold;
+  margin-left:18px;
+  margin-top:50px;
 `;
 
 const LeftSection = styled.div`
